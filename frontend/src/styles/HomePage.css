@@ -36,8 +36,8 @@
 
 .searchButton {
   background-color: var(--secondary-color);
-  color: var(--accent-color);
-  padding: var(--padding-base) var(--padding-large);
+  color: var(--text-color);
+  padding: var(--padding-base);
   border: none;
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);

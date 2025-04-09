@@ -13,9 +13,9 @@ function Navbar() {
     };
 
     return (
-        <nav className="modern-navbar">
+        <nav className="navbar">
             <div className="navbar-logo" onClick={() => {navigate("/")}}>
-                BrandName
+                SaveAPlate
             </div>
             <ul className={`navbar-links ${isMenuOpen ? 'show' : ''}`}>
                 <li onClick={() => {navigate("/")}}>Home</li>

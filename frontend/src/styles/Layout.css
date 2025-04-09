@@ -45,7 +45,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.modern-navbar {
+.navbar {
     background-color: var(--primary-color);
     color: var(--accent-color);
     display: flex;
