@@ -1,0 +1,22 @@
+:root {
+    /* Color Scheme */
+    --primary-color: #6c9e75;
+    --secondary-color: #3f5942;
+    --accent-color: #ffffff;
+    --text-color: #f4f4f4;
+    --background-color: #e4e9e7;
+    --white-color: #ffffff;
+
+    /* Reusable Styles */
+    --font-size-base: 1rem;
+    --font-size-large: 2rem;
+    --font-weight-bold: bold;
+    --border-radius: 4px;
+    --padding-base: 10px;
+    --padding-large: 60px 20px;
+    --gap-base: 10px;
+
+    /* Fonts */
+    --font-family: 'Arial', sans-serif;
+}
+
