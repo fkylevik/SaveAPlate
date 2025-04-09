@@ -1,7 +1,7 @@
 @import './variables.css';
 
 .login-form {
-  background-color: var(--primary-color);
+  background-color: var(--white-color);
   color: var(--accent-color);
   padding: var(--padding-large);
   border-radius: var(--border-radius);
@@ -43,7 +43,7 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
   background-color: var(--secondary-color);
-  color: var(--accent-color);
+  color: var(--white-color);
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -54,7 +54,7 @@
   background-color: var(--primary-color);
 }
 
-.alternate-link {
+.login-form a {
   font-size: var(--font-size-base);
   color: var(--accent-color);
   margin-top: var(--gap-base);
@@ -62,6 +62,6 @@
   transition: color 0.3s ease;
 }
 
-.alternate-link:hover {
+.login-form a:hover {
   color: var(--secondary-color);
 }
