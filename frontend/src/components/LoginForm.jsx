@@ -26,6 +26,7 @@ function LoginForm({route}) {
     };
 
     return (
+
         <form onSubmit={handleLogin} className="login-form">
             <h1>Login</h1>
             <input

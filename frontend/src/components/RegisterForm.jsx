@@ -26,6 +26,7 @@ function RegisterForm({route}) {
     };
 
     return (
+
         <form onSubmit={handleRegister} className="login-form">
             <h1>Sign Up</h1>
             <input
@@ -63,8 +64,10 @@ function RegisterForm({route}) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
             />
+
             <button className="form-button" type="submit">Register</button>
             <Link to="/login" className="alternate-link">Already have an account? Sign in here</Link>
+
         </form>
     );
 }

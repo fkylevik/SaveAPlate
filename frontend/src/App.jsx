@@ -2,6 +2,10 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import HomePage from "./pages/HomePage.jsx";
+
+
 
 function Logout() {
   localStorage.clear();
@@ -13,13 +17,16 @@ function RegisterAndLogout() {
   return <RegisterPage />
 }
 
+
+
 function App() {
 
   return (
     <>
+
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div>Home</div>} />
+            <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<div>About</div>} />
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/logout" element={<Logout />}/>
