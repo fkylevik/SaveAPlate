@@ -3,7 +3,7 @@ import { useState } from "react"
 import '../styles/Layout.css';
 import {useNavigate} from "react-router-dom";
 
-function Navbar() {
+function Navbar({ isLoggedIn, onLogout }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -27,7 +27,18 @@ function Navbar() {
                 <li onClick={() => {toggleMenuOnClick("/")}}>About</li>
                 <li onClick={() => {toggleMenuOnClick("/")}}>Recipes</li>
                 <li onClick={() => {toggleMenuOnClick("/")}}>Contact</li>
-                <li onClick={() => {toggleMenuOnClick("/login")}}>Sign In</li>
+
+                {isLoggedIn ? (
+                    <>
+                        <li>Dashboard</li>
+                        <li onClick={onLogout}>Logout</li>
+                    </>
+                ) : (
+                    <>
+                        <li onClick={() => {toggleMenuOnClick("/login")}}>Sign In</li>
+                        <li onClick={() => {toggleMenuOnClick("/register")}}>Register</li>
+                    </>
+                )}
             </ul>
             <button className="navbar-toggle" aria-label="Toggle menu" onClick={toggleMenu}>
                 ☰

@@ -18,7 +18,7 @@ function LoginPage() {
             const res = await api.post("/api/token/", {username, password});
             localStorage.setItem(ACCESS_TOKEN, res.data.access);
             localStorage.setItem(REFRESH_TOKEN, res.data.REFRESH_TOKEN);
-            navigate("/"); // navigates to home page if successful login
+            window.location.href = "/" // navigates to home page if successful login
         } catch (error) {
             alert(error);
         } finally {
