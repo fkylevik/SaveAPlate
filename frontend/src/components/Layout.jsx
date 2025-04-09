@@ -9,7 +9,7 @@ function Layout({ children }) {
     const handleLogout = () => {
         localStorage.clear();
         setIsAuthorized(false); // Update the `isAuthorized` state in your `useAuth` hook
-        window.location.href = "/login" // Redirect to the homepage after logout
+        window.location.href = "/login" // Redirect to the login after logout
     };
 
     return (

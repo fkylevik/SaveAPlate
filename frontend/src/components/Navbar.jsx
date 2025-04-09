@@ -28,12 +28,12 @@ function Navbar({ isLoggedIn, onLogout }) {
                 <li onClick={() => {toggleMenuOnClick("/")}}>Recipes</li>
                 <li onClick={() => {toggleMenuOnClick("/")}}>Contact</li>
 
-                {isLoggedIn ? (
+                {isLoggedIn ? ( // if logged in, displays these navbar elements
                     <>
                         <li>Dashboard</li>
                         <li onClick={onLogout}>Logout</li>
                     </>
-                ) : (
+                ) : ( // if not logged in, displays these navbar elements
                     <>
                         <li onClick={() => {toggleMenuOnClick("/login")}}>Sign In</li>
                         <li onClick={() => {toggleMenuOnClick("/register")}}>Register</li>

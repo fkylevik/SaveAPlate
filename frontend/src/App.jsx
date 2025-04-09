@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from "./pages/HomePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
+import RecipesPage from "./pages/RecipesPage.jsx";
 
 
 function Logout() {
@@ -26,7 +27,8 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/recipes" element={<ProtectedRoute><RecipesPage /></ProtectedRoute>} />
             <Route path="/about" element={<div>About</div>} />
             <Route path="/login" element={<LoginPage />}/>
             <Route path="/logout" element={<Logout />}/>
