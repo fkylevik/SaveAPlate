@@ -7,7 +7,8 @@ import HomePage from "./pages/HomePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
 import RecipesPage from "./pages/RecipesPage.jsx";
-
+import SelectIngredients from "./components/SelectIngredients.jsx";
+import CreateRecipe from "./pages/CreateRecipe.jsx";
 
 function Logout() {
   localStorage.clear();
@@ -28,7 +29,9 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/recipes" element={<ProtectedRoute><RecipesPage /></ProtectedRoute>} />
+            <Route path="/recipes" element={<RecipesPage />} />
+            <Route path="/recipes/create" element={<CreateRecipe />} />
+            <Route path="/ingredients" element={<SelectIngredients />} />
             <Route path="/about" element={<div>About</div>} />
             <Route path="/login" element={<LoginPage />}/>
             <Route path="/logout" element={<Logout />}/>
