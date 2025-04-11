@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import '../styles/HomePage.css';
 
-function home() {
+function HomePage() {
     return (
         <>
             <div className="hero">
