@@ -14,7 +14,7 @@ function Logout() {
   localStorage.clear();
   return <Navigate to="/login" />
 }
-
+//
 function RegisterAndLogout() {
   localStorage.clear() // clear any old access tokens upon registering
   return <RegisterPage />
