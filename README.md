@@ -28,9 +28,8 @@ SaveAPlate is designed to combat food waste by encouraging smarter use of leftov
 2. A modern web browser for accessing the UI.
 
 ## Steps to Run the Project
- Steps to Run the Project
  
-1. Clone the Repository:
+### Clone the Repository:
  ``` bash
 https://github.com/fkylevik/SaveAPlate.git
 cd SaveAPlate
