@@ -53,7 +53,7 @@ cd SaveAPlate
 2. run th program :
 - npm run dev
 
-  ###Visit http://127.0.0.1:8000/ 
+  ### Now you are ready to use the application
 
 
 
