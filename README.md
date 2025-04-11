@@ -4,11 +4,17 @@ SaveAPlate  is a Django-powered web application designed to help users reduce fo
 They can also save favorite recipes and log back in anytime to access them.
 
 ## Features
-- AI-Ingredient-Based Recipe Generator
-- User Accounts
-- Save Recipes
+### AI-Ingredient-Based Recipe Generator
+  Enter ingredients you have at home, and get recipes tailored to your leftovers.
+
+### User Accounts
+  Sign up, log in, and manage your personal recipe history.
+
+###Save Recipes
+  Save your favorite recipes for quick access later.
 
 ## Built using
+
 - Python
 - Django
 - HTML
