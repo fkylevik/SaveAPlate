@@ -1,0 +1,24 @@
+:root {
+    /* Color Scheme */
+    --primary-color: #03B5AA; /* Fresh mint green */
+    --secondary-color: #023436; /* Forest green */
+    --accent-color: #023436; /* Soft peachy cream */
+    --text-color: #ffffff; /* Crisp white for contrast */
+    --background-color: #d8efe6; /* Gentle seafoam green */
+    --third-color: #049a8f;
+    --white-color: #ffffff; /* Classic white */
+
+
+    /* Reusable Styles */
+    --font-size-base: 1rem;
+    --font-size-large: 2rem;
+    --font-weight-bold: bold;
+    --border-radius: 4px;
+    --padding-base: 10px;
+    --padding-large: 60px 20px;
+    --gap-base: 10px;
+
+    /* Fonts */
+    --font-family: 'Arial', sans-serif;
+}
+

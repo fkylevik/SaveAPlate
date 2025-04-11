@@ -1,0 +1,45 @@
+@import './variables.css';
+
+.hero {
+  background: var(--primary-color);
+  color: var(--accent-color);
+  text-align: center;
+  padding: var(--padding-large);
+}
+
+.heroTitle {
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--gap-base);
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-base);
+  margin-bottom: calc(var(--gap-base) * 2);
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-base);
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  padding: var(--padding-base);
+  font-size: var(--font-size-base);
+  border: none;
+  border-radius: var(--border-radius);
+  width: 250px;
+  background-color: var(--background-color);
+}
+
+.searchButton {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  padding: var(--padding-base);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
