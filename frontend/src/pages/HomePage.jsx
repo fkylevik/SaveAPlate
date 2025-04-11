@@ -4,7 +4,7 @@ import '../styles/HomePage.css';
 
 
 
-function home() {
+function HomePage() {
     return (
         <>
             <div className="hero">
@@ -20,4 +20,4 @@ function home() {
     )
 }
 
-export default home;
+export default HomePage;
