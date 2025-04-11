@@ -22,8 +22,14 @@ They can also save favorite recipes and log back in anytime to access them.
 
 ### Steps to Run the Project
  Steps to Run the Project
-Clone the Repository:
-
-'''bash 
+ 
+1. Clone the Repository:
+ ``` bash
 https://github.com/fkylevik/SaveAPlate.git
 cd SaveAPlate
+3. Create and activate a virtual environment:
+   - python -m venu venu
+
+
+
+
