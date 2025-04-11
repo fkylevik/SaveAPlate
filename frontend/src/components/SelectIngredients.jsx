@@ -50,11 +50,12 @@ function SelectIngredients() {
                         onChange={(e) => setNewIngredient(e.target.value)}
                     />
                     <div className="buttons">
-                        <button id="addButton" onClick={handleAddIngredient}>
+                        <button className="btn-primary" id = "addButton" onClick={handleAddIngredient}>
                             Add
                         </button>
                         <button
                             id="generateButton"
+                            className="btn-primary"
                             onClick={handleGenerateRecipes}
                         >
                             Generate Recipes
