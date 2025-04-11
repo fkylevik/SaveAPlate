@@ -2,6 +2,7 @@
 
 SaveAPlate  is a Django-powered web application designed to help users reduce food waste by generating recipes based on leftover ingredients they already have at home. Users can create an account, input ingredients, and receive customized recipe suggestions. 
 They can also save favorite recipes and log back in anytime to access them.
+SaveAPlate is designed to combat food waste by encouraging smarter use of leftover ingredients, making cooking more accessible and enjoyable, promoting sustainability through everyday choices, and helping you better manage your economy.
 
 ## Features
 ### AI-Ingredient-Based Recipe Generator
@@ -10,7 +11,7 @@ They can also save favorite recipes and log back in anytime to access them.
 ### User Accounts
   Sign up, log in, and manage your personal recipe history.
 
-###Save Recipes
+### Save Recipes
   Save your favorite recipes for quick access later.
 
 ## Built using
