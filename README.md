@@ -35,7 +35,7 @@ SaveAPlate is designed to combat food waste by encouraging smarter use of leftov
 https://github.com/fkylevik/SaveAPlate.git
 cd SaveAPlate
 ```
-###Open a terminal:
+### Open a terminal:
 1. Create and activate a virtual environment:
 - python -m venv env
 - source env/bin/activate  # .\env\Scripts\Activate.ps1 for Windows 
