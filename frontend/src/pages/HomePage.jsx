@@ -92,6 +92,9 @@ function home() {
                      <div style={styles.searchContainer}>
                        <input type="text" placeholder="Search for recipes" style={styles.searchInput} />
                        <button style={styles.searchButton}>Search</button>
+
+                      <button type="button" class="btn btn-success">Success</button>
+
                      </div>
                    </div>
 
