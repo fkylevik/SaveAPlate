@@ -15,5 +15,15 @@ They can also save favorite recipes and log back in anytime to access them.
 - CSS
 - JavaScript
 
-  
-## Getting started 
+## Setup Instructions
+### Prerequisites:
+1. Python 3.x and pip installed
+2. A modern web browser for accessing the UI.
+
+### Steps to Run the Project
+ Steps to Run the Project
+Clone the Repository:
+
+'''bash 
+https://github.com/fkylevik/SaveAPlate.git
+cd SaveAPlate
