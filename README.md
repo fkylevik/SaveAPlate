@@ -33,17 +33,17 @@ cd SaveAPlate
 - python -m venv env
 - source env/bin/activate  # .\env\Scripts\Activate.ps1 for Windows 
 2. Install dependencies:
-  -pip install -r requirements.txt
+- pip install -r requirements.txt
 3. Navigate to backend-folder:
-  - cd backend 
+- cd backend 
 4. Apply migrations:
-  -python manage.py migrate
+- python manage.py migrate
 5. Run the server:
-  -python manage.py runserver
+- python manage.py runserver
 ### Open a second terminal 
 1.Install requierd dependencies:
-   - cd frontend
-   - npm install 
+- cd frontend
+- npm install 
 2. run th program :
 - npm run dev
 
