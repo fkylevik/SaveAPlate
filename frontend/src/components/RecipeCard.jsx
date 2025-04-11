@@ -9,7 +9,6 @@ const RecipeCard = ({ recipe }) => {
             <div id="recipe-card-header">
                 <h2 className="recipe-card-title">{recipe.name}</h2>
                 <h2 className="recipe-card-title">{recipe.instructions}</h2>
-                <h2 className="recipe-card-title">{recipe.carbonFootprint}</h2>
             </div>
             <p>{recipe.description}</p>
         </div>

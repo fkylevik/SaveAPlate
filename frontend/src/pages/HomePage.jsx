@@ -1,7 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import '../styles/HomePage.css';
-
+import SearchableDropdown from "../components/SearchableDropdown.jsx";
+import SelectIngredients from "../components/SelectIngredients.jsx";
 
 
 function HomePage() {
@@ -11,12 +11,12 @@ function HomePage() {
                  <h1 className="heroTitle">Welcome to SaveAPlate</h1>
                  <p className="heroSubtitle">Your smart recipe and sustainability assistant</p>
                  <div className="searchContainer">
-                   <input type="text" placeholder="Search for recipes" className="searchInput" />
+                   <SearchableDropdown searchPlaceholder={"Search for recipes"} endpoint={"recipes"}/>
                    <button className="searchButton">Search</button>
                  </div>
-           </div>
+            </div>
+            <SelectIngredients></SelectIngredients>
         </>
-
     )
 }
 

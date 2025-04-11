@@ -27,6 +27,13 @@ class RecipeListCreateView(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]  # Permissions for GET requests
+        elif self.request.method == 'POST':
+            return [IsAuthenticated()]  # Permissions for POST requests
+        return super().get_permissions()
+
 
 # Retrieve, Update, and Delete a Recipe
 # Use GET to retrieve a specific recipe based on its id.
@@ -35,6 +42,18 @@ class RecipeListCreateView(generics.ListCreateAPIView):
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+
+
+class RecipeSearchView(generics.ListAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = Recipe.objects.all()
+        query = self.request.query_params.get('search', None)
+        if query is not None:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
 
 
 # List and Create Ingredients
@@ -52,3 +71,15 @@ class IngredientListCreateView(generics.ListCreateAPIView):
 class IngredientDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+class IngredientSearchView(generics.ListAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = Recipe.objects.all()
+        query = self.request.query_params.get('search', None)
+        if query is not None:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
