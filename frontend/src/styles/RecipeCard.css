@@ -1,0 +1,32 @@
+@import './variables.css';
+
+/* Container styles */
+.recipe-card {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    position: relative;
+    margin: 40px 200px;
+    border-radius: 15px;
+}
+
+/* Inner content wrapper */
+.content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.card {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #fff;
+    padding-left: 20px;
+    max-width: 1000px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
