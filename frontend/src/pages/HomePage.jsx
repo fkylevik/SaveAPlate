@@ -11,11 +11,10 @@ function HomePage() {
                  <h1 className="heroTitle">Welcome to SaveAPlate</h1>
                  <p className="heroSubtitle">Your smart recipe and sustainability assistant</p>
                  <div className="searchContainer">
-                   <SearchableDropdown searchPlaceholder={"Search for recipes"} endpoint={"recipes"}/>
-                   <button className="searchButton">Search</button>
+                    <SearchableDropdown searchPlaceholder={"Search for recipes"} endpoint={"recipes"}/>
+                    <button className="searchButton">Search</button>
                  </div>
             </div>
-            <SelectIngredients></SelectIngredients>
         </>
     )
 }

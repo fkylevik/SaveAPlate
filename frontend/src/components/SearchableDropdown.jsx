@@ -1,22 +1,21 @@
+// SearchableDropdown.jsx
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../api";
 
-function SearchableDropdown({ endpoint, searchPlaceholder }) {
+function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     const [options, setOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null); // No initial object
 
     useEffect(() => {
-        // Fetch all objects initially
-        fetchObjects("");
+        fetchObjects(""); // fetch objects upon render
     }, []);
 
     const fetchObjects = async (query) => {
         try {
             const response = await api.get(`api/${endpoint}/?search=${query}`);
-            const items = response.data.map(object => ({
+            const items = response.data.map((object) => ({ // map relevant data
                 value: object.id,
-                label: object.name
+                label: object.name,
             }));
             setOptions(items);
         } catch (error) {
@@ -25,11 +24,11 @@ function SearchableDropdown({ endpoint, searchPlaceholder }) {
     };
 
     const handleSelectChange = (option) => {
-        setSelectedOption(option); // Update selected option
+        onSelect(option); // pass selected object to parent element
     };
 
     const handleInputChange = (inputValue) => {
-        fetchObjects(String(inputValue)); // Fetch objects based on input
+        fetchObjects(String(inputValue));
     };
 
     const customStyles = {
@@ -54,12 +53,13 @@ function SearchableDropdown({ endpoint, searchPlaceholder }) {
         singleValue: (provided) => ({
             ...provided,
             color: "#fff",
-        })
-    }
+        }),
+    };
 
     return (
         <Select
-            value={selectedOption} // No initial value, starts as null
+            isClearable
+            value={value}
             onChange={handleSelectChange}
             onInputChange={handleInputChange}
             options={options}
