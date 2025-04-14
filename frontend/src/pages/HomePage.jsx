@@ -3,7 +3,6 @@ import '../styles/HomePage.css';
 import SearchableDropdown from "../components/SearchableDropdown.jsx";
 import SelectIngredients from "../components/SelectIngredients.jsx";
 
-
 function HomePage() {
     return (
         <>
@@ -16,7 +15,7 @@ function HomePage() {
                  </div>
             </div>
         </>
-    )
+    );
 }
 
 export default HomePage;
