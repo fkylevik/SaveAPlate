@@ -1,19 +1,19 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import React from "react";
 import '../styles/HomePage.css';
+import SearchableDropdown from "../components/SearchableDropdown.jsx";
+import SelectIngredients from "../components/SelectIngredients.jsx";
 
-function home() {
+function HomePage() {
     return (
         <>
             <div className="hero">
                  <h1 className="heroTitle">Welcome to SaveAPlate</h1>
                  <p className="heroSubtitle">Your smart recipe and sustainability assistant</p>
                  <div className="searchContainer">
-                   <input type="text" placeholder="Search for recipes" className="searchInput" />
-                   <button className="searchButton">Search</button>
+                    <SearchableDropdown searchPlaceholder={"Search for recipes"} endpoint={"recipes"}/>
+                    <button className="searchButton">Search</button>
                  </div>
-           </div>
+            </div>
         </>
     );
 }
