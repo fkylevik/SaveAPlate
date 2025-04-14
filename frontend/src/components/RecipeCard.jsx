@@ -20,6 +20,7 @@ const RecipeCard = ({ recipe }) => {
                         <h4>{recipe.instructions}</h4>
                     </div>
                 </div>
+            </div>
         </div>
     );
 };
