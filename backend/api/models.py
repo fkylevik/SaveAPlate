@@ -25,5 +25,3 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.amount} {self.unit} of {self.ingredient.name} in {self.recipe.name}"
-
-

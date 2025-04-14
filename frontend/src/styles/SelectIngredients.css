@@ -3,7 +3,7 @@
 /* Container styles */
 .container {
     padding: 40px 20px;
-    background-color: #ffffff;
+    background-color: #959292;
 }
 
 /* Inner content wrapper */
@@ -71,7 +71,7 @@
     color: white;
 }
 
-#generateButton {
+#searchButton {
     background-color: #28a745;
     color: white;
 }
