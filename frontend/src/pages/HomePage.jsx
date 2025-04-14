@@ -1,13 +1,8 @@
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import CarbonFootprint from "../components/CarbonFootprint";
 import SelectIngredients from "../components/SelectIngredients.jsx";
 import RecommendedRecipes from "../components/RecommendedRecipes.jsx";
-
 import React from "react";
 import '../styles/HomePage.css';
-import SearchableDropdown from "../components/SearchableDropdown.jsx";
-import SelectIngredients from "../components/SelectIngredients.jsx";
 
 
 function HomePage() {
