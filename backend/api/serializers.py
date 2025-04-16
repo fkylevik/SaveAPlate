@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'co2e_kg', 'land_use_kg', 'water_kg']
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
@@ -40,6 +40,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')
         recipe = Recipe.objects.create(**validated_data)
+        total_impact = 0
         for recipe_ingredient_data in recipe_ingredients_data:
             ingredient_data = recipe_ingredient_data.pop('ingredient')
             ingredient, _ = Ingredient.objects.get_or_create(**ingredient_data)
