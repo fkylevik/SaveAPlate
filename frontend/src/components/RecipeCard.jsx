@@ -15,7 +15,9 @@ const RecipeCard = ({ recipe }) => {
                                 <ul>{item.ingredient.name}: {item.amount} {item.unit} </ul>
                             </div>
                         ))}
-                    </div>
+
+                    </div> */}
+
                     <div className="instructions">
                         <h4>{recipe.instructions}</h4>
                     </div>
