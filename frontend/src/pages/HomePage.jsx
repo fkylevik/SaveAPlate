@@ -1,6 +1,5 @@
 import CarbonFootprint from "../components/CarbonFootprint";
 import SelectIngredients from "../components/SelectIngredients.jsx";
-import RecommendedRecipes from "../components/RecommendedRecipes.jsx";
 import React from "react";
 import '../styles/HomePage.css';
 
@@ -20,14 +19,8 @@ function HomePage() {
             <div>
                 <SelectIngredients />
             </div>
-
-            <div>
-                <RecommendedRecipes />
-            </div>
-
             <div>
                 <CarbonFootprint />
-
             </div>
         </>
     );
