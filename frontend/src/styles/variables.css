@@ -1,9 +1,9 @@
 :root {
     /* Color Scheme */
-    --primary-color: #03B5AA; /* Fresh mint green */
-    --secondary-color: #023436; /* Forest green */
+    --primary-color: rgba(4, 124, 30, 0.6); /* Fresh mint green */
+    --secondary-color: #fafafa; /* Forest green */
     --accent-color: #023436; /* Soft peachy cream */
-    --text-color: #ffffff; /* Crisp white for contrast */
+    --text-color: rgba(0, 0, 0, 0.76); /* Crisp white for contrast */
     --background-color: #d8efe6; /* Gentle seafoam green */
     --third-color: #049a8f;
     --white-color: #ffffff; /* Classic white */
@@ -22,3 +22,18 @@
     --font-family: 'Arial', sans-serif;
 }
 
+.btn-primary {
+  padding: var(--padding-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--third-color);
+}

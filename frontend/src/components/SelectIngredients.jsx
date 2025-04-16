@@ -59,11 +59,13 @@ function SelectIngredients({ onRecipesUpdate }) {
                         onSelect={setSelectedOption}
                     />
                     <div className="buttons">
+
                         <button id="addButton" onClick={handleAddIngredient}>
                             Add Ingredient
                         </button>
                         <button id="searchButton" onClick={handleSearchRecipes}>
                             Search Recipes
+
                         </button>
                     </div>
                 </div>

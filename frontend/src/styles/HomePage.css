@@ -35,11 +35,15 @@
 }
 
 .searchButton {
-  background-color: var(--secondary-color);
+  background-color: rgba(0, 0, 0, 0.5);
   color: var(--text-color);
   padding: var(--padding-base);
   border: none;
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);
   cursor: pointer;
+}
+
+.container {
+  background-color: var(--secondary-color);
 }
