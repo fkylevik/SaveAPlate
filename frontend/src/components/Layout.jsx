@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import Footer from "./Footer.jsx";
 
 function Layout({ children }) {
     const { isAuthorized, setIsAuthorized } = useAuth();
@@ -15,7 +15,8 @@ function Layout({ children }) {
     return (
         <div>
             <Navbar isLoggedIn={isAuthorized} onLogout={handleLogout} />
-            <main>{children}</main>
+            <main className="page-container" >{children}</main>
+            <Footer />
         </div>
     );
 }
