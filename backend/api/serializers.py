@@ -23,7 +23,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    ingredient = IngredientSerializer()
+    ingredient = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())  # Use PrimaryKeyRelatedField
 
     class Meta:
         model = RecipeIngredient
@@ -35,39 +35,33 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'carbon_footprint_kg_co2e', 'instructions', 'recipe_ingredients']
+        fields = ['id', 'name', 'total_co2e', 'instructions', 'recipe_ingredients']
 
     def create(self, validated_data):
+        # Extract recipe ingredients data from validated data
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')
-        recipe = Recipe.objects.create(**validated_data)
-        total_impact = 0
+        recipe = Recipe.objects.create(**validated_data) # Create the Recipe object
+
+        # Loop through the recipe_ingredients and create associated RecipeIngredient objects
         for recipe_ingredient_data in recipe_ingredients_data:
-            ingredient_data = recipe_ingredient_data.pop('ingredient')
-            ingredient, _ = Ingredient.objects.get_or_create(**ingredient_data)
-            RecipeIngredient.objects.create(
-                recipe=recipe,
-                ingredient=ingredient,
-                amount=recipe_ingredient_data['amount'],
-                unit=recipe_ingredient_data['unit']
-            )
+            RecipeIngredient.objects.create(recipe=recipe, **recipe_ingredient_data)
+
         return recipe
 
     def update(self, instance, validated_data):
+        # Extract recipe ingredients data from validated data
         recipe_ingredients_data = validated_data.pop('recipe_ingredients', [])
+
+        # Update basic fields
         instance.name = validated_data.get('name', instance.name)
-        instance.carbon_footprint_kg_co2e = validated_data.get('carbon_footprint_kg_co2e', instance.carbon_footprint_kg_co2e)
         instance.instructions = validated_data.get('instructions', instance.instructions)
         instance.save()
 
-        # Clear old RecipeIngredients and update with new ones
+        # Clear old recipe ingredients
         instance.recipe_ingredients.all().delete()
+
+        # Create new recipe ingredients
         for recipe_ingredient_data in recipe_ingredients_data:
-            ingredient_data = recipe_ingredient_data.pop('ingredient')
-            ingredient, _ = Ingredient.objects.get_or_create(**ingredient_data)
-            RecipeIngredient.objects.create(
-                recipe=instance,
-                ingredient=ingredient,
-                amount=recipe_ingredient_data['amount'],
-                unit=recipe_ingredient_data['unit']
-            )
+            RecipeIngredient.objects.create(recipe=instance, **recipe_ingredient_data)
+
         return instance

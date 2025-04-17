@@ -72,7 +72,7 @@ class IngredientListCreateView(generics.ListCreateAPIView):
 
 
 # Retrieve, Update, and Delete an Ingredient
-# Use GET to retrieve a specific ingredient based on its id.
+# Use GET to retrieve a specific ingredient based on its id
 # Use PUT/PATCH to update an existing ingredient based on its id.
 # Use Delete to delete a ingredient based on its id.
 class IngredientDetailView(generics.RetrieveUpdateDestroyAPIView):

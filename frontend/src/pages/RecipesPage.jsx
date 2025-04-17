@@ -10,6 +10,10 @@ function RecipesPage () {
         getRecipes();
     }, []);
 
+    const handleRefreshRecipes = () => {
+        getRecipes();
+    }
+
     const getRecipes = async () => {
         try {
             const res = await api.get("/api/recipes/");
@@ -28,7 +32,7 @@ function RecipesPage () {
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
             <div>
                 {recipes.map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} />
+                    <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={handleRefreshRecipes} />
                 ))}
             </div>
         </>

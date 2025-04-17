@@ -1,4 +1,3 @@
-// SearchableDropdown.jsx
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../api";
@@ -13,9 +12,11 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     const fetchObjects = async (query) => {
         try {
             const response = await api.get(`api/${endpoint}/?search=${query}`);
-            const items = response.data.map((object) => ({ // map relevant data
+            const items = response.data.map((object) => ({
+                // Map the entire object into the options
                 value: object.id,
                 label: object.name,
+                data: object, // entire fetched object is stored
             }));
             setOptions(items);
         } catch (error) {
@@ -24,7 +25,11 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     };
 
     const handleSelectChange = (option) => {
-        onSelect(option); // pass selected object to parent element
+        if (option) {
+            onSelect(option.data); // Pass the entire object stored in `data` to the parent
+        } else {
+            onSelect(null); // Handle clearing the selection
+        }
     };
 
     const handleInputChange = (inputValue) => {
@@ -52,14 +57,14 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: "#fff",
+            color: "#000000",
         }),
     };
 
     return (
         <Select
             isClearable
-            value={value}
+            value={value ? { label: value.name, value: value.id, data: value } : null} // Use the object's attributes for rendering
             onChange={handleSelectChange}
             onInputChange={handleInputChange}
             options={options}
