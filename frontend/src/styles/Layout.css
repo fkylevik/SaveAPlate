@@ -23,9 +23,8 @@ html, body {
     background-color: var(--primary-color); /* Matches your theme */
     color: var(--white-color);
     text-align: center;
-    height: 5vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack items vertically */
     align-items: center;
     padding: var(--padding-base); /* Consistent padding */
     font-size: var(--font-size-base);
@@ -33,21 +32,27 @@ html, body {
     flex-shrink: 0; /* Prevents the footer from shrinking */
 }
 
+.footer p {
+    margin: 0; /* Remove any default margins */
+    padding-bottom: var(--gap-base); /* Add spacing below the trademark line */
+}
+
 .footer nav {
     display: flex;
     gap: var(--gap-base); /* Space out navigation links */
+    justify-content: center; /* Center the links horizontally */
 }
 
 .footer nav a {
     color: var(--white-color); /* Matches text with footer */
     text-decoration: none;
-    font-weight: var(--font-weight-bold); /* Matches reusable bold style */
     transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .footer nav a:hover {
     color: var(--primary-color); /* Subtle green highlight on hover */
 }
+
 
 
 body {

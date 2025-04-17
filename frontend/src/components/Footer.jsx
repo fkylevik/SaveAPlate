@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <footer className="footer">
-            <p>&copy; {new Date().getFullYear()} SaveAPlate. All rights reserved. </p>
+            <p>&copy; {new Date().getFullYear()} SaveAPlate. All rights reserved.</p>
             <nav>
                 <a href="/about">About Us</a>
                 <a href="/privacy-policy">Privacy Policy</a>
