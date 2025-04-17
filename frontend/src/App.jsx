@@ -7,7 +7,6 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
 import RecipesPage from "./pages/RecipesPage.jsx";
 import SelectIngredients from "./components/SelectIngredients.jsx";
-import CreateRecipe from "./pages/CreateRecipe.jsx";
 import CreateRecipePage from "./pages/CreateRecipePage.jsx";
 
 function Logout() {
