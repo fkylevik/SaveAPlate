@@ -35,21 +35,27 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'carbon_footprint_kg_co2e', 'instructions', 'recipe_ingredients']
+        fields = ['id', 'name', 'instructions', 'recipe_ingredients']
 
     def create(self, validated_data):
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')
         recipe = Recipe.objects.create(**validated_data)
-        total_impact = 0
         for recipe_ingredient_data in recipe_ingredients_data:
+            # Retrieve the existing ingredient
             ingredient_data = recipe_ingredient_data.pop('ingredient')
-            ingredient, _ = Ingredient.objects.get_or_create(**ingredient_data)
+            try:
+                ingredient = Ingredient.objects.get(**ingredient_data)  # Only retrieve existing ingredient
+            except Ingredient.DoesNotExist:
+                raise serializers.ValidationError({"ingredient": "Ingredient does not exist."})  # Handle error
+
+            # Create the RecipeIngredient
             RecipeIngredient.objects.create(
                 recipe=recipe,
                 ingredient=ingredient,
                 amount=recipe_ingredient_data['amount'],
                 unit=recipe_ingredient_data['unit']
             )
+        recipe.calculate_carbon_footprint()  # Calculate total carbon footprint based on ingredients
         return recipe
 
     def update(self, instance, validated_data):

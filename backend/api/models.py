@@ -20,6 +20,13 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+    def calculate_carbon_footprint(self):
+        co2e = 0
+        for recipe_ingredient in self.recipe_ingredients.all():
+            co2e += recipe_ingredient.ingredient.co2e_kg * recipe_ingredient.amount
+        self.total_co2e = co2e
+        self.save()
+
 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='recipe_ingredients', on_delete=models.CASCADE)
