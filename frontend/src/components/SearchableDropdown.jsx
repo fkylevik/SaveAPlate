@@ -16,7 +16,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
                 // Map the entire object into the options
                 value: object.id,
                 label: object.name,
-                data: object, // Store the entire object in an additional field
+                data: object, // entire fetched object is stored
             }));
             setOptions(items);
         } catch (error) {
@@ -64,7 +64,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     return (
         <Select
             isClearable
-            value={value}
+            value={value ? { label: value.name, value: value.id, data: value } : null} // Use the object's attributes for rendering
             onChange={handleSelectChange}
             onInputChange={handleInputChange}
             options={options}

@@ -34,16 +34,19 @@ function CreateRecipePage() {
 
     const handleCreateRecipe = async (e) => {
         e.preventDefault();
+        const newRecipe = {
+            name: recipeName,
+            instructions: instructions,
+            total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
+            recipe_ingredients: recipeIngredients.map((ingredient) => ({
+                ingredient: ingredient.ingredient.id, // Updated to use `value`
+                amount: ingredient.amount,
+                unit: ingredient.unit,
+            }))
+        };
+        console.log(newRecipe);
         try {
-            await api.post('api/recipes/', {
-                name: recipeName,
-                instructions: instructions,
-                recipe_ingredients: recipeIngredients.map((ingredient) => ({
-                    ingredient: ingredient.ingredient, // Updated to use `value`
-                    amount: ingredient.amount,
-                    unit: ingredient.unit,
-                }))
-            });
+            await api.post('api/recipes/', newRecipe);
             navigate("/recipes");
         } catch (error) {
             console.error("There was an error creating the recipe!", error);

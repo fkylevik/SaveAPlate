@@ -7,8 +7,8 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
             <SearchableDropdown
                 searchPlaceholder="Enter Ingredient"
                 endpoint="ingredients"
-                value={ingredient.name}
-                onSelect={(option) => onChange('ingredient', option)}
+                value={ingredient.ingredient} // Pass the full `ingredient` object
+                onSelect={(option) => onChange('ingredient', option)} // Updates the `ingredient` field with the selected object
             />
             <input
                 type="text"
