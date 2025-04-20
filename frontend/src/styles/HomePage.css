@@ -27,15 +27,17 @@
   justify-content: center;
   gap: var(--gap-base);
   flex-wrap: wrap;
+
 }
 
-.searchInput {
+.searchField {
   padding: var(--padding-base);
   font-size: var(--font-size-base);
   border: none;
   border-radius: var(--border-radius);
   width: 250px;
   background-color: var(--white-color);
+
 }
 
 .searchButton {
