@@ -8,6 +8,16 @@
     --third-color: #049a8f;
     --white-color: #ffffff; /* Classic white */
 
+    --main-background-color: #F2F7F2; /* Off-white */
+    --form-background-color: #A5D6A7;
+    --form-box-stroke-selected: #427149;
+    --form-box-stroke: #679D72;
+    --form-button: #427149;
+    --form_button-hover: #2C3F25;
+    --form-button-clicked: #679D72;
+
+    --text-dark: #191716;
+
 
     /* Reusable Styles */
     --font-size-base: 1rem;

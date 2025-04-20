@@ -28,21 +28,29 @@ function LoginPage() {
 
     return (
         <form onSubmit={handleLogin} className="login-form">
-            <h1>Login</h1>
-            <input
-                className="form-input"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
+            <h1>Sign In</h1>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder=" "
+                    id="username"
+                />
+                <label className="form-label" htmlFor="username">Username</label>
+            </div>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder=" "
+                    id="password_l"
+                />
+                <label className="form-label" htmlFor="password_l">Password</label>
+            </div>
             <button className="form-button" type="submit">Login</button>
             <Link to="/register">Don't have an account? Register here</Link>
         </form>
