@@ -9,7 +9,7 @@ function SelectIngredients({ onRecipesUpdate }) {
 
     const handleAddIngredient = () => {
         if (!selectedOption) return; // if no option is selected, no action is performed
-        const exists = ingredients.some(ing => ing.value === selectedOption.value);
+        const exists = ingredients.some(ing => ing.id === selectedOption.id);
         if (exists) return; // if already added, do not add again
         setIngredients([...ingredients, selectedOption]);
         setSelectedOption(null);
@@ -21,7 +21,7 @@ function SelectIngredients({ onRecipesUpdate }) {
 
     const handleSearchRecipes = async () => {
         try {
-            const ingredientIds = ingredients.map((ing) => ing.value).join(",");
+            const ingredientIds = ingredients.map((ing) => ing.id).join(",");
             const query = `api/recipes/by-ingredients/?ingredients=${ingredientIds}`
             const response = await api.get(query);
             onRecipesUpdate(response.data);
@@ -39,7 +39,7 @@ function SelectIngredients({ onRecipesUpdate }) {
                     <div className="ingredient-cards">
                         {ingredients.map((item, index) => (
                             <div className="ingredient-card" key={index}>
-                                <span>{item.label}</span>
+                                <span>{item.name}</span>
                                 <button
                                     className="delete-button"
                                     onClick={() => handleDeleteIngredient(index)}

@@ -4,13 +4,17 @@ from django.contrib.auth.models import User
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)  # Unique ingredients
     description = models.TextField(blank=True, null=True)  # Optional description
+    co2e_kg = models.FloatField() # Greenhouse gas emissions per kg
+    land_use_kg = models.FloatField() # Land usage per kg
+    water_kg = models.FloatField() # Water usage per kg
 
     def __str__(self):
         return self.name
 
+
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
-    carbon_footprint_kg_co2e = models.FloatField()
+    total_co2e = models.FloatField()
     instructions = models.TextField()
 
     def __str__(self):

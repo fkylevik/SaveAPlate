@@ -1,4 +1,3 @@
-// SearchableDropdown.jsx
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../api";
@@ -13,9 +12,10 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     const fetchObjects = async (query) => {
         try {
             const response = await api.get(`api/${endpoint}/?search=${query}`);
-            const items = response.data.map((object) => ({ // map relevant data
+            const items = response.data.map((object) => ({
                 value: object.id,
                 label: object.name,
+                data: object, // entire fetched object is stored
             }));
             setOptions(items);
         } catch (error) {
@@ -24,7 +24,11 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     };
 
     const handleSelectChange = (option) => {
-        onSelect(option); // pass selected object to parent element
+        if (option) {
+            onSelect(option.data); // pass selected object to parent
+        } else {
+            onSelect(null); // clear selection
+        }
     };
 
     const handleInputChange = (inputValue) => {
@@ -39,7 +43,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
             border: "none",
             borderRadius: "8px",
             textAlign: "left",
-            backgroundColor: "white",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
             color: "#764ba2",
         }),
         option: (provided, state) => ({
@@ -52,14 +56,14 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: "black",
+            color: "#000000",
         }),
     };
 
     return (
         <Select
             isClearable
-            value={value}
+            value={value ? { label: value.name, value: value.id, data: value } : null} // Use the object's attributes for rendering
             onChange={handleSelectChange}
             onInputChange={handleInputChange}
             options={options}
