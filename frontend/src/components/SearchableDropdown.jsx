@@ -39,7 +39,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
             border: "none",
             borderRadius: "8px",
             textAlign: "left",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backgroundColor: "white",
             color: "#764ba2",
         }),
         option: (provided, state) => ({
@@ -52,7 +52,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: "#fff",
+            color: "black",
         }),
     };
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import '../styles/CarbonFootprintChartStyle.css';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -64,12 +66,12 @@ function CarbonFootprintChart() {
     },
   };
 
-  return (
-    <div>
-      <h2>Carbon Footprint Chart</h2>
-      <Bar data={data} options={options} />
-    </div>
-  );
+return (
+  <div className="chart-container">
+    <h2>Carbon Footprint Chart</h2>
+    <Bar data={data} options={options} />
+  </div>
+);
 }
 
 export default CarbonFootprintChart;

@@ -46,7 +46,7 @@ body {
 }
 
 .navbar {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--accent-color);
     display: flex;
     justify-content: space-between;
@@ -58,7 +58,7 @@ body {
 .navbar-logo {
     font-size: var(--font-size-large);
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--white-color);
     text-decoration: none;
     cursor: pointer;
 }
@@ -72,7 +72,7 @@ body {
 }
 
 .navbar-links li {
-    color: var(--text-color);
+    color: var(--white-color);
     text-decoration: none;
     padding: var(--gap-base);
     border-radius: 4px;

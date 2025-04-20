@@ -12,7 +12,7 @@ function HomePage() {
                  <p className="heroSubtitle">Your smart recipe and sustainability assistant</p>
                  <div className="searchContainer">
                    <input type="text" placeholder="Search for recipes" className="searchInput" />
-                   <button className="searchButton btn-primary">Search</button>
+                   <button className="searchButton">Search</button>
                  </div>
            </div>
 
@@ -22,6 +22,9 @@ function HomePage() {
             <div>
                 <CarbonFootprint />
             </div>
+            <footer className="footer">
+                <p>© {new Date().getFullYear()} SaveAPlate. All rights reserved.</p>
+            </footer>
         </>
     );
 }
