@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import api from "../api";
-import RecipeCard from "../components/RecipeCard.jsx";
-import SelectIngredients from "../components/SelectIngredients.jsx";
+import api from "../api.js";
+import RecipeCard from "./RecipeCard.jsx";
+import SelectIngredients from "./SelectIngredients.jsx";
 
-function RecipesPage () {
+function RecipesList () {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
@@ -39,4 +39,4 @@ function RecipesPage () {
     );
 }
 
-export default RecipesPage;
+export default RecipesList;
