@@ -4,7 +4,7 @@
 /* Container styles */
 .container {
     /*padding: 40px 20px;*/
-    background-color: #959292;
+    background-color: var(--accent-color);
 }
 
 /* Inner content wrapper */
