@@ -13,7 +13,6 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
         try {
             const response = await api.get(`api/${endpoint}/?search=${query}`);
             const items = response.data.map((object) => ({
-                // Map the entire object into the options
                 value: object.id,
                 label: object.name,
                 data: object, // entire fetched object is stored
@@ -26,9 +25,9 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
 
     const handleSelectChange = (option) => {
         if (option) {
-            onSelect(option.data); // Pass the entire object stored in `data` to the parent
+            onSelect(option.data); // pass selected object to parent
         } else {
-            onSelect(null); // Handle clearing the selection
+            onSelect(null); // clear selection
         }
     };
 

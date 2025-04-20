@@ -44,10 +44,9 @@ function CreateRecipePage() {
                 unit: ingredient.unit,
             }))
         };
-        console.log(newRecipe);
         try {
             await api.post('api/recipes/', newRecipe);
-            navigate("/recipes");
+            navigate("/");
         } catch (error) {
             console.error("There was an error creating the recipe!", error);
         }
