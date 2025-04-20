@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/HomePage.css";
 import RecipesList from "../components/RecipesList.jsx";
+import CarbonFootprint from "../components/CarbonFootprint.jsx";
+
 import api from "../api";
 
 function HomePage() {
@@ -46,11 +48,14 @@ function HomePage() {
                 </div>
             </div>
 
+
             <RecipesList
                 recipes={recipes}
                 setRecipes={setRecipes}
                 refreshRecipes={handleSearch}
             />
+            <CarbonFootprint />
+
         </>
     );
 }
