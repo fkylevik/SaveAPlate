@@ -1,12 +1,16 @@
 :root {
     /* Color Scheme */
-    --primary-color: rgba(4, 124, 30, 0.6); /* Fresh mint green */
-    --secondary-color: #fafafa; /* Forest green */
-    --accent-color: #023436; /* Soft peachy cream */
+   --primary-color: #2E7D32;       /* Forest green - nav, headers */
+    --accent-color: #E0FFE1;        /* Bright green - buttons, highlights */
+    --background-color: #A5D6A7;    /* Mint background - page background or cards */
+    --green-button-color: #20B236;
+    --secondary-color: #fafafa; /* cream white green */
     --text-color: rgba(0, 0, 0, 0.76); /* Crisp white for contrast */
-    --background-color: #d8efe6; /* Gentle seafoam green */
     --third-color: #049a8f;
     --white-color: #ffffff; /* Classic white */
+    --green-color: #1B5E20;
+    --black-color: #000000;
+    --dark-green-color: #427149;
 
 
     /* Reusable Styles */
@@ -19,7 +23,7 @@
     --gap-base: 10px;
 
     /* Fonts */
-    --font-family: 'Arial', sans-serif;
+    --font-family: 'inter', sans-serif;
 }
 
 .btn-primary {

@@ -30,11 +30,12 @@ function SelectIngredients({ onRecipesUpdate }) {
         }
     };
 
+
     return (
         <div className="container">
             <div className="content">
                 <div className="ingredients-list">
-                    <h2>Enter Your Ingredients</h2>
+                    <h2>Start Generating Recipes</h2>
                     <div className="ingredient-cards">
                         {ingredients.map((item, index) => (
                             <div className="ingredient-card" key={index}>
@@ -57,6 +58,7 @@ function SelectIngredients({ onRecipesUpdate }) {
                         endpoint="ingredients"
                         value={selectedOption}
                         onSelect={setSelectedOption}
+
                     />
                     <div className="buttons">
 
