@@ -97,7 +97,7 @@
 
 .login-form a {
   font-size: var(--font-size-base);
-  color: var(--accent-color);
+  color: var(--text-dark);
   margin-top: 15px;
   text-decoration: none;
   transition: color 0.3s ease;
