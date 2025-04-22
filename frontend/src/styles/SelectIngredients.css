@@ -11,7 +11,6 @@
 .content {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
     justify-content: space-between;
     gap: 40px;
     align-items: flex-start;
@@ -23,16 +22,13 @@
 }
 
 .ingredients-list h2 {
+    text-align: left;
     font-size: 1.5rem;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 0px;
     color: var(--green-color);
 }
-.ingredients-list p {
-    font-size: 1.2rem;
-    margin-top: 40px;
-    margin-left: 350px;
-}
+
 
 
 .ingredients-list ul {
