@@ -29,41 +29,61 @@ function RegisterForm() {
     return (
         <form onSubmit={handleRegister} className="login-form">
             <h1>Sign Up</h1>
-            <input
-                className="form-input"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input
-                className="form-input"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-            />
-            <input
-                className="form-input"
-                type="text"
-                value={first_name}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First Name"
-            />
-            <input
-                className="form-input"
-                type="text"
-                value={last_name}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last Name"
-            />
-            <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder=" "
+                    id="username"
+                />
+                <label className="form-label" htmlFor="username">Username</label>
+            </div>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder=" "
+                    id="email"
+                />
+                <label className="form-label" htmlFor="email">Email Address</label>
+            </div>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="text"
+                    value={first_name}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder=" "
+                    id="f_name"
+                />
+                <label className="form-label" htmlFor="f_name">First Name</label>
+            </div>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="text"
+                    value={last_name}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder=" "
+                    id="l_name"
+                />
+                <label className="form-label" htmlFor="l_name">Last Name</label>
+            </div>
+            <div className="form-input-container">
+                <input
+                    className="form-input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder=" "
+                    id="password"
+                />
+                <label className="form-label" htmlFor="password">Password</label>
+            </div>
 
             <button className="form-button" type="submit">Register</button>
             <Link to="/login" className="alternate-link">Already have an account? Sign in here</Link>

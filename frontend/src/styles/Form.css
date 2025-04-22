@@ -1,10 +1,10 @@
 @import './variables.css';
 
 .login-form {
-  background-color: var(--white-color);
-  color: var(--accent-color);
-  padding: var(--padding-large);
-  border-radius: var(--border-radius);
+  background-color: var(--form-background-color);
+  /* color: var(--accent-color); */
+  padding: 60px 60px;
+  border-radius: 15px;
   width: 100%;
   max-width: 400px;
   margin: 50px auto;
@@ -19,49 +19,90 @@
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-bold);
   margin-bottom: calc(var(--gap-base) * 2);
-  color: var(--accent-color);
+  color: var(--text-dark);
 }
 
-.form-input {
+.form-input-container {
+  position: relative;
+  overflow: hidden;
+  height: 40px;
   width: 100%;
-  padding: var(--padding-base);
   font-size: var(--font-size-base);
   border: none;
   border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--white-color);
+  margin-bottom: 10px;
+}
+
+.form-input-container:focus {
+  outline: none;
+}
+
+.form-input {
+  font-size: var(--font-size-base);
+  width: 100%;
+  height: 17px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 6px;
+  border: none;
+  border-bottom: 2px solid var(--form-box-stroke);
+
 }
 
 .form-input:focus {
   outline: none;
-  border: 2px solid var(--secondary-color);
+  height: 16px;
+  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid var(--form-box-stroke-selected);
+}
+
+.form-input + .form-label {
+  position: absolute;
+  height: 100%;
+  line-height: 40px;
+  width: 100%;
+  left: 10px;
+  top: 0;
+  transition: 0.15ms;
+  color: var(--form-box-stroke);
+  pointer-events: none;
+}
+
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--form-box-stroke-selected);
 }
 
 .form-button {
-  width: 100%;
+  width: 30%;
+  margin-top: 10px;
   padding: var(--padding-base);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
-  background-color: var(--secondary-color);
+  background-color: var(--form-button);
   color: var(--white-color);
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form-button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--form_button-hover);
 }
 
 .login-form a {
   font-size: var(--font-size-base);
   color: var(--accent-color);
-  margin-top: var(--gap-base);
+  margin-top: 15px;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .login-form a:hover {
-  color: var(--secondary-color);
+  color: var(--white-color);
 }
