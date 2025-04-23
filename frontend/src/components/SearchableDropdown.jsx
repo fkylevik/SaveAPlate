@@ -17,6 +17,7 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
                 label: object.name,
                 data: object, // entire fetched object is stored
             }));
+            items.sort((a, b) => a.label.localeCompare(b.label));
             setOptions(items);
         } catch (error) {
             console.error("An error occurred while fetching objects!", error);
