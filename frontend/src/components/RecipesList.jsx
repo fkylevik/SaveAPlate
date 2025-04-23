@@ -5,10 +5,13 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
     // callback to update recipes on ingredient filtering
     const handleRecipesUpdate = (filteredRecipes) => {
         setRecipes(filteredRecipes);
+        console.log("API response:", response.data);
+
     };
 
     return (
         <>
+
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
             <div>
                 {recipes.map((recipe) => (

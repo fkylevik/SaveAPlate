@@ -69,6 +69,13 @@ function CarbonFootprintChart() {
 return (
   <div className="chart-container">
     <h2>Carbon Footprint Chart</h2>
+    <div className="explanation">
+          <h3>What is a Carbon Footprint?</h3>
+          <p>
+            A <strong>carbon footprint</strong> measures the total amount of <strong>greenhouse gases (GHGs)</strong>—primarily carbon dioxide (CO₂), methane (CH₄), and nitrous oxide (N₂O)—emitted directly or indirectly by an activity, product, or person.
+            In the context of <strong>food</strong>, it refers to the emissions generated throughout a product’s <strong>life cycle</strong>, from <strong>production and processing</strong> to <strong>transportation, cooking, and disposal</strong>.
+          </p>
+        </div>
     <Bar data={data} options={options} />
   </div>
 );
