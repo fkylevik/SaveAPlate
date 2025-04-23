@@ -7,13 +7,20 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
         setRecipes(filteredRecipes);
     };
 
+    // Ensure recipes is always an array
+    const recipeArray = Array.isArray(recipes) ? recipes : [];
+
     return (
         <>
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
             <div>
-                {recipes.map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
-                ))}
+                {recipeArray.length > 0 ? (
+                    recipeArray.map((recipe) => (
+                        <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
+                    ))
+                ) : (
+                    <p>No recipes available</p>
+                )}
             </div>
         </>
     );
