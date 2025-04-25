@@ -127,16 +127,6 @@ function CreateRecipePage() {
           </label>
 
           <div className="recipe-content">
-            <div className="recipe-instructions">
-              <h3 className="section-title">Instructions</h3>
-              <textarea
-                value={instructions}
-                onChange={e => setInstructions(e.target.value)}
-                placeholder="Write your recipe instructions here..."
-                className="instructions-textarea"
-                required
-              />
-            </div>
 
             <div className="recipe-ingredients">
               <h3 className="section-title">Ingredients</h3>
@@ -160,6 +150,18 @@ function CreateRecipePage() {
                 </button>
               </div>
             </div>
+
+            <div className="recipe-instructions">
+              <h3 className="section-title">Instructions</h3>
+              <textarea
+                value={instructions}
+                onChange={e => setInstructions(e.target.value)}
+                placeholder="Write your recipe instructions here..."
+                className="instructions-textarea"
+                required
+              />
+            </div>
+
           </div>
         </div>
 
