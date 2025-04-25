@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import RecipeIngredientItem from "../components/RecipeIngredientItem.jsx";
 import SearchableDropdown from "../components/SearchableDropdown.jsx";
+import RecipeInstructionItem from "../components/RecipeInstructionItem.jsx";
 
 function CreateRecipePage() {
     const navigate = useNavigate();
@@ -37,12 +38,34 @@ function CreateRecipePage() {
         setRecipeIngredients(newIngredients);
     };
 
+    const handleAddInstruction = () => {
+        setRecipeInstructions((prev) => [
+            ...prev,
+            { instruction: "", step: prev.length + 1 },
+        ]);
+    };
+
+    const handleDeleteInstruction = (indexToRemove) => {
+
+        const updatedItems = recipeInstructions
+            .filter((_, index) => index !== indexToRemove)
+            .map((item, index) => ({ ...item, step: index + 1 }));
+
+        setRecipeInstructions(updatedItems);
+    };
+
+    const handleChangeInstruction = (index, field, value) => {
+        const newInstruction = [...recipeInstructions];
+        newInstruction[index][field] = value;
+        setRecipeInstructions(newInstruction);
+    };
+
     const handleCreateRecipe = async (e) => {
         e.preventDefault();
         console.log(recipeInstructions);
         const newRecipe = {
             name: recipeName,
-            instructions: instructions,
+            recipe_instructions: recipeInstructions,
             total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
             recipe_ingredients: recipeIngredients.map((ingredient) => ({
                 ingredient: ingredient.ingredient.id, // Updated to use `value`
@@ -86,6 +109,19 @@ function CreateRecipePage() {
                             ingredient={ingredient}
                             onChange={(field, value) => handleChangeIngredient(index, field, value)}
                             onDelete={() => handleDeleteIngredient(index)}
+                        />
+                    ))}
+
+                    <h2>Instructions</h2>
+                    <button className="searchButton" type="button" onClick={handleAddInstruction}>Add Instruction</button>
+
+                    {recipeInstructions.map((instruction, index) => (
+                        <RecipeInstructionItem
+                            key={index}
+                            index={index}
+                            instruction={instruction}
+                            onChange={(field, value) => handleChangeInstruction(index, field, value)}
+                            onDelete={() => handleDeleteInstruction(index)}
                         />
                     ))}
                 </div>

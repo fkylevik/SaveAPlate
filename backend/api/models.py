@@ -15,7 +15,6 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
     total_co2e = models.FloatField()
-    instructions = models.TextField()
 
     def __str__(self):
         return self.name
