@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Recipe, Ingredient
-from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer
+from .models import Recipe, Ingredient, UserFavorites
+from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer, UserCompletedSerializer, \
+    UserFavoriteSerializer
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -74,7 +75,7 @@ class IngredientListCreateView(generics.ListCreateAPIView):
 # Retrieve, Update, and Delete an Ingredient
 # Use GET to retrieve a specific ingredient based on its id
 # Use PUT/PATCH to update an existing ingredient based on its id.
-# Use Delete to delete a ingredient based on its id.
+# Use Delete to delete an ingredient based on its id.
 class IngredientDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
@@ -105,3 +106,33 @@ class RecipeIngredientSearchView(generics.ListAPIView):
                 recipe_ingredients__ingredient__id__in=ingredient_ids
             ).distinct()
         return queryset
+
+
+class FavoriteRecipesListView(generics.ListCreateAPIView):
+    serializer_class = UserFavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return UserFavorites.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserFavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return FavoriteRecipesDeleteView.objects.filter(user=self.request.user)
+
+
+class CompletedRecipesListView(generics.ListCreateAPIView):
+    serializer_class = UserCompletedSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return CompletedRecipesListView.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

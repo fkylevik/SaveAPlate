@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import RecipeIngredientItem from "../components/RecipeIngredientItem.jsx";
+import SearchableDropdown from "../components/SearchableDropdown.jsx";
 
 function CreateRecipePage() {
     const navigate = useNavigate();
     const [recipeName, setRecipeName] = useState('');
     const [instructions, setInstructions] = useState('');
+    const [servings, setServings] = useState(4);
     const [recipeIngredients, setRecipeIngredients] = useState([{
         ingredient: null,
         amount: "",
@@ -40,7 +42,7 @@ function CreateRecipePage() {
             total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
             recipe_ingredients: recipeIngredients.map((ingredient) => ({
                 ingredient: ingredient.ingredient.id, // Updated to use `value`
-                amount: ingredient.amount,
+                amount: ingredient.amount / servings,
                 unit: ingredient.unit,
             }))
         };
@@ -70,6 +72,13 @@ function CreateRecipePage() {
                 />
                 <div>
                     <h2>Ingredients</h2>
+                    <input
+                        type="number"
+                        value={servings}
+                        onChange={(e) => setServings(e.target.value)}
+                        placeholder="Number of Servings"
+                        required
+                    />
                     {recipeIngredients.map((ingredient, index) => (
                         <RecipeIngredientItem
                             key={index}

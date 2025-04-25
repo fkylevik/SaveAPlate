@@ -1,17 +1,11 @@
-import React, {useEffect, useState} from 'react';
 import api from "../api";
 import '../styles/RecipeCard.css';
-import {useNavigate} from "react-router-dom"; // Import CSS file for styling
 import defaultImage from "../assets/image.png";
+
+const defaultServings = 4;
 
 
 const RecipeCard = ({ recipe, refreshRecipes }) => {
-    const [ingredients, setIngredients] = useState({})
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        getIngredients();
-    }, [])
 
     const handleDeleteRecipe = async () => {
         try {
@@ -22,19 +16,13 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }
 
-    const getIngredients = async () => {
+    const handleFavouriteRecipe = async () => {
         try {
-            const ingredientsData = {};
-            for (let i = 0; i < recipe.recipe_ingredients.length; i++) {
-                const ingredient_id = recipe.recipe_ingredients[i]['ingredient'];
-                const res = await api.get(`/api/ingredients/${ingredient_id}/`);
-                ingredientsData[ingredient_id] = res.data;
-            }
-            setIngredients(ingredientsData);
-        } catch (err) {
-            console.error(err);
+            await api.post('/api/recipes/favorite/', {recipe: recipe.id});
+        } catch (error) {
+            console.error('Error adding the recipe to favourites: ', error);
         }
-    };
+    }
 
     return (
         <div className="recipe-card">
@@ -58,20 +46,11 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                         )}
                     </div>
 
-                    {/*}<div className="ingredients">
-                        {recipe.recipe_ingredients.map((item) => (
-                            <div key={item.id} className="card">
-                                <ul>{ingredients[item.ingredient]?.name || 'Loading'}: {item.amount} {item.unit} </ul>
-                            </div>
-                        ))}
-
-                    </div> */}
-
                     <div className="instructions">
                         <h4>{recipe.instructions}</h4>
                     </div>
                     <div className="total_co2e">
-                        <h4>Carbon Footprint: {recipe.total_co2e} co2e</h4>
+                        <h4>Carbon Footprint: {recipe.total_co2e * defaultServings} co2e</h4>
                     </div>
 
                     <button
@@ -79,6 +58,12 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                         onClick={() => handleDeleteRecipe()}
                     >
                         &times;
+                    </button>
+                    <button
+                        className="favorite-button"
+                        onClick={() => handleFavouriteRecipe()}
+                    >
+                        ❤️
                     </button>
                 </div>
             </div>

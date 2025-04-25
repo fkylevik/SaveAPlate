@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, UserFavorites, CompletedRecipes
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,3 +66,16 @@ class RecipeSerializer(serializers.ModelSerializer):
             RecipeIngredient.objects.create(recipe=instance, **recipe_ingredient_data)
 
         return instance
+
+
+class UserFavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserFavorites
+        fields = ['id', 'user', 'recipe']
+        extra_kwargs = {'user': {'read_only': True}}
+
+
+class UserCompletedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompletedRecipes
+        fields = ['id', 'user', 'recipe', 'time_completed', 'co2e']
