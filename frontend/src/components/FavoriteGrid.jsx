@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import RecipeCard from "./RecipeCard.jsx";
 import api from "../api.js";
 
 
 function FavoriteGrid() {
     const [favorites, setFavorites] = useState([]);
+
+    useEffect(() => {
+        getFavorites();
+    }, []);
 
     const getFavorites = async () => {
         try {
