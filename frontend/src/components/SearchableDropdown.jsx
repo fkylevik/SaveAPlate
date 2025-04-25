@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../api";
 
+
 function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     const [options, setOptions] = useState([]);
 
@@ -41,10 +42,8 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
             ...provided,
             width: "300px",
             height: "50px",
-            border: "none",
             borderRadius: "8px",
             textAlign: "left",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
             color: "#764ba2",
             backgroundColor: "#fafafa",
             borderColor: "#679D72",

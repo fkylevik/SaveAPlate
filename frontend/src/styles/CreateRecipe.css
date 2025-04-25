@@ -7,7 +7,7 @@
 }
 
 .create-recipe-container {
-  max-width: 1000px;
+  width: 1000px;
   margin: 3rem auto;
   background-color: var(--white-color);
   border-radius: 12px;
@@ -197,14 +197,20 @@
   grid-area: un;
 }
 
-.ingredient-delete {
+.recipe-ingredient-item-button {
+  grid-area: del;
   position: absolute;
   top: 0.5rem; right: 0.5rem;
-  background: var(--form-button);
-  color: white;
+  color: var(--text-dark);
+  background-color: transparent;
+  width:auto;
+  height:30px;
+  /*border-radius: 20%;*/
   border: none;
-  width: 24px; height: 24px;
-  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 5px;
+  /*padding: 15px;*/
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -250,16 +256,19 @@
 .btn-cancel {
   padding: 0.75rem 2.5rem;
   font-size: 1.1rem;
-  background-color: var(--secondary-color);
-  color: var(--text-dark);
-  border: 1px solid var(--form-box-stroke);
-  border-radius: var(--border-radius);
+  background-color: darkgray;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
   border: none;
   transition: background-color 0.2s ease;
+
 }
 .btn-cancel:hover {
-  background-color: var(--form-box-stroke);
+  background-color: red;
+  color: white;
+
 }
 
 /* responsive */
