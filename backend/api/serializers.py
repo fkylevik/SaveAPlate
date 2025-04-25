@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Recipe, Ingredient, RecipeIngredient, UserFavorites, CompletedRecipes
+from .models import Recipe, Ingredient, RecipeIngredient, UserFavorites, CompletedRecipes, RecipeInstruction
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,39 +31,49 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         fields = ['id', 'ingredient', 'amount', 'unit']
 
 
+class RecipeInstructionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecipeInstruction
+        fields = ['id', 'instruction', 'step']
+
+
 class RecipeSerializer(serializers.ModelSerializer):
     recipe_ingredients = RecipeIngredientSerializer(many=True)
+    recipe_instructions = RecipeInstructionSerializer(many=True)
 
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'total_co2e', 'instructions', 'recipe_ingredients']
+        fields = ['id', 'name', 'total_co2e', 'recipe_instructions', 'recipe_ingredients']
 
     def create(self, validated_data):
-        # Extract recipe ingredients data from validated data
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')
-        recipe = Recipe.objects.create(**validated_data) # Create the Recipe object
+        recipe_instructions_data = validated_data.pop('recipe_instructions')
+        recipe = Recipe.objects.create(**validated_data)
 
-        # Loop through the recipe_ingredients and create associated RecipeIngredient objects
-        for recipe_ingredient_data in recipe_ingredients_data:
-            RecipeIngredient.objects.create(recipe=recipe, **recipe_ingredient_data)
+        for ingredient_data in recipe_ingredients_data:
+            RecipeIngredient.objects.create(recipe=recipe, **ingredient_data)
+
+        for instruction_data in recipe_instructions_data:
+            RecipeInstruction.objects.create(recipe=recipe, **instruction_data)
 
         return recipe
 
     def update(self, instance, validated_data):
-        # Extract recipe ingredients data from validated data
         recipe_ingredients_data = validated_data.pop('recipe_ingredients', [])
+        recipe_instructions_data = validated_data.pop('recipe_instructions', [])
 
-        # Update basic fields
         instance.name = validated_data.get('name', instance.name)
-        instance.instructions = validated_data.get('instructions', instance.instructions)
         instance.save()
 
-        # Clear old recipe ingredients
+        # Ensure you're deleting the correct related objects
+        instance.recipe_instructions.all().delete()
         instance.recipe_ingredients.all().delete()
 
-        # Create new recipe ingredients
-        for recipe_ingredient_data in recipe_ingredients_data:
-            RecipeIngredient.objects.create(recipe=instance, **recipe_ingredient_data)
+        for ingredient_data in recipe_ingredients_data:
+            RecipeIngredient.objects.create(recipe=instance, **ingredient_data)
+
+        for instruction_data in recipe_instructions_data:
+            RecipeInstruction.objects.create(recipe=instance, **instruction_data)
 
         return instance
 

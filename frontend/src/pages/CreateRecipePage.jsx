@@ -7,12 +7,15 @@ import SearchableDropdown from "../components/SearchableDropdown.jsx";
 function CreateRecipePage() {
     const navigate = useNavigate();
     const [recipeName, setRecipeName] = useState('');
-    const [instructions, setInstructions] = useState('');
     const [servings, setServings] = useState(4);
     const [recipeIngredients, setRecipeIngredients] = useState([{
         ingredient: null,
         amount: "",
         unit: "",
+    }]);
+    const [recipeInstructions, setRecipeInstructions] = useState([{
+        instruction: "",
+        step: 1,
     }]);
 
     const handleAddIngredient = () => {
@@ -36,6 +39,7 @@ function CreateRecipePage() {
 
     const handleCreateRecipe = async (e) => {
         e.preventDefault();
+        console.log(recipeInstructions);
         const newRecipe = {
             name: recipeName,
             instructions: instructions,
@@ -64,21 +68,17 @@ function CreateRecipePage() {
                     placeholder="Recipe name"
                     required
                 />
-                <textarea
-                    value={instructions}
-                    onChange={(e) => setInstructions(e.target.value)}
-                    placeholder="Recipe instructions"
-                    required
-                />
-                <div>
-                    <h2>Ingredients</h2>
-                    <input
+                <input
                         type="number"
                         value={servings}
                         onChange={(e) => setServings(e.target.value)}
                         placeholder="Number of Servings"
                         required
-                    />
+                />
+                <div>
+                    <h2>Ingredients</h2>
+                    <button className="searchButton" type="button" onClick={handleAddIngredient}>Add Ingredient</button>
+
                     {recipeIngredients.map((ingredient, index) => (
                         <RecipeIngredientItem
                             key={index}
@@ -89,7 +89,7 @@ function CreateRecipePage() {
                         />
                     ))}
                 </div>
-                <button className="searchButton" type="button" onClick={handleAddIngredient}>Add Ingredient</button>
+
                 <button className="btn-primary" type="submit">Create Recipe</button>
             </div>
         </form>

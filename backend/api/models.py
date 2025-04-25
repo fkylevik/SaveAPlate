@@ -31,6 +31,15 @@ class RecipeIngredient(models.Model):
         return f"{self.amount} {self.unit} of {self.ingredient.name} in {self.recipe.name}"
 
 
+class RecipeInstruction(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipe_instruction', on_delete=models.CASCADE)
+    instruction = models.TextField()
+    step = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.recipe.name}: Step {self.step}. {self.instruction}"
+
+
 class UserFavorites(models.Model):
     user = models.ForeignKey(User, related_name='user_favorite_recipes', on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, related_name='user_favorite_recipes', on_delete=models.CASCADE)
