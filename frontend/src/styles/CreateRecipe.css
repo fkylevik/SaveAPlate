@@ -155,10 +155,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--secondary-color);
+  background-color: var(--accent-color);
   padding: 0.75rem;
   border-radius: 8px;
-  border: 1px solid var(--form-box-stroke);
+  /*border: 1px solid var(--form-box-stroke);*/
   position: relative;
   width: 100%;
 }
@@ -174,14 +174,18 @@
   background-color: var(--secondary-color);
 }
 
+.ingredient-item input:focus,
+.ingredient-item Select:focus{
+  outline: 2px solid var(--form-box-stroke-selected);
+  /*border: 2px solid var(--form-box-stroke-selected)*/
+}
+
 .recipe-ingredient-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:"ing ing ing del"
                       "am un none none";
-
-
 }
 .searchable-dropdown {
   grid-area: ing;
@@ -192,12 +196,6 @@
 .recipe-ingredient-item-unit {
   grid-area: un;
 }
-
-.recipe-ingredient-item-button {
-  grid-area: del;
-  justify-self: right;
-}
-
 
 .ingredient-delete {
   position: absolute;
@@ -213,7 +211,6 @@
   justify-content: center;
 }
 
-
 .add-ingredient-button {
   padding: 0.75rem;
   background-color: var(--accent-color);
@@ -222,6 +219,11 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: filter 0.2s ease;
+}
+
+.add-ingredient-button:hover {
+  background-color: var(--form-button-clicked);
 }
 
 /* form buttons */
@@ -253,6 +255,7 @@
   border: 1px solid var(--form-box-stroke);
   border-radius: var(--border-radius);
   cursor: pointer;
+  border: none;
   transition: background-color 0.2s ease;
 }
 .btn-cancel:hover {
@@ -271,6 +274,7 @@
   }
   .instructions-textarea {
     min-height: 200px;
+    background-color: var(--secondary-color);
   }
   .image-upload-container {
     height: 180px;

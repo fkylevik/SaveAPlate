@@ -46,6 +46,10 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
             textAlign: "left",
             backgroundColor: "rgba(255, 255, 255, 0.2)",
             color: "#764ba2",
+            backgroundColor: "#fafafa",
+            borderColor: "#679D72",
+            borderWidth:"1px",
+
         }),
         option: (provided, state) => ({
             ...provided,
