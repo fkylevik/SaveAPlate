@@ -67,15 +67,32 @@ function CarbonFootprintChart() {
   };
 
 return (
+
   <div className="chart-container">
-    <h2>Carbon Footprint Chart</h2>
-    <div className="explanation">
+
+    <div className="chart-text">
           <h3>What is a Carbon Footprint?</h3>
           <p>
             A <strong>carbon footprint</strong> measures the total amount of <strong>greenhouse gases (GHGs)</strong>—primarily carbon dioxide (CO₂), methane (CH₄), and nitrous oxide (N₂O)—emitted directly or indirectly by an activity, product, or person.
-            In the context of <strong>food</strong>, it refers to the emissions generated throughout a product’s <strong>life cycle</strong>, from <strong>production and processing</strong> to <strong>transportation, cooking, and disposal</strong>.
+            In the context of <strong>food</strong>, it refers to the emissions generated throughout a product’s life cycle, from production and processing to transportation,  <strong> cooking</strong>, and disposal.
+            <br />
+            <br />
+            This <strong> bar chart </strong> to the right displays the carbon footprint of three different recipes measured in kilograms of CO₂. It highlights how the environmental impact of meals can vary significantly based on ingredients:
+            <br />
+            <br />
+
+            <strong> Tomato Basil Pasta </strong> shows the highest footprint, likely due to energy-intensive ingredients or preparation methods.
+            <br />
+            <strong> Berry Smoothie Bowl </strong> has a moderate footprint, common for fruit-based dishes.
+            <br />
+            <strong> Vegetable Stir Fry  </strong> has the lowest footprint, reflecting the efficiency of plant-based meals.
+            <strong> Vegetable Stir Fry  </strong> has the lowest footprint, reflecting the efficiency of plant-based meals.
+
+
           </p>
         </div>
+        <h1>Carbon Footprint Chart</h1>
+
     <Bar data={data} options={options} />
   </div>
 );
