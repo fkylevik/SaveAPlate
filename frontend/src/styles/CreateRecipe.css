@@ -168,10 +168,36 @@
   flex: 1;
   min-width: 100px;
   padding: 0.5rem;
+  margin: 0.5rem;
   border: 1px solid var(--form-box-stroke);
   border-radius: 4px;
   background-color: var(--secondary-color);
 }
+
+.recipe-ingredient-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:"ing ing ing del"
+                      "am un none none";
+
+
+}
+.searchable-dropdown {
+  grid-area: ing;
+}
+.recipe-ingredient-item-amount {
+  grid-area: am;
+}
+.recipe-ingredient-item-unit {
+  grid-area: un;
+}
+
+.recipe-ingredient-item-button {
+  grid-area: del;
+  justify-self: right;
+}
+
 
 .ingredient-delete {
   position: absolute;
@@ -186,6 +212,7 @@
   align-items: center;
   justify-content: center;
 }
+
 
 .add-ingredient-button {
   padding: 0.75rem;
