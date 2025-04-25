@@ -29,3 +29,18 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.amount} {self.unit} of {self.ingredient.name} in {self.recipe.name}"
+
+
+class UserFavorites(models.Model):
+    user = models.ForeignKey(User, related_name='user_favorite_recipes', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='user_favorite_recipes', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'recipe')
+
+
+class CompletedRecipes(models.Model):
+    user = models.ForeignKey(User, related_name='completed_recipe_users', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='completed_recipes', on_delete=models.CASCADE)
+    time_completed = models.DateTimeField(auto_now_add=True)
+    co2e = models.FloatField()

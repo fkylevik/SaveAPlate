@@ -9,42 +9,20 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
         fetchObjects(""); // fetch objects upon render
     }, []);
 
- const fetchObjects = async (query) => {
-    try {
-        const response = await api.get(`api/${endpoint}/?search=${query}`);
-
-        console.log("API Response:", response);
-        console.log("Response data type:", typeof response.data);
-
-        // Handle various response formats
-        let dataArray = [];
-
-        if (Array.isArray(response.data)) {
-            dataArray = response.data;
-        } else if (response.data && typeof response.data === 'object') {
-            if (Array.isArray(response.data.results)) {
-                dataArray = response.data.results;
-            } else if (response.data.data && Array.isArray(response.data.data)) {
-                dataArray = response.data.data;
-            } else {
-                console.error("Unexpected response format:", response.data);
-                dataArray = [];
-            }
+    const fetchObjects = async (query) => {
+        try {
+            const response = await api.get(`api/${endpoint}/?search=${query}`);
+            const items = response.data.map((object) => ({
+                value: object.id,
+                label: object.name,
+                data: object, // entire fetched object is stored
+            }));
+            items.sort((a, b) => a.label.localeCompare(b.label));
+            setOptions(items);
+        } catch (error) {
+            console.error("An error occurred while fetching objects!", error);
         }
-
-        console.log("Data array to map:", dataArray);
-
-        const items = dataArray.map((object) => ({
-            value: object.id,
-            label: object.name,
-            data: object,
-        }));
-        setOptions(items);
-    } catch (error) {
-        console.error("An error occurred while fetching objects!", error);
-        setOptions([]); // Set empty array on error
-    }
-};
+    };
 
     const handleSelectChange = (option) => {
         if (option) {

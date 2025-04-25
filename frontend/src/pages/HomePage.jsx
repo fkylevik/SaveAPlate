@@ -54,8 +54,6 @@ function HomePage() {
                 setRecipes={setRecipes}
                 refreshRecipes={handleSearch}
             />
-            <CarbonFootprint />
-
         </>
     );
 }
