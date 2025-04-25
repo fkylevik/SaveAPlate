@@ -5,6 +5,8 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
     // callback to update recipes on ingredient filtering
     const handleRecipesUpdate = (filteredRecipes) => {
         setRecipes(filteredRecipes);
+        console.log("API response:", response.data);
+
     };
 
     // Ensure recipes is always an array
@@ -12,6 +14,7 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
 
     return (
         <>
+
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
             <div>
                 {recipeArray.length > 0 ? (

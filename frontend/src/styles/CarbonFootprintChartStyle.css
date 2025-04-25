@@ -1,15 +1,23 @@
 .chart-container {
   width: 100%;
-  max-width: 800px;
+  max-width: auto;
   height: auto;
   margin: 2rem auto;
   padding: 1rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   display: flex;
+   gap: 20px;
+   align-items: flex-start;
+}
+.chart-text,
+.chart-graph {
+  flex: 1;
+  padding: 30px;
 }
 
 .chart-container canvas {
-  width: 100% !important;
+  width: 50% !important;
   height: auto !important;
 }

@@ -12,12 +12,12 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
     const fetchObjects = async (query) => {
         try {
             const response = await api.get(`api/${endpoint}/?search=${query}`);
+
             const items = response.data.map((object) => ({
                 value: object.id,
                 label: object.name,
                 data: object, // entire fetched object is stored
             }));
-            items.sort((a, b) => a.label.localeCompare(b.label));
             setOptions(items);
         } catch (error) {
             console.error("An error occurred while fetching objects!", error);

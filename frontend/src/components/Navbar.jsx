@@ -19,7 +19,7 @@ function Navbar({ isLoggedIn, onLogout }) {
 
     return (
         <nav className="navbar">
-            <div className="navbar-logo" onClick={() => {navigate("/")}}>
+            <div className="navbar-logo" onClick={() => {navigate("/")}} title= "Go to Home Page">
                 SaveAPlate
             </div>
             <ul className={`navbar-links ${isMenuOpen ? 'show' : ''}`}>
