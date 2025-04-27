@@ -65,7 +65,10 @@ function CreateRecipePage() {
         console.log(recipeInstructions);
         const newRecipe = {
             name: recipeName,
-            recipe_instructions: recipeInstructions,
+            recipe_instructions: recipeInstructions.map((instruction) => ({
+                instruction: instruction.instruction,
+                step: instruction.step
+            })),
             total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
             recipe_ingredients: recipeIngredients.map((ingredient) => ({
                 ingredient: ingredient.ingredient.id, // Updated to use `value`

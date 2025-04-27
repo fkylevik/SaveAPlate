@@ -31,7 +31,7 @@ class RecipeIngredient(models.Model):
 
 
 class RecipeInstruction(models.Model):
-    recipe = models.ForeignKey(Recipe, related_name='recipe_instruction', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='recipe_instructions', on_delete=models.CASCADE)
     instruction = models.TextField()
     step = models.IntegerField()
 
