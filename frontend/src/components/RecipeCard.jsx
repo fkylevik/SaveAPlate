@@ -1,11 +1,20 @@
+import React, {useEffect, useState} from 'react';
 import api from "../api";
 import '../styles/RecipeCard.css';
+import {useNavigate} from "react-router-dom"; // Import CSS file for styling
 import defaultImage from "../assets/image.png";
+import { Link } from 'react-router-dom';
 
 const defaultServings = 4;
 
 
 const RecipeCard = ({ recipe, refreshRecipes }) => {
+    const [ingredients, setIngredients] = useState({})
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        getIngredients();
+    }, [])
 
     const handleDeleteRecipe = async () => {
         try {
@@ -16,7 +25,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }
 
-    const handleFavouriteRecipe = async () => {
+        const handleFavouriteRecipe = async () => {
         try {
             await api.post('/api/recipes/favorite/', {recipe: recipe.id});
         } catch (error) {
@@ -24,8 +33,26 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }
 
+    const getIngredients = async () => {
+        try {
+            const ingredientsData = {};
+            for (let i = 0; i < recipe.recipe_ingredients.length; i++) {
+                const ingredient_id = recipe.recipe_ingredients[i]['ingredient'];
+                const res = await api.get(`/api/ingredients/${ingredient_id}/`);
+                ingredientsData[ingredient_id] = res.data;
+            }
+            setIngredients(ingredientsData);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
-        <div className="recipe-card">
+    <Link
+        to={`/recipes/${recipe.id}`}
+        className="recipe-card"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+        >
             <div className="content">
                 <div className="recipe">
                     <div className="recipe-image-container">
@@ -41,16 +68,9 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                         )}
                         {recipe.carbonFootprint && (
                         <div className="carbon-footprint" >
-                            Carbon Footprint: {recipe.carbonFootprint} kgCO<sub>2</sub>
+                            Carbon Footprint: {recipe.carbonFootprint * defaultServings} kgCO<sub>2</sub>
                         </div>
                         )}
-                    </div>
-
-                    <div className="instructions">
-                        <h4>{recipe.instructions}</h4>
-                    </div>
-                    <div className="total_co2e">
-                        <h4>Carbon Footprint: {recipe.total_co2e * defaultServings} co2e</h4>
                     </div>
 
                     <button
@@ -67,7 +87,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                     </button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
