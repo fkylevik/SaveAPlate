@@ -9,6 +9,7 @@ import RecipesList from "./components/RecipesList.jsx";
 import SelectIngredients from "./components/SelectIngredients.jsx";
 import CreateRecipePage from "./pages/CreateRecipePage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
+import RecipeDetail from './components/RecipeDetail';
 
 function Logout() {
   localStorage.clear();
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/recipes" element={<RecipesList />} />
             <Route path="/recipes/create" element={<CreateRecipePage />} />
+            <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/ingredients" element={<SelectIngredients />} />
             <Route path="/about" element={<div>About</div>} />
             <Route path="/login" element={<LoginPage />}/>

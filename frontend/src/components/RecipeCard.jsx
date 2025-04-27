@@ -3,6 +3,7 @@ import api from "../api";
 import '../styles/RecipeCard.css';
 import {useNavigate} from "react-router-dom"; // Import CSS file for styling
 import defaultImage from "../assets/image.png";
+import { Link } from 'react-router-dom';
 
 
 const RecipeCard = ({ recipe, refreshRecipes }) => {
@@ -37,7 +38,11 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     };
 
     return (
-        <div className="recipe-card">
+    <Link
+        to={`/recipes/${recipe.id}`}
+        className="recipe-card"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+        >
             <div className="content">
                 <div className="recipe">
                     <div className="recipe-image-container">
@@ -58,22 +63,6 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                         )}
                     </div>
 
-                    {/*}<div className="ingredients">
-                        {recipe.recipe_ingredients.map((item) => (
-                            <div key={item.id} className="card">
-                                <ul>{ingredients[item.ingredient]?.name || 'Loading'}: {item.amount} {item.unit} </ul>
-                            </div>
-                        ))}
-
-                    </div> */}
-
-                    <div className="instructions">
-                        <h4>{recipe.instructions}</h4>
-                    </div>
-                    <div className="total_co2e">
-                        <h4>Carbon Footprint: {recipe.total_co2e} co2e</h4>
-                    </div>
-
                     <button
                         className="delete-button"
                         onClick={() => handleDeleteRecipe()}
@@ -82,7 +71,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                     </button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
