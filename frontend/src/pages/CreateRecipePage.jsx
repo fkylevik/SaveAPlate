@@ -71,48 +71,29 @@ function CreateRecipePage() {
         setRecipeInstructions(newInstruction);
     };
 
- const handleCreateRecipe = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('name', recipeName);
-
-    const instructionData = recipeInstructions
-        .filter(ing => ing.instruction)
-        .map(ing => ({
-            instruction: ing.instruction,
-            step: ing.step
-        }))
-
-    formData.append('recipe_instructions', instructionData);
-
-    const totalCo2e = recipeIngredients.reduce(
-      (sum, ing) => sum + (ing.ingredient?.co2e_kg || 0) * ((ing.amount / 1000) / servings),
-      0
-    );
-    formData.append('total_co2e', totalCo2e);
-
-    const ingredientsData = recipeIngredients
-      .filter(ing => ing.ingredient)
-      .map(ing => ({
-        ingredient: ing.ingredient.id,
-        amount: ing.amount / servings,
-        unit: ing.unit
-      }));
-    formData.append('recipe_ingredients', JSON.stringify(ingredientsData));
-
-    if (recipeImage) {
-      formData.append('image', recipeImage);
-    }
-
-    try {
-      await api.post('api/recipes/', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      navigate("/");
-    } catch (error) {
-      console.error("There was an error creating the recipe!", error);
-    }
-  };
+    const handleCreateRecipe = async (e) => {
+        e.preventDefault();
+        console.log(recipeInstructions);
+        const newRecipe = {
+            name: recipeName,
+            recipe_instructions: recipeInstructions.map((instruction) => ({
+                instruction: instruction.instruction,
+                step: instruction.step
+            })),
+            total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
+            recipe_ingredients: recipeIngredients.map((ingredient) => ({
+                ingredient: ingredient.ingredient.id, // Updated to use `value`
+                amount: ingredient.amount / servings,
+                unit: ingredient.unit,
+            }))
+        };
+        try {
+            await api.post('api/recipes/', newRecipe);
+            navigate("/");
+        } catch (error) {
+            console.error("There was an error creating the recipe!", error);
+        }
+    };
 
 
   return (
