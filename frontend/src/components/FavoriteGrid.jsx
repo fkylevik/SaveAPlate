@@ -13,9 +13,24 @@ function FavoriteGrid() {
     const getFavorites = async () => {
         try {
             const res = await api.get('/api/recipes/favorite/');
-            setFavorites(res.data);
+            const favoriteRecipes = await Promise.all(
+                res.data.map(async (fav) => {
+                    return await fetchRecipe(fav.recipe);
+                })
+            );
+            setFavorites(favoriteRecipes);
         } catch (error) {
             console.error('Error fetching favorite recipes: ', error);
+        }
+    };
+
+
+    const fetchRecipe = async (recipe_id) => {
+        try {
+            const res = await api.get(`/api/recipes/${recipe_id}/`);
+            return res.data;
+        } catch (error) {
+            console.error('Error fetching recipe: ', error);
         }
     }
 

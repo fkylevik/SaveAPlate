@@ -73,6 +73,13 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                         )}
                     </div>
 
+                    {/*<div className="instructions">
+                        <h4>{recipe.instructions}</h4>
+                    </div>*/}
+                    <div className="total_co2e">
+                        <h4>Carbon Footprint: {recipe.total_co2e * defaultServings} co2e</h4>
+                    </div>
+
                     <button
                         className="delete-button"
                         onClick={() => handleDeleteRecipe()}

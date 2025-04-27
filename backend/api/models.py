@@ -15,7 +15,6 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
     total_co2e = models.FloatField()
-    instructions = models.TextField()
 
     def __str__(self):
         return self.name
@@ -29,6 +28,15 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.amount} {self.unit} of {self.ingredient.name} in {self.recipe.name}"
+
+
+class RecipeInstruction(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipe_instructions', on_delete=models.CASCADE)
+    instruction = models.TextField()
+    step = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.recipe.name}: Step {self.step}. {self.instruction}"
 
 
 class UserFavorites(models.Model):

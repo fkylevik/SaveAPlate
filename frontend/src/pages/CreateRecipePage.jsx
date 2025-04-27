@@ -2,53 +2,91 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import RecipeIngredientItem from "../components/RecipeIngredientItem.jsx";
+import SearchableDropdown from "../components/SearchableDropdown.jsx";
+import RecipeInstructionItem from "../components/RecipeInstructionItem.jsx";
 import '../styles/CreateRecipe.css';
 
 function CreateRecipePage() {
-  const navigate = useNavigate();
-  const [recipeName, setRecipeName] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [recipeImage, setRecipeImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [recipeIngredients, setRecipeIngredients] = useState([{
-    ingredient: null,
-    amount: "",
-    unit: "",
-  }]);
+    const navigate = useNavigate();
+    const [recipeName, setRecipeName] = useState('');
+    const [servings, setServings] = useState(4);
+    const [recipeImage, setRecipeImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [recipeIngredients, setRecipeIngredients] = useState([{
+        ingredient: null,
+        amount: "",
+        unit: "",
+    }]);
+    const [recipeInstructions, setRecipeInstructions] = useState([{
+        instruction: "",
+        step: 1,
+    }]);
 
-  const handleAddIngredient = () => {
-    setRecipeIngredients([
-      ...recipeIngredients,
-      { ingredient: null, amount: "", unit: "" }
-    ]);
-  };
+    const handleAddIngredient = () => {
+        setRecipeIngredients([...recipeIngredients, {
+            ingredient: null,
+            amount: "",
+            unit: "",
+        }]);
+    };
 
-  const handleDeleteIngredient = (index) => {
-    setRecipeIngredients(recipeIngredients.filter((_, i) => i !== index));
-  };
+    const handleDeleteIngredient = (index) => {
+        const newIngredients = recipeIngredients.filter((_, i) => i !== index);
+        setRecipeIngredients(newIngredients);
+    };
 
-  const handleChangeIngredient = (index, field, value) => {
-    const newIngredients = [...recipeIngredients];
-    newIngredients[index][field] = value;
-    setRecipeIngredients(newIngredients);
-  };
+    const handleChangeIngredient = (index, field, value) => {
+        const newIngredients = [...recipeIngredients];
+        newIngredients[index][field] = value;
+        setRecipeIngredients(newIngredients);
+    };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setRecipeImage(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          setRecipeImage(file);
+          setImagePreview(URL.createObjectURL(file));
+        }
+      };
 
-  const handleCreateRecipe = async (e) => {
+    const handleAddInstruction = () => {
+        setRecipeInstructions((prev) => [
+            ...prev,
+            { instruction: "", step: prev.length + 1 },
+        ]);
+    };
+
+    const handleDeleteInstruction = (indexToRemove) => {
+
+        const updatedItems = recipeInstructions
+            .filter((_, index) => index !== indexToRemove)
+            .map((item, index) => ({ ...item, step: index + 1 }));
+
+        setRecipeInstructions(updatedItems);
+    };
+
+    const handleChangeInstruction = (index, field, value) => {
+        const newInstruction = [...recipeInstructions];
+        newInstruction[index][field] = value;
+        setRecipeInstructions(newInstruction);
+    };
+
+ const handleCreateRecipe = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', recipeName);
-    formData.append('instructions', instructions);
+
+    const instructionData = recipeInstructions
+        .filter(ing => ing.instruction)
+        .map(ing => ({
+            instruction: ing.instruction,
+            step: ing.step
+        }))
+
+    formData.append('recipe_instructions', instructionData);
 
     const totalCo2e = recipeIngredients.reduce(
-      (sum, ing) => sum + (ing.ingredient?.co2e_kg || 0) * (ing.amount / 1000),
+      (sum, ing) => sum + (ing.ingredient?.co2e_kg || 0) * ((ing.amount / 1000) / servings),
       0
     );
     formData.append('total_co2e', totalCo2e);
@@ -57,7 +95,7 @@ function CreateRecipePage() {
       .filter(ing => ing.ingredient)
       .map(ing => ({
         ingredient: ing.ingredient.id,
-        amount: ing.amount,
+        amount: ing.amount / servings,
         unit: ing.unit
       }));
     formData.append('recipe_ingredients', JSON.stringify(ingredientsData));
@@ -76,6 +114,7 @@ function CreateRecipePage() {
     }
   };
 
+
   return (
     <div className="create-recipe-container">
       <div className="create-recipe-header">Create a New Recipe</div>
@@ -89,6 +128,13 @@ function CreateRecipePage() {
           className="recipe-name-input"
           required
         />
+          <input
+            type="number"
+            value={servings}
+            onChange={(e) => setServings(e.target.value)}
+            placeholder="Number of Servings"
+            required
+          />
 
         <div className="recipe-card-preview">
           <label className="image-upload-container" htmlFor="recipe-image">
@@ -153,13 +199,16 @@ function CreateRecipePage() {
 
             <div className="recipe-instructions">
               <h3 className="section-title">Instructions</h3>
-              <textarea
-                value={instructions}
-                onChange={e => setInstructions(e.target.value)}
-                placeholder="Write your recipe instructions here..."
-                className="instructions-textarea"
-                required
-              />
+                <button className="searchButton" type="button" onClick={handleAddInstruction}>Add Instruction</button>
+                {recipeInstructions.map((instruction, index) => (
+                    <RecipeInstructionItem
+                        key={index}
+                        index={index}
+                        instruction={instruction}
+                        onChange={(field, value) => handleChangeInstruction(index, field, value)}
+                        onDelete={() => handleDeleteInstruction(index)}
+                    />
+                ))}
             </div>
 
           </div>
