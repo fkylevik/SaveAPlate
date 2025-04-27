@@ -80,14 +80,18 @@
 #addButton {
     background-color: var(--green-button-color);
     color: white;
-
+}
+#addButton:hover{
+    background-color: #1A922D;;
 }
 
 #searchButton {
     background-color: var(--primary-color);
     color: white;
 }
-
+#searchButton:hover{
+    background-color:var(--green-button-color);
+}
 .ingredient-cards {
     display: flex;
     flex-wrap: wrap;
