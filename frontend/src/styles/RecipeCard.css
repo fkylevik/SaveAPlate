@@ -5,12 +5,13 @@
     padding: 40px 20px;
     background-color: #ffffff;
     position: relative;
-    margin: 40px 200px;
+    margin: 20 px;
     border-radius: 15px;
     width: 300px;
     height: 400px;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 }
 
 /* Inner content wrapper */
@@ -50,4 +51,12 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* or space-between / flex-start */
+    gap: 40px;
+    padding: 20px;
 }

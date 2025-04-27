@@ -10,7 +10,7 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
     return (
         <>
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
-            <div>
+            <div className="card-wrapper">
                 {recipes.map((recipe) => (
                     <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
                 ))}
