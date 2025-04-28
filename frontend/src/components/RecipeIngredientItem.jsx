@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchableDropdown from "./SearchableDropdown.jsx";
 import '../styles/CreateRecipe.css';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
