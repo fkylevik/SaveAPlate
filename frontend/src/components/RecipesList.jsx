@@ -16,7 +16,7 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
         <>
 
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
-            <div>
+            <div className="card-wrapper">
                 {recipeArray.length > 0 ? (
                     recipeArray.map((recipe) => (
                         <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
