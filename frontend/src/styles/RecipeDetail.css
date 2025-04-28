@@ -1,0 +1,134 @@
+@import './variables.css';
+
+/* Container for the whole detail page */
+.detailPage {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 var(--gap-base);
+}
+
+/* ---------- Hero (image + meta) ---------- */
+.detailHero {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--accent-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 20px; /* tighter than padding-large */
+  margin-bottom: 2rem;
+}
+
+.detailImage {
+  flex: 1 1 300px;
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+
+.detailInfo {
+  flex: 1 1 300px;
+  padding: 20px; /* match the hero padding */
+}
+
+.detailTitle {
+  font-size: var(--font-size-large);
+  color: var(--primary-color);
+  margin-bottom: var(--gap-base);
+}
+
+.detailMeta {
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  margin-bottom: var(--gap-base);
+}
+
+/* ---------- Two-column wrapper ---------- */
+.detailSections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-base);
+  margin-bottom: 2rem;
+}
+
+/* Shared card styling for ingredients & instructions */
+.ingredientsSection,
+.instructionsSection {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.sectionHeading {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: var(--gap-base);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Lists */
+.ingredientsList,
+.instructionsList {
+  margin-left: 1.5rem;
+}
+
+.ingredientItem,
+.instructionItem {
+  margin-bottom: var(--gap-base);
+  color: var(--text-dark);
+  font-size: var(--font-size-base);
+}
+
+/* ---------- Start button at bottom ---------- */
+.startButtonWrapper {
+  text-align: center;
+  margin: calc(var(--gap-base) * 2) 0;
+}
+
+.startButton {
+  background-color: var(--green-button-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--padding-base) 2rem;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.startButton:hover:not(:disabled) {
+  background-color: var(--form_button-hover);
+  transform: translateY(-2px);
+}
+
+.startButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ---------- Loading / Error banners ---------- */
+.loading,
+.errorBanner {
+  max-width: 500px;
+  margin: 3rem auto;
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Back button */
+.backButton {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: var(--font-size-base);
+  padding: var(--padding-base) 0;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: var(--gap-base);
+  transition: color 0.2s;
+}
+.backButton:hover {
+  color: var(--third-color);
+}
