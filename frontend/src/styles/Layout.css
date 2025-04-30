@@ -1,4 +1,7 @@
 @import './variables.css';
+* {
+    font: var(--font-family);
+}
 
 html, body {
     margin: 0;
