@@ -206,7 +206,7 @@ input[type=number] {
   min-height: 50px;
   height: auto;
   padding: 1rem;
-  border: 2px solid var(--form-box-stroke);
+  border: 1px solid var(--form-box-stroke);
   border-radius: 8px;
   background-color: var(--secondary-color);
   line-height: 1.5;
@@ -216,8 +216,7 @@ input[type=number] {
 
 }
 .instructions-textarea:focus {
-  outline: none;
-  border-color: var(--form-box-stroke-selected);
+  outline: 2px solid var(--form-box-stroke-selected);
 }
 
 /* ingredients list */
@@ -256,7 +255,6 @@ input[type=number] {
 .ingredient-item input:focus,
 .ingredient-item Select:focus{
   outline: 2px solid var(--form-box-stroke-selected);
-  /*border: 2px solid var(--form-box-stroke-selected)*/
 }
 
 .recipe-ingredient-item {
