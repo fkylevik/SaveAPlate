@@ -30,8 +30,14 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
                 className="recipe-ingredient-item-unit"
             />
 
-            <button className="recipe-ingredient-item-button" type="button" onClick={onDelete}>
-                <i className="fa-solid fa-trash fa-2x"></i></button>
+            <button
+                className="recipe-ingredient-item-button"
+                type="button"
+                onClick={onDelete}
+                title="Delete ingredient"
+            >
+                <i className="fa-solid fa-trash fa-2x"></i>
+            </button>
 
         </div>
     );
