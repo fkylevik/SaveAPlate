@@ -109,13 +109,7 @@ function CreateRecipePage() {
           className="recipe-name-input"
           required
         />
-          <input
-            type="number"
-            value={servings}
-            onChange={(e) => setServings(e.target.value)}
-            placeholder="Number of Servings"
-            required
-          />
+
 
         <div className="recipe-card-preview">
           <label className="image-upload-container" htmlFor="recipe-image">
@@ -156,7 +150,33 @@ function CreateRecipePage() {
           <div className="recipe-content">
 
             <div className="recipe-ingredients">
-              <h3 className="section-title">Ingredients</h3>
+                <div className="ingredient-header">
+                <h3 className="section-title">Ingredients</h3>
+                <div className="portion-control">
+                    <label className="portionLabel">Portions</label>
+                    <button
+                        className="portion-button"
+                        onClick={()=>setServings((servings)=> Math.max(2,(servings-2)))}
+                    >
+                        -
+                    </button>
+                    <input className="servingSize"
+                           type="number"
+                           readOnly="readOnly"
+                           value={servings}
+                           /*onChange={(e) => setServings(e.target.value)}*/
+                           required
+                    />
+
+                    <button
+                        className="portion-button"
+                        onClick={() => setServings((servings) => Math.min(16, (servings + 2)))}
+                    >
+                        +
+                    </button>
+                </div>
+                </div>
+
               <div className="ingredients-list">
                 {recipeIngredients.map((ing, idx) => (
                   <div className="ingredient-item" key={idx}>
@@ -179,17 +199,21 @@ function CreateRecipePage() {
             </div>
 
             <div className="recipe-instructions">
-              <h3 className="section-title">Instructions</h3>
-                <button className="searchButton" type="button" onClick={handleAddInstruction}>Add Instruction</button>
-                {recipeInstructions.map((instruction, index) => (
-                    <RecipeInstructionItem
-                        key={index}
-                        index={index}
-                        instruction={instruction}
-                        onChange={(field, value) => handleChangeInstruction(index, field, value)}
-                        onDelete={() => handleDeleteInstruction(index)}
-                    />
-                ))}
+              <h3 className="section-title-instruction">Instructions</h3>
+                <div className="instructions-list">
+                    {recipeInstructions.map((instruction, index) => (
+                        <div className="instruction-item" key={index}>
+                            <RecipeInstructionItem
+                                key={index}
+                                index={index}
+                                instruction={instruction}
+                                onChange={(field, value) => handleChangeInstruction(index, field, value)}
+                                onDelete={() => handleDeleteInstruction(index)}
+                            />
+                        </div>
+                    ))}
+                    <button className="addInstructionsButton" type="button" onClick={handleAddInstruction}>+ Add Instruction</button>
+                </div>
             </div>
 
           </div>
