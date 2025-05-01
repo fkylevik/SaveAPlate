@@ -32,8 +32,8 @@ function SelectIngredients({ onRecipesUpdate }) {
 
 
     return (
-        <div className="container">
-            <div className="content">
+
+            <div className="SelectIngredients-content">
                 <div className="ingredients-list">
                     <h2>Start Generating Recipes</h2>
                     <div className="ingredient-cards">
@@ -72,7 +72,7 @@ function SelectIngredients({ onRecipesUpdate }) {
                     </div>
                 </div>
             </div>
-        </div>
+
     );
 }
 

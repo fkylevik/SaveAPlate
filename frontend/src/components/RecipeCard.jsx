@@ -48,53 +48,68 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     };
 
     return (
-    <Link
-        to={`/recipes/${recipe.id}`}
-        className="recipe-card"
-        style={{ textDecoration: 'none', color: 'inherit' }}
-        >
-            <div className="content">
-                <div className="recipe">
-                    <div className="recipe-image-container">
-                        <img src={defaultImage} alt="Recipe" className="recipe-image"/>
-                    </div>
-                    <h1 className="recipe-card-title">{recipe.name}</h1>
 
-                    <div className="recipe-meta">
-                        {recipe.cookingTime && (
-                         <div className="cooking-time" >
-                            Cooking Time: {recipe.cookingTime} minutes
+
+            <div className="card_content">
+                <button
+                    className="favorite-button"
+                    onClick={() => handleFavouriteRecipe()}
+                    title="Add to favorite"
+                >
+                    ❤️
+                </button>
+                <hr style={{ width: "100%", textAlign: "left", marginLeft: 0,
+                    marginTop: "0",marginBottom: "0.6rem",borderTop: "1px solid lightgray"
+                    }} />
+
+                <Link
+                    to={`/recipes/${recipe.id}`}
+                    className="recipe-card"
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                     >
+
+
+                    <div className="recipe">
+                        <div className="recipe-image-container">
+                            <img src={defaultImage} alt="Recipe" className="recipe-image"/>
                         </div>
-                        )}
-                        {recipe.carbonFootprint && (
-                        <div className="carbon-footprint" >
-                            Carbon Footprint: {recipe.carbonFootprint * defaultServings} kgCO<sub>2</sub>
+                        <h1 className="recipe-card-title">{recipe.name}</h1>
+
+                        <div className="recipe-meta">
+                            {recipe.cookingTime && (
+                             <div className="cooking-time" >
+                                Cooking Time: {recipe.cookingTime} minutes
+                            </div>
+                            )}
+                            {recipe.carbonFootprint && (
+                            <div className="carbon-footprint" >
+                                Carbon Footprint: {recipe.carbonFootprint * defaultServings} kgCO<sub>2</sub>
+                            </div>
+                            )}
                         </div>
-                        )}
-                    </div>
 
-                    {/*<div className="instructions">
-                        <h4>{recipe.instructions}</h4>
-                    </div>*/}
-                    <div className="total_co2e">
-                        <h4>Carbon Footprint: {recipe.total_co2e * defaultServings} co2e</h4>
-                    </div>
+                        {/*<div className="instructions">
+                            <h4>{recipe.instructions}</h4>
+                        </div>*/}
+                        <div className="total_co2e">
+                            <h4>Carbon Footprint: {(recipe.total_co2e * defaultServings).toFixed(3)} co2e</h4>
+                        </div>
+                        <div className="cookingTime">
+                            <p>⏱️ under 45 minutes</p>
+                        </div>
 
-                    <button
-                        className="delete-button"
-                        onClick={() => handleDeleteRecipe()}
-                    >
-                        &times;
-                    </button>
-                    <button
-                        className="favorite-button"
-                        onClick={() => handleFavouriteRecipe()}
-                    >
-                        ❤️
-                    </button>
-                </div>
+
+                        {/* <button
+                            className="delete-button"
+                            onClick={() => handleDeleteRecipe()}
+                        >
+                            &times;
+                        </button>*/}
+
+                    </div>
+                </Link>
             </div>
-        </Link>
+
     );
 };
 

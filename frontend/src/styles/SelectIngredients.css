@@ -2,29 +2,38 @@
 
 
 /* Container styles */
-.container {
-    /*padding: 40px 20px;*/
+/*.SelectIngredients-container {
+    padding: 40px 20px;
     background-color: var(--accent-color);
-}
+}*/
+
 
 /* Inner content wrapper */
-.content {
-    max-width: 1200px;
+.SelectIngredients-content {
+    background-color: var(--accent-color);
+    width: 100%;
     margin: 0 auto;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 40px;
+    display: flex;
     align-items: flex-start;
+    flex-direction:row;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top:20px;
+    padding-bottom: 20px;
 }
+
 
 /* Left side: Ingredients list */
 .ingredients-list {
-    flex-basis: 40%;
+    flex-basis: 55%;
 }
 
 .ingredients-list h2 {
     text-align: left;
     font-size: 1.5rem;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-left: 0px;
     color: var(--green-color);
 }
@@ -39,8 +48,8 @@
 
 /* Right side: Input and Buttons */
 .ingredients-input {
-    flex-basis: 40%;
-     margin-top: 2rem;       /* Moves it down */
+    flex-basis: 25%;
+    margin-top:10px;
      margin-right: 100px;
      margin-bottom: 50px;
      align-self: center;
@@ -51,8 +60,8 @@
 }
 
 .ingredients-input label {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: none;
 }
 
 .ingredients-input input {

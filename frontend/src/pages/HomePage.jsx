@@ -31,6 +31,7 @@ function HomePage() {
 
     return (
         <>
+
             <div className="hero">
                 <h1 className="heroTitle">Welcome to SaveAPlate</h1>
                 <p className="heroSubtitle">Your smart recipe and sustainability assistant</p>
@@ -49,11 +50,14 @@ function HomePage() {
             </div>
 
 
+
             <RecipesList
                 recipes={recipes}
                 setRecipes={setRecipes}
                 refreshRecipes={handleSearch}
             />
+
+
         </>
     );
 }

@@ -5,6 +5,7 @@
   color: var(--green-color);
   text-align: center;
   padding: var(--padding-large);
+  grid-area: "search";
 }
 
 .heroTitle {
@@ -50,6 +51,3 @@
   cursor: pointer;
 }
 
-.container {
-  background-color: var(--accent-color);
-}
