@@ -1,5 +1,6 @@
 import RecipeCard from "./RecipeCard.jsx";
 import SelectIngredients from "./SelectIngredients.jsx";
+import "../styles/RecipeList.css";
 
 function RecipesList({ recipes, setRecipes, refreshRecipes }) {
     // callback to update recipes on ingredient filtering
@@ -16,10 +17,13 @@ function RecipesList({ recipes, setRecipes, refreshRecipes }) {
         <>
 
             <SelectIngredients onRecipesUpdate={handleRecipesUpdate} />
-            <div>
+            <div className="recipeList-container">
+
                 {recipeArray.length > 0 ? (
                     recipeArray.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
+                    <div>
+                            <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={refreshRecipes} />
+                    </div>
                     ))
                 ) : (
                     <p>No recipes available</p>

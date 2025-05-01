@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/fkylevik/SaveAPlate/issues"
   },
-  "homepage": "https://github.com/fkylevik/SaveAPlate#readme"
+  "homepage": "https://github.com/fkylevik/SaveAPlate#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2"
+  }
 }
