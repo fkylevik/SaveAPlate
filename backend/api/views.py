@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+
 from .models import Recipe, Ingredient, UserFavorites
 from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer, UserCompletedSerializer, \
     UserFavoriteSerializer
@@ -27,6 +30,7 @@ class CurrentUserView(generics.RetrieveAPIView):
 class RecipeListCreateView(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_permissions(self):
         if self.request.method == 'GET':
@@ -35,6 +39,22 @@ class RecipeListCreateView(generics.ListCreateAPIView):
             return [IsAuthenticated()]  # Permissions for POST requests
         return super().get_permissions()
 
+
+class RecipeImageUploadView(generics.GenericAPIView,):
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            recipe = Recipe.objects.get(id=kwargs['pk'])
+        except Recipe.DoesNotExist:
+            return Response({'error': 'Recipe not found'}, status=404)
+
+        image = request.data.get('image')
+        if not image:
+            return Response({'error': 'No image provided'}, status=400)
+        recipe.image = image
+        recipe.save()
+        return Response({'success': 'Image uploaded successfully'})
 
 # Retrieve, Update, and Delete a Recipe
 # Use GET to retrieve a specific recipe based on its id.
@@ -93,7 +113,7 @@ class IngredientSearchView(generics.ListAPIView):
         return queryset
 
 
-class RecipeIngredientSearchView(generics.ListAPIView):
+class RecipeIngredientSearchView(generics.RetrieveUpdateDestroyAPIView,):
     serializer_class = RecipeSerializer
     permission_classes = [AllowAny]
 

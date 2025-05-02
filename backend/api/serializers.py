@@ -34,7 +34,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 class RecipeInstructionSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeInstruction
-        fields = ['id', 'instruction', 'step']
+        fields = ['id', 'instruction', 'step', 'timer']
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -43,7 +43,10 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'total_co2e', 'recipe_instructions', 'recipe_ingredients']
+        fields = ['id', 'name', 'total_co2e', 'recipe_instructions', 'recipe_ingredients', 'cooking_time', 'image']
+        extra_kwargs = {
+            'image': {'required': False},
+        }
 
     def create(self, validated_data):
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')

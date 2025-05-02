@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate }   from 'react-router-dom';
 import api                          from '../api';
 import defaultImage                 from '../assets/image.png';
+import TimerObject from "./TimerObject.jsx";
 import '../styles/variables.css';
 import '../styles/RecipeDetail.css';
 
@@ -166,6 +167,7 @@ export default function RecipeDetail() {
                     className="instructionLabel"
                   >
                     {inst.instruction}
+                      {inst.timer ? inst.timer && <TimerObject instruction={inst} /> : null}
                   </label>
                 </li>
               ))}
