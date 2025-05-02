@@ -5,18 +5,11 @@ import SearchableDropdown from "./SearchableDropdown.jsx";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function RecipeIngredientItem({ instruction, onChange, onDelete }) {
-    const [time, setTime] = useState(null);
 
     const handleTimerChange = (newTime) => {
         instruction.timer = newTime;
     };
 
-    const handleFormattedTime = (time) => {
-        if (time === null) {
-            setTime(null);
-        }
-        setTime(time);
-    }
     return (
         <div className="recipe-instruction-item">
             <h3>{instruction.step}.</h3>
