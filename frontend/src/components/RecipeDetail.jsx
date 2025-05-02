@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate }   from 'react-router-dom';
 import api                          from '../api';
 import defaultImage                 from '../assets/image.png';
+import TimerObject from "./TimerObject.jsx";
 
 export default function RecipeDetail() {
 
@@ -27,8 +28,14 @@ export default function RecipeDetail() {
   return (
       <div>
           <h1>{recipe.name}</h1>
-          <p>Cooking time: {recipe.cookingTime} min</p>
-          <p> Carbon: {recipe.carbonFootprint} kgCO₂</p>
+          <p>Cooking time: {recipe.cooking_time} min</p>
+          <p> Carbon: {recipe.total_co2e.toFixed(3)} kgCO₂</p>
+          {recipe.recipe_instructions.map((instruction, index) => (
+              <p key={index}>
+                  {instruction.instruction}
+                  {instruction.timer ? instruction.timer && <TimerObject instruction={instruction} /> : null}
+              </p>
+          ))}
       </div>
   );
 }

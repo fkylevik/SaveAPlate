@@ -10,6 +10,7 @@ function CreateRecipePage() {
     const navigate = useNavigate();
     const [recipeName, setRecipeName] = useState('');
     const [servings, setServings] = useState(4);
+    const [cookingTime, setCookingTime] = useState(0);
     const [recipeImage, setRecipeImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [recipeIngredients, setRecipeIngredients] = useState([{
@@ -20,6 +21,7 @@ function CreateRecipePage() {
     const [recipeInstructions, setRecipeInstructions] = useState([{
         instruction: "",
         step: 1,
+        timer: null,
     }]);
 
     const handleAddIngredient = () => {
@@ -52,7 +54,7 @@ function CreateRecipePage() {
     const handleAddInstruction = () => {
         setRecipeInstructions((prev) => [
             ...prev,
-            { instruction: "", step: prev.length + 1 },
+            { instruction: "", step: prev.length + 1, timer: null },
         ]);
     };
 
@@ -73,25 +75,44 @@ function CreateRecipePage() {
 
     const handleCreateRecipe = async (e) => {
         e.preventDefault();
-        console.log(recipeInstructions);
         const newRecipe = {
             name: recipeName,
             recipe_instructions: recipeInstructions.map((instruction) => ({
                 instruction: instruction.instruction,
-                step: instruction.step
+                step: instruction.step,
+                timer: instruction.timer,
             })),
-            total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000), 0),
+            total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000/servings), 0),
             recipe_ingredients: recipeIngredients.map((ingredient) => ({
                 ingredient: ingredient.ingredient.id, // Updated to use `value`
                 amount: ingredient.amount / servings,
                 unit: ingredient.unit,
-            }))
+            })),
+            cooking_time: cookingTime,
         };
-        try {
-            await api.post('api/recipes/', newRecipe);
-            navigate("/");
-        } catch (error) {
-            console.error("There was an error creating the recipe!", error);
+
+        const response = await api.post('api/recipes/', newRecipe);
+        navigate("/");
+
+
+        const recipeId = response.data.id;
+
+        if (recipeImage) {
+            const formData = new FormData();
+            formData.append('recipe_id', recipeId);
+            formData.append('image', recipeImage);
+
+            try {
+                const uploadResponse = await api.patch(`api/recipes/${recipeId}/image/`,formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+                console.log("Image uploaded", uploadResponse);
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+            }
+
         }
     };
 
@@ -109,20 +130,27 @@ function CreateRecipePage() {
           className="recipe-name-input"
           required
         />
-          <input
+        <input
             type="number"
             value={servings}
             onChange={(e) => setServings(e.target.value)}
             placeholder="Number of Servings"
             required
-          />
+        />
+        <input
+            type="number"
+            value={cookingTime}
+            onChange={(e) => setCookingTime(e.target.value)}
+            placeholder="Enter cooking time in minutes"
+            required
+        />
 
         <div className="recipe-card-preview">
           <label className="image-upload-container" htmlFor="recipe-image">
             <input
               id="recipe-image"
               type="file"
-              accept="image/*"
+              accept="image/png"
               onChange={handleImageChange}
               className="image-upload-input"
             />
@@ -170,7 +198,7 @@ function CreateRecipePage() {
                 ))}
                 <button
                   type="button"
-                  className="add-ingredient-button"
+                  className="add-button"
                   onClick={handleAddIngredient}
                 >
                   + Add Ingredient
@@ -180,16 +208,27 @@ function CreateRecipePage() {
 
             <div className="recipe-instructions">
               <h3 className="section-title">Instructions</h3>
-                <button className="searchButton" type="button" onClick={handleAddInstruction}>Add Instruction</button>
+                <div className="instructions-list">
                 {recipeInstructions.map((instruction, index) => (
-                    <RecipeInstructionItem
-                        key={index}
-                        index={index}
-                        instruction={instruction}
-                        onChange={(field, value) => handleChangeInstruction(index, field, value)}
-                        onDelete={() => handleDeleteInstruction(index)}
-                    />
+                    <div className="instructions-item">
+                        <RecipeInstructionItem
+                            key={index}
+                            index={index}
+                            instruction={instruction}
+                            onChange={(field, value) => handleChangeInstruction(index, field, value)}
+                            onDelete={() => handleDeleteInstruction(index)}
+                        />
+                    </div>
                 ))}
+
+                <button
+                    type="button"
+                    className="add-button"
+                    onClick={handleAddInstruction}
+                >
+                   + Add Instruction
+                </button>
+                </div>
             </div>
 
           </div>
