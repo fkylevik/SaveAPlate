@@ -167,7 +167,7 @@ export default function RecipeDetail() {
                     className="instructionLabel"
                   >
                     {inst.instruction}
-                      {inst.timer ? inst.timer && <TimerObject instruction={inst} /> : null}
+                    {inst.timer ? <TimerObject instruction={inst} /> : null}
                   </label>
                 </li>
               ))}

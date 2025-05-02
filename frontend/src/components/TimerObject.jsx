@@ -8,7 +8,7 @@ function TimerObject({ instruction }) {
 
     useEffect(() => {
         getDuration();
-    })
+    }, [])
 
     const getDuration = async () => {
         try {
@@ -72,7 +72,6 @@ function TimerObject({ instruction }) {
             } else if (timeLeft - 30 < 0) {
                 setTimeLeft(0);
             }
-
     }
 
     const formatTime = (seconds) => {
@@ -91,8 +90,6 @@ function TimerObject({ instruction }) {
                 <button onClick={toggleTimer} >{!isRunning ? "Start" : "Pause"}</button>
                 {duration !== timeLeft ? <button onClick={resetTimer} disabled={duration === timeLeft}>Reset</button> : null}
             </h2>
-
-
         </div>
     );
 }

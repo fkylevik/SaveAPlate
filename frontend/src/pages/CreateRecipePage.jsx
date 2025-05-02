@@ -132,13 +132,6 @@ function CreateRecipePage() {
         />
         <input
             type="number"
-            value={servings}
-            onChange={(e) => setServings(e.target.value)}
-            placeholder="Number of Servings"
-            required
-        />
-        <input
-            type="number"
             value={cookingTime}
             onChange={(e) => setCookingTime(e.target.value)}
             placeholder="Enter cooking time in minutes"

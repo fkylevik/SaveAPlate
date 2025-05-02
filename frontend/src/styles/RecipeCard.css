@@ -5,44 +5,69 @@
     position: relative;
     border-radius: 15px;
     width: 100%;
-    height: auto;
-    display:column;
-    padding: 0px 25px 30px;
-
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 25px 10px;
 }
 
 
 
 /* Inner content wrapper */
 .card_content {
-
     background-color:  #FFFFFF;
     position: relative;
-    margin: 20 px;
+    margin:0;
     border-radius: 15px;
     width: 300px;
     height: auto;
     display:flex;
     flex-direction:column;
     max-width: 1600px;
-    justify-content: space-between;
-    gap: 10px;
     align-items: flex-end;
     padding-top:0;
-
+    padding-bottom: 0;
 
 
 }
+.card-header{
+    display: flex;
+    flex-direction: row;
+    height:auto;
+    width:100%;
+    justify-content: space-between;
+    padding: 0 10px;
+}
 
+.CarobRating{
+    font-size: 1.2rem;
+    color: #1A922D;
+    text-align: left;
+    margin:0;
+}
 
+.favorite-button {
+    position:relative;
+    background-color: transparent;
+    float: right;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+}
+
+.favorite-button:hover {
+    transform: scale(1.2);
+    filter: brightness(0.9);
+    transition: transform 0.2s ease-in-out;
+}
 
 .recipe-image-container {
-    width: auto;
-    height: 50%;
+    width: 100%;
+    height: 55%;
     position: relative;
-    align:center;
-
-
+    align-self:center;
 
 }
 
@@ -59,42 +84,41 @@
     display: block;
 }
 
-
+.recipe{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
 
 .recipe-card-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bolder;
+    margin-left:10px;
+    padding:0;
 }
 
 .total_co2e {
     font-size: 1rem;
+    margin-left:10px;
+    padding:1px;
 }
 
-.favorite-button {
-    position:relative;
-    background-color: transparent;
-    float: right;
-    border: none;
-    color: red;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding-bottom:0;
-
+.total_co2e p {
+    padding:0;
+    margin:0;
 }
 
-.favorite-button:hover {
-    transform: scale(1.2);
-    filter: brightness(0.9);
-    transition: transform 0.2s ease-in-out;
-}
+
 .cookingTime{
     width:100%;
-    padding:5px;
+    padding-bottom: 5px;
     background-color: var(--accent-color);
 }
 
 .cookingTime p {
-    margin:0px;
+    margin:0;
+    padding:0;
 
 }
 
