@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import '../styles/CarbonFootprintChartStyle.css';
+import api from "../api";
+
 
 import {
   Chart as ChartJS,
@@ -21,24 +23,42 @@ function CarbonFootprintChart() {
   // State to hold recipes data
   const [recipes, setRecipes] = useState([]);
 
-  useEffect(() => {
-    // For now, we are using dummy data.
 
-    const dummyData = [
-      { id: 1, name: "Vegetable Stir Fry", carbon_footprint_kg_co2e: 12, created_at: "2025-04-01" },
-      { id: 2, name: "Tomato Basil Pasta", carbon_footprint_kg_co2e: 34, created_at: "2025-04-02" },
-      { id: 3, name: "Berry Smoothie Bowl", carbon_footprint_kg_co2e: 18, created_at: "2025-04-03" },
-    ];
-    setRecipes(dummyData);
-  }, []);
+
+   useEffect(() => {
+        getRecipes();
+   }, []);
+
+ const getRecipes = async () => {
+         try {
+            const res = await api.get(`/api/recipes/`);
+            const allRecipes=res.data;
+            if (allRecipes.length < 4) {//If there is less than 4 recipes display them all on the chart
+                setRecipes(allRecipes);
+                return;
+            }
+        //If there is more than 4 recipes in the database display the recipes with the
+        // highest resp. the lowest CarbonFootprint + 2 random recipes (excluding the highest and lowest)
+            const sorted = [...allRecipes].sort((a, b) => a.total_co2e - b.total_co2e);
+            const lowestCO2 = sorted[0];
+            const highestCO2 = sorted[sorted.length - 1];
+            const remaining = allRecipes.filter(r => r.id !== lowestCO2.id && r.id !== highestCO2.id);
+            const randoms = remaining.sort(() => 0.5 - Math.random()).slice(0, 2);
+            setRecipes([lowestCO2, highestCO2, ...randoms]);
+
+         } catch (err) {
+             console.error("Error searching recipes:", err);
+         }
+    };
+
 
   // Prepare data for the bar chart:
   const data = {
-    labels: recipes.map(recipe => `${recipe.name} (${recipe.created_at})`),
+    labels: recipes.map(recipe => `${recipe.name} `),
     datasets: [
       {
         label: "Carbon Footprint (kg CO₂e)",
-        data: recipes.map(recipe => recipe.carbon_footprint_kg_co2e),
+        data: recipes.map(recipe => recipe.total_co2e),
         // Get CSS variables through computed style
         backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-color'),
         borderColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-color'),
@@ -50,18 +70,35 @@ function CarbonFootprintChart() {
   // Chart options for styling and responsiveness
   const options = {
     responsive: true,
+    color:"black",
+
     plugins: {
       legend: {
         position: "top",
       },
       title: {
         display: true,
-        text: "Carbon Footprint per Recipe Over Time",
+        color:"black",
+        text: "Carbon Footprint per Recipe per Portion",
+        font: {
+            size: 16,
+            weight: "bold",
+        },
       },
     },
     scales: {
+       x: {
+           beginAtZero: true,
+
+       },
       y: {
         beginAtZero: true,
+        ticks: {
+            color: "black",
+            callback: function(value) {
+                return `${value} kg CO₂`;
+            },
+            },
       },
     },
   };
