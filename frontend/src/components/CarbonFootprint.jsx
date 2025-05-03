@@ -67,7 +67,7 @@ function CarbonFootprintChart() {
     ]
   };
 
-  // Chart options for styling and responsiveness
+  // Chart options for styling and responsiveness.
   const options = {
     responsive: true,
     color:"black",
