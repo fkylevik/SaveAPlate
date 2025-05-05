@@ -2,7 +2,7 @@ import random
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics, filters
+from rest_framework import generics
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -70,9 +70,6 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class RecipeSearchView(generics.ListAPIView):
     serializer_class = RecipeSerializer
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['name', 'total_co2e', 'created_at', 'cooking_time']
-    ordering = ['name']
     permission_classes = [AllowAny]
 
     def get_queryset(self):
@@ -122,19 +119,13 @@ class IngredientSearchView(generics.ListAPIView):
         return queryset
 
 
-class RecipeIngredientSearchView(generics.RetreiveAPIView):
+class RecipeIngredientSearchView(generics.ListAPIView):
     serializer_class = RecipeSerializer
-    permission_classes = [AllowAny]
 
     def get_queryset(self):
-        queryset = Recipe.objects.all()
-        ingredients_param = self.request.query_params.get('ingredients', None)
-        if ingredients_param is not None:
-            ingredient_ids = [int(ingredient) for ingredient in ingredients_param.split(',')]
-            queryset = queryset.filter(
-                recipe_ingredients__ingredient__id__in=ingredient_ids
-            ).distinct()
-        return queryset
+        ingredients_param = self.request.GET.get("ingredients", "")
+        ingredient_ids = ingredients_param.split(",") if ingredients_param else []
+        return Recipe.objects.filter(ingredients__id__in=ingredient_ids)
 
 
 class FavoriteRecipesListView(generics.ListCreateAPIView):
