@@ -58,7 +58,6 @@ class RecipeImageUploadView(generics.GenericAPIView,):
         recipe.save()
         return Response({'success': 'Image uploaded successfully'})
 
-
 # Retrieve, Update, and Delete a Recipe
 # Use GET to retrieve a specific recipe based on its id.
 # Use PUT/PATCH to update an existing recipe based on its id.
@@ -117,15 +116,21 @@ class IngredientSearchView(generics.ListAPIView):
         if query is not None:
             queryset = queryset.filter(name__icontains=query)
         return queryset
+#.
 
-
-class RecipeIngredientSearchView(generics.ListAPIView):
+class RecipeIngredientSearchView(generics.ListAPIView,):
     serializer_class = RecipeSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
-        ingredients_param = self.request.GET.get("ingredients", "")
-        ingredient_ids = ingredients_param.split(",") if ingredients_param else []
-        return Recipe.objects.filter(ingredients__id__in=ingredient_ids)
+        queryset = Recipe.objects.all()
+        ingredients_param = self.request.query_params.get('ingredients')
+        if ingredients_param:
+            ingredient_ids = [int(ingredient) for ingredient in ingredients_param.split(',')]
+            queryset = queryset.filter(
+                recipe_ingredients__ingredient__id__in=ingredient_ids
+            ).distinct()
+        return queryset
 
 
 class FavoriteRecipesListView(generics.ListCreateAPIView):
