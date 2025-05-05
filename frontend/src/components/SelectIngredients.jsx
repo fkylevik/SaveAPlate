@@ -21,10 +21,10 @@ function SelectIngredients({ onRecipesUpdate }) {
     };
 
     const handleSearchRecipes = async () => {
+        const ingredientIds = ingredients.map((ing) => ing.id).join(",");
+        console.log(ingredientIds);
         try {
-            const ingredientIds = ingredients.map((ing) => ing.id).join(",");
-            console.log(ingredientIds);
-            const query = `/api/recipes/by-ingredients/?ingredients=${ingredientIds}`
+            const query = `api/recipes/by-ingredients/?ingredients=${ingredientIds}`
             const response = await api.get(query);
             onRecipesUpdate(response.data);
         } catch (error) {

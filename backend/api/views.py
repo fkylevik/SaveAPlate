@@ -117,14 +117,14 @@ class IngredientSearchView(generics.ListAPIView):
         return queryset
 
 
-class RecipeIngredientSearchView(generics.RetrieveUpdateDestroyAPIView,):
+class RecipeIngredientSearchView(generics.RetreiveAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):
         queryset = Recipe.objects.all()
-        ingredients_param = self.request.query_params.get('ingredients')
-        if ingredients_param:
+        ingredients_param = self.request.query_params.get('ingredients', None)
+        if ingredients_param is not None:
             ingredient_ids = [int(ingredient) for ingredient in ingredients_param.split(',')]
             queryset = queryset.filter(
                 recipe_ingredients__ingredient__id__in=ingredient_ids
