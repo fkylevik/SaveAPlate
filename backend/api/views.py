@@ -116,7 +116,7 @@ class IngredientSearchView(generics.ListAPIView):
         if query is not None:
             queryset = queryset.filter(name__icontains=query)
         return queryset
-
+#.
 
 class RecipeIngredientSearchView(generics.ListAPIView,):
     serializer_class = RecipeSerializer
