@@ -118,7 +118,7 @@ class IngredientSearchView(generics.ListAPIView):
         return queryset
 
 
-class RecipeIngredientSearchView(generics.RetrieveUpdateDestroyAPIView,):
+class RecipeIngredientSearchView(generics.ListAPIView,):
     serializer_class = RecipeSerializer
     permission_classes = [AllowAny]
 
