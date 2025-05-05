@@ -46,36 +46,57 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
             console.error(err);
         }
     };
+    const getCarbonFootPrintRating = (footprint)=>{
+        if(footprint<=0.5) {
+            console.log(footprint);
+            return 5;}
+        else if (footprint<=1) return 4;
+        else if (footprint<=1.5) return 3;
+        else if (footprint<=2) return 2;
+        else {
+            console.log("returns ", footprint);
+            return 1;
+        }
+    };
+    const CarbonScale = (count) => {
+        return "★".repeat(count)+"☆".repeat(5-count);
+    };
 
     return (
 
 
             <div className="card_content">
-                <button
-                    className="favorite-button"
-                    onClick={() => handleFavouriteRecipe()}
-                    title="Add to favorite"
-                >
-                    ❤️
-                </button>
-                <hr style={{ width: "100%", textAlign: "left", marginLeft: 0,
-                    marginTop: "0",marginBottom: "0.6rem",borderTop: "1px solid lightgray"
-                    }} />
+                <div className="card-header">
+                    <div className="CarobRating">
+                        <p>Carbon Rating : {CarbonScale(getCarbonFootPrintRating(Number(recipe.total_co2e)))}</p>
+                    </div>
+                    <button
+                        className="favorite-button"
+                        onClick={() => handleFavouriteRecipe()}
+                        title="Add to favorite"
+                    >
+                        ❤️
+                    </button>
+                 </div>
+                    <hr style={{ width: "100%", textAlign: "left", marginLeft: 0,
+                        marginTop: "0",marginBottom: "0.6rem",borderTop: "1px solid lightgray"
+                        }} />
+
 
                 <Link
                     to={`/recipes/${recipe.id}`}
                     className="recipe-card"
                     style={{ textDecoration: 'none', color: 'inherit' }}
                      >
-
+                    <div className="recipe-image-container">
+                            <img src={defaultImage} alt="Recipe" className="recipe-image"/>
+                    </div>
 
                     <div className="recipe">
-                        <div className="recipe-image-container">
-                            <img src={defaultImage} alt="Recipe" className="recipe-image"/>
-                        </div>
+
                         <h1 className="recipe-card-title">{recipe.name}</h1>
 
-                        <div className="recipe-meta">
+                        {/*<div className="recipe-meta">
                             {recipe.cookingTime && (
                              <div className="cooking-time" >
                                 Cooking Time: {recipe.cookingTime} minutes
@@ -86,13 +107,13 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                                 Carbon Footprint: {recipe.carbonFootprint * defaultServings} kgCO<sub>2</sub>
                             </div>
                             )}
-                        </div>
+                        </div>*/}
 
                         {/*<div className="instructions">
                             <h4>{recipe.instructions}</h4>
                         </div>*/}
                         <div className="total_co2e">
-                            <h4>Carbon Footprint: {(recipe.total_co2e * defaultServings).toFixed(3)} co2e</h4>
+                            <p>Carbon Footprint: {(recipe.total_co2e * defaultServings).toFixed(3)} co2e</p>
                         </div>
                         <div className="cookingTime">
                             <p>⏱️ under 45 minutes</p>

@@ -46,7 +46,13 @@ function HomePage() {
                         value={query}
                         onChange={handleQueryChange}
                         placeholder="Search for recipe"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              handleSearch();
+                            }
+                          }}
                         className="searchField"
+
                     />
                     <button className="searchButton btn-primary" onClick={handleSearch}>
                         Search

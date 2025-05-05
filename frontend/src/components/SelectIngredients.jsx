@@ -64,12 +64,12 @@ function SelectIngredients({ onRecipesUpdate }) {
                     />
                     <div className="buttons">
 
-                        <button id="addButton" onClick={handleAddIngredient}>
-                            Add Ingredient
-                        </button>
+
                         <button id="searchButton" onClick={handleSearchRecipes}>
                             Search Recipes
-
+                        </button>
+                        <button id="addButton" onClick={handleAddIngredient}>
+                            Add Ingredient
                         </button>
                     </div>
                 </div>
