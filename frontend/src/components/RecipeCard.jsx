@@ -25,7 +25,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }
 
-        const handleFavouriteRecipe = async () => {
+    const handleFavouriteRecipe = async () => {
         try {
             await api.post('/api/recipes/favorite/', {recipe: recipe.id});
         } catch (error) {
