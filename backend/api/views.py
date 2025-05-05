@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, filters
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -56,6 +56,7 @@ class RecipeImageUploadView(generics.GenericAPIView,):
         recipe.save()
         return Response({'success': 'Image uploaded successfully'})
 
+
 # Retrieve, Update, and Delete a Recipe
 # Use GET to retrieve a specific recipe based on its id.
 # Use PUT/PATCH to update an existing recipe based on its id.
@@ -67,6 +68,9 @@ class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class RecipeSearchView(generics.ListAPIView):
     serializer_class = RecipeSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['name', 'total_co2e', 'created_at', 'cooking_time']
+    ordering = ['name']
     permission_classes = [AllowAny]
 
     def get_queryset(self):

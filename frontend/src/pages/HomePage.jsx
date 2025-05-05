@@ -12,7 +12,7 @@ function HomePage() {
     // fetch recipes on render, initially empty search query
     useEffect(() => {
         handleSearch();
-    }, []);
+    }, [query]);
 
     // update query on user input
     const handleQueryChange = (e) => {
@@ -22,7 +22,12 @@ function HomePage() {
     // send request to API using query, update recipes state with response data
     const handleSearch = async () => {
         try {
-            const res = await api.get(`/api/recipes/search/?search=${query}`);
+            const params = {
+                search: query,
+                ordering: '-name'
+            };
+            const res = await api.get("/api/recipes/search/", { params });
+            console.log(res.data);
             setRecipes(res.data);
         } catch (err) {
             console.error("Error searching recipes:", err);
