@@ -7,6 +7,7 @@ function SelectIngredients({ onRecipesUpdate }) {
     const [ingredients, setIngredients] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
 
+
     const handleAddIngredient = () => {
         if (!selectedOption) return; // if no option is selected, no action is performed
         const exists = ingredients.some(ing => ing.id === selectedOption.id);
@@ -20,8 +21,9 @@ function SelectIngredients({ onRecipesUpdate }) {
     };
 
     const handleSearchRecipes = async () => {
+        const ingredientIds = ingredients.map((ing) => ing.id).join(",");
+        console.log(ingredientIds);
         try {
-            const ingredientIds = ingredients.map((ing) => ing.id).join(",");
             const query = `api/recipes/by-ingredients/?ingredients=${ingredientIds}`
             const response = await api.get(query);
             onRecipesUpdate(response.data);
