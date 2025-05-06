@@ -257,6 +257,7 @@ input[type=number] {
   outline: 2px solid var(--form-box-stroke-selected);
 }
 
+/*Grid to display ingredient box*/
 .recipe-ingredient-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -274,6 +275,7 @@ input[type=number] {
   grid-area: un;
 }
 
+/*Delete ingredient button*/
 .recipe-ingredient-item-button {
   grid-area: del;
   position: absolute;
@@ -294,6 +296,10 @@ input[type=number] {
   justify-content: center;
 }
 
+.recipe-ingredient-item-button:hover {
+  color: red;
+}
+
 .instructions-list {
   display: flex;
   flex-direction: column;
@@ -302,17 +308,30 @@ input[type=number] {
   margin-top: 1rem;
 }
 
-.recipe-instruction-item {
+.recipe-instruction-item-wrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
+  align-items: flex-start;
   background-color: var(--accent-color);
   border-radius: 8px;
   position: relative;
   width: 100%;
   padding: 10px;
+  gap: 1rem;
+}
+
+.recipe-instruction-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+.recipe-instruction-items h3 {
+  font-weight: bolder;
+  font-size: 1.2rem;
 }
 
 /*Delete-button in instructions*/
@@ -331,6 +350,50 @@ input[type=number] {
   margin-bottom: 55px;
 }
 
+.recipe-instruction-item-button:hover {
+  color: red;
+}
+
+.recipe-instruction-timer {
+  margin-left: 1.5rem;
+}
+
+.timer-container {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.add-timer-button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-weight: bolder;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.add-timer-button:hover {
+  background-color: var(--green-button-color);
+}
+
+.delete-timer-button {
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  background-color: darkred;
+  color: var(--white-color);
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-timer-button:hover {
+  background-color: red;
+}
+
 
 /* add instruction- button*/
 .addInstructionsButton{
@@ -341,7 +404,7 @@ input[type=number] {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: filter 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .addInstructionsButton:hover {
@@ -357,7 +420,7 @@ input[type=number] {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: filter 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .add-ingredient-button:hover {
@@ -372,17 +435,19 @@ input[type=number] {
   margin-top: 2rem;
 }
 
-.btn-primary {
+.btn-submit {
   padding: 0.75rem 2.5rem;
   font-size: 1.1rem;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--white-color);
   border: none;
+  font-weight: bold;
   border-radius: 8px;
-  transition: filter 0.2s ease;
+  cursor:pointer;
+  transition: background-color 0.2s ease;
 }
-.btn-primary:hover {
-  filter: brightness(0.9);
+.btn-submit:hover {
+  background-color: var(--green-button-color);
 }
 
 .btn-cancel {
@@ -398,7 +463,7 @@ input[type=number] {
 
 }
 .btn-cancel:hover {
-  background-color: red;
+  background-color: darkred;
   color: white;
 
 }
