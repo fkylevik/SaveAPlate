@@ -29,7 +29,6 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap:60px;
   border-bottom: 2px solid var(--form-box-stroke);
 }
 /*the serving box*/
@@ -49,7 +48,7 @@
   gap: 5px;
   align-items: center;
   padding: 5px;
-  font-weight: bold;
+  font-weight: bold ;
 }
 
 .portion-button{
@@ -189,15 +188,65 @@ input[type=number] {
   z-index: 1;
   border: none;
 }
-.section-title-instruction{
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--text-dark);
-  padding-bottom:1.25rem;
-  z-index: 1;
-  border-bottom: 2px solid var(--form-box-stroke);
 
+
+.instruction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--form-box-stroke);
 }
+
+.cookingTime-control {
+  display:flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.cookingTime-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cookingTime-button {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background-color: white;
+  color: var(--form-box-stroke);
+  font-weight: bold;
+  font-size: 20px;
+  /*text-align: center;*/
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cookingTime-control p {
+  font-weight: normal;
+}
+
+.cookingTime-button:hover {
+  filter: brightness(0.9)
+}
+
+.cookingTime-input {
+  border-radius: 5px;
+  text-align: center;
+  width: 30px;
+  pointer-events: none;
+  border: 1px solid var(--form-box-stroke);
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  color: var(--text-dark);
+}
+
 
 /* instructions box */
 .instructions-textarea {
@@ -260,7 +309,7 @@ input[type=number] {
 /*Grid to display ingredient box*/
 .recipe-ingredient-item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr auto 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:"ing ing ing del"
                       "am un none none";
@@ -362,36 +411,6 @@ input[type=number] {
   gap: 0.5rem;
   display: flex;
   flex-direction: row;
-}
-
-.add-timer-button {
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  font-weight: bolder;
-  cursor: pointer;
-  transition: filter 0.2s ease;
-}
-
-.add-timer-button:hover {
-  background-color: var(--green-button-color);
-}
-
-.delete-timer-button {
-  border-radius: 5px;
-  border: none;
-  padding: 5px 10px;
-  background-color: darkred;
-  color: var(--white-color);
-  font-weight: bolder;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.delete-timer-button:hover {
-  background-color: red;
 }
 
 

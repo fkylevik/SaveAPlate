@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import '../styles/TimerForm.css';
 
 
 function TimerForm({ onTimeChange }) {
@@ -49,46 +50,59 @@ function TimerForm({ onTimeChange }) {
     }
 
     return (
-        <div className="timer-container">
+        <div className={timerObject ? "timer-wrapper-open" : "timer-wrapper-closed"}>
             {timerObject ?
-                <div className="timerTicker">
-                    <div className="time-unit">
-                        <label>Hours</label>
-                        <button type="button" onClick={() => {const newHours = Math.min(59, hours + 1);
-                            setHours(newHours);
-                            handleTimeChange(newHours, minutes, seconds);}}>⏶</button>
+                <div className="timer-container">
+                    <p> Timer: </p>
 
-                        <input type="number" readOnly value={hours} />
-                        <button type="button" onClick={() =>{const newHours = Math.max(0, hours - 1);
-                            setHours(newHours);
-                            handleTimeChange(newHours, minutes, seconds);}}>⏷</button>
+                    <div className="timerTicker">
+                        <div className="time-unit">
+                            <button className="time-button-up" type="button" onClick={() => {const newHours = Math.min(59, hours + 1);
+                                setHours(newHours);
+                                handleTimeChange(newHours, minutes, seconds);}}>⏶</button>
 
-                    </div>
+                            <input className="time-input" type="number" readOnly value={hours} />
+
+                            <button className="time-button-down" type="button" onClick={() =>{const newHours = Math.max(0, hours - 1);
+                                setHours(newHours);
+                                handleTimeChange(newHours, minutes, seconds);}}>⏷</button>
+
+                            <label className="time-input-label">h</label>
+                        </div>
+
+                        <p>:</p>
+
+                        <div className="time-unit">
+                            <button className="time-button-up" type="button" onClick={() => {const newMin = Math.min(59, minutes + 1);
+                                setMinutes(newMin);
+                                handleTimeChange(hours, newMin, seconds);}}>⏶</button>
+
+                            <input className="time-input" type="number" readOnly value={minutes} />
+
+                            <button className="time-button-down" type="button" onClick={() => {const newMin = Math.max(0, minutes - 1);
+                                setMinutes(newMin);
+                                handleTimeChange(hours, newMin, seconds);}}>⏷</button>
+
+                            <label className="time-input-label">min</label>
+                        </div>
+
+                        <p>:</p>
+
+                        <div className="time-unit">
 
 
-                    <div className="time-unit">
-                        <label>Minutes</label>
-                        <button type="button" onClick={() => {const newMin = Math.min(59, minutes + 1);
-                            setMinutes(newMin);
-                            handleTimeChange(hours, newMin, seconds);}}>⏶</button>
+                            <button className="time-button-up" type="button" onClick={() => {const newSec = Math.min(30, seconds + 30);
+                                setSeconds(newSec);
+                                handleTimeChange(hours, minutes, newSec);}}>⏶</button>
 
-                        <input type="number" readOnly value={minutes} />
-                        <button type="button" onClick={() => {const newMin = Math.max(0, minutes - 1);
-                            setMinutes(newMin);
-                            handleTimeChange(hours, newMin, seconds);}}>⏷</button>
-                    </div>
+                            <input className="time-input" type="number" readOnly value={seconds} />
 
-                    <div className="time-unit">
-                        <label>Seconds</label>
+                            <button className="time-button-down" type="button" onClick={() => {const newSec = Math.max(0, seconds - 30);
+                                setSeconds(newSec);
+                                handleTimeChange(hours, minutes, newSec);}}>⏷</button>
 
-                        <button type="button" onClick={() => {const newSec = Math.min(30, seconds + 30);
-                            setSeconds(newSec);
-                            handleTimeChange(hours, minutes, newSec);}}>⏶</button>
-                        <input type="number" readOnly value={seconds} />
-
-                        <button type="button" onClick={() => {const newSec = Math.max(0, seconds - 30);
-                            setSeconds(newSec);
-                            handleTimeChange(hours, minutes, newSec);}}>⏷</button>
+                            <label className="time-input-label">sec</label>
+                        </div>
                     </div>
                 </div>
                 : null}
