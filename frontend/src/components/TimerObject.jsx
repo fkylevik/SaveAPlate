@@ -84,9 +84,9 @@ function TimerObject({ instruction }) {
     return (
         <div>
             <h2>Timer:
-                {!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null}
+                {/*!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null*/}
                 {formatTime(timeLeft)}
-                {!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null}
+                {/*!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null*/}
                 <button onClick={toggleTimer} >{!isRunning ? "Start" : "Pause"}</button>
                 {duration !== timeLeft ? <button onClick={resetTimer} disabled={duration === timeLeft}>Reset</button> : null}
             </h2>
