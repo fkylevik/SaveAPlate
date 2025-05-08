@@ -68,8 +68,8 @@ export default function RecipeDetail() {
   };
 
 //jj
-  const increment = () => setServings(s => s + 1);
-  const decrement = () => setServings(s => Math.max(1, s - 1));
+  const increment = () => setServings(s => Math.min(16,s + 2));
+  const decrement = () => setServings(s => Math.max(2, s - 2));
 
   if (error)   return <div className="errorBanner">{error}</div>;
   if (!recipe) return <div className="loading">Loading…</div>;
@@ -104,12 +104,13 @@ export default function RecipeDetail() {
               <button
                 className="servingsBtn"
                 onClick={decrement}
-                disabled={servings <= 1}
+                disabled={servings <= 2}
               >–</button>
               <span className="servingsDisplay">{servings}</span>
               <button
                 className="servingsBtn"
                 onClick={increment}
+                disabled={servings >= 16}
               >+</button>
             </div>
           </div>
@@ -167,8 +168,8 @@ export default function RecipeDetail() {
                     className="instructionLabel"
                   >
                     {inst.instruction}
-                    {inst.timer ? <TimerObject instruction={inst} /> : null}
                   </label>
+                  {inst.timer ? <TimerObject instruction={inst} /> : null}
                 </li>
               ))}
           </ul>

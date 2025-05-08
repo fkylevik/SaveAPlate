@@ -1,4 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause, faRotateRight} from '@fortawesome/free-solid-svg-icons';
+import '../styles/TimeObject.css';
 
 function TimerObject({ instruction }) {
     const [duration, setDuration] = useState(0);
@@ -82,14 +85,14 @@ function TimerObject({ instruction }) {
     };
 
     return (
-        <div>
-            <h2>Timer:
-                {/*!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null*/}
-                {formatTime(timeLeft)}
-                {/*!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null*/}
-                <button onClick={toggleTimer} >{!isRunning ? "Start" : "Pause"}</button>
-                {duration !== timeLeft ? <button onClick={resetTimer} disabled={duration === timeLeft}>Reset</button> : null}
-            </h2>
+        <div className={!isRunning && duration === timeLeft ? "timer-wrapper" : "timer-wrapper-running" }>
+            <div className="timer-container">
+                    {/*!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null*/}
+                    <p>{formatTime(timeLeft)}</p>
+                    {/*!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null*/}
+                    <button onClick={toggleTimer} className="timer-buttons">{!isRunning ? <FontAwesomeIcon icon={faPlay} /> :  <FontAwesomeIcon icon={faPause} />}</button>
+                    {duration !== timeLeft ? <button className="timer-buttons" onClick={resetTimer} disabled={duration === timeLeft}><FontAwesomeIcon icon={faRotateRight} /> </button> : null}
+            </div>
         </div>
     );
 }
