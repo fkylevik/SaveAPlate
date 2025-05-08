@@ -1,0 +1,41 @@
+@import './variables.css';
+
+.timer-wrapper {
+    width: 23%;
+}
+
+.timer-wrapper-running {
+    width: 30%;
+}
+.timer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+    /*background-color: var(--accent-color);*/
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 5px;
+    border: var(--form-box-stroke-selected) solid 1px;
+    width:100%;
+    margin-right: 0;
+}
+
+
+
+.timer-buttons {
+    background-color:var(--form-box-stroke) ;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.timer-container p {
+    margin: 0;
+    padding: 0;
+}
+

@@ -15,7 +15,7 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
             />
 
             <input
-                type="text"
+                type="number"
                 value={ingredient.amount}
                 onChange={(e) => onChange('amount', e.target.value)}
                 placeholder="Amount.."

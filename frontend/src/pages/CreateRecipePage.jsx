@@ -10,7 +10,7 @@ function CreateRecipePage() {
     const navigate = useNavigate();
     const [recipeName, setRecipeName] = useState('');
     const [servings, setServings] = useState(4);
-    const [cookingTime, setCookingTime] = useState(0);
+    const [cookingTime, setCookingTime] = useState(10);
     const [recipeImage, setRecipeImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [recipeIngredients, setRecipeIngredients] = useState([{
@@ -130,13 +130,6 @@ function CreateRecipePage() {
           className="recipe-name-input"
           required
         />
-        <input
-            type="number"
-            value={cookingTime}
-            onChange={(e) => setCookingTime(e.target.value)}
-            placeholder="Enter cooking time in minutes"
-            required
-        />
 
         <div className="recipe-card-preview">
           <label className="image-upload-container" htmlFor="recipe-image">
@@ -178,30 +171,30 @@ function CreateRecipePage() {
 
             <div className="recipe-ingredients">
                 <div className="ingredient-header">
-                <h3 className="section-title">Ingredients</h3>
-                <div className="portion-control">
-                    <label className="portionLabel">Portions</label>
-                    <button
-                        className="portion-button"
-                        onClick={()=>setServings((servings)=> Math.max(2,(servings-2)))}
-                    >
-                        -
-                    </button>
-                    <input className="servingSize"
-                           type="number"
-                           readOnly="readOnly"
-                           value={servings}
-                           /*onChange={(e) => setServings(e.target.value)}*/
-                           required
-                    />
+                    <h3 className="section-title">Ingredients</h3>
+                    <div className="portion-control">
+                        <label className="portionLabel">Portions</label>
+                        <button
+                            className="portion-button"
+                            onClick={()=>setServings((servings)=> Math.max(2,(servings-2)))}
+                        >
+                            -
+                        </button>
+                        <input className="servingSize"
+                               type="number"
+                               readOnly="readOnly"
+                               value={servings}
+                               /*onChange={(e) => setServings(e.target.value)}*/
+                               required
+                        />
 
-                    <button
-                        className="portion-button"
-                        onClick={() => setServings((servings) => Math.min(16, (servings + 2)))}
-                    >
-                        +
-                    </button>
-                </div>
+                        <button
+                            className="portion-button"
+                            onClick={() => setServings((servings) => Math.min(16, (servings + 2)))}
+                        >
+                            +
+                        </button>
+                    </div>
                 </div>
 
               <div className="ingredients-list">
@@ -226,7 +219,33 @@ function CreateRecipePage() {
             </div>
 
             <div className="recipe-instructions">
-              <h3 className="section-title-instruction">Instructions</h3>
+                <div className="instruction-header">
+                  <h3 className="section-title">Instructions</h3>
+                    <div className="cookingTime-control">
+                        <label className="cookingTime-label">Cooking Time</label>
+                        <button
+                            className="cookingTime-button"
+                            onClick={()=>setCookingTime((cookingTime)=> Math.max(0,(cookingTime-5)))}
+                        >
+                            -
+                        </button>
+                        <input className="cookingTime-input"
+                            type="number"
+                            value={cookingTime}
+                            // onChange={(e) => setCookingTime(e.target.value)}
+                            placeholder="Enter cooking time in minutes"
+                            required
+                        />
+
+                        <button
+                            className="cookingTime-button"
+                            onClick={() => setCookingTime((cookingTime) => Math.min(180, (cookingTime + 5)))}
+                        >
+                            +
+                        </button>
+                        <p>min</p>
+                    </div>
+                </div>
                 <div className="instructions-list">
                     {recipeInstructions.map((instruction, index) => (
                         <div className="instruction-item" key={index}>
@@ -254,7 +273,7 @@ function CreateRecipePage() {
           >
             Cancel
           </button>
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-submit">
             Create Recipe
           </button>
         </div>

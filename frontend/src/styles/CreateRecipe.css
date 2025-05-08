@@ -29,7 +29,6 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap:60px;
   border-bottom: 2px solid var(--form-box-stroke);
 }
 /*the serving box*/
@@ -49,7 +48,7 @@
   gap: 5px;
   align-items: center;
   padding: 5px;
-  font-weight: bold;
+  font-weight: bold ;
 }
 
 .portion-button{
@@ -189,15 +188,65 @@ input[type=number] {
   z-index: 1;
   border: none;
 }
-.section-title-instruction{
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--text-dark);
-  padding-bottom:1.25rem;
-  z-index: 1;
-  border-bottom: 2px solid var(--form-box-stroke);
 
+
+.instruction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--form-box-stroke);
 }
+
+.cookingTime-control {
+  display:flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.cookingTime-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cookingTime-button {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background-color: white;
+  color: var(--form-box-stroke);
+  font-weight: bold;
+  font-size: 20px;
+  /*text-align: center;*/
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cookingTime-control p {
+  font-weight: normal;
+}
+
+.cookingTime-button:hover {
+  filter: brightness(0.9)
+}
+
+.cookingTime-input {
+  border-radius: 5px;
+  text-align: center;
+  width: 30px;
+  pointer-events: none;
+  border: 1px solid var(--form-box-stroke);
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  color: var(--text-dark);
+}
+
 
 /* instructions box */
 .instructions-textarea {
@@ -257,9 +306,10 @@ input[type=number] {
   outline: 2px solid var(--form-box-stroke-selected);
 }
 
+/*Grid to display ingredient box*/
 .recipe-ingredient-item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr auto 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:"ing ing ing del"
                       "am un none none";
@@ -274,6 +324,7 @@ input[type=number] {
   grid-area: un;
 }
 
+/*Delete ingredient button*/
 .recipe-ingredient-item-button {
   grid-area: del;
   position: absolute;
@@ -294,6 +345,10 @@ input[type=number] {
   justify-content: center;
 }
 
+.recipe-ingredient-item-button:hover {
+  color: red;
+}
+
 .instructions-list {
   display: flex;
   flex-direction: column;
@@ -302,17 +357,30 @@ input[type=number] {
   margin-top: 1rem;
 }
 
-.recipe-instruction-item {
+.recipe-instruction-item-wrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
+  align-items: flex-start;
   background-color: var(--accent-color);
   border-radius: 8px;
   position: relative;
   width: 100%;
   padding: 10px;
+  gap: 1rem;
+}
+
+.recipe-instruction-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+.recipe-instruction-items h3 {
+  font-weight: bolder;
+  font-size: 1.2rem;
 }
 
 /*Delete-button in instructions*/
@@ -331,6 +399,20 @@ input[type=number] {
   margin-bottom: 55px;
 }
 
+.recipe-instruction-item-button:hover {
+  color: red;
+}
+
+.recipe-instruction-timer {
+  margin-left: 1.5rem;
+}
+
+.timer-container {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
 
 /* add instruction- button*/
 .addInstructionsButton{
@@ -341,7 +423,7 @@ input[type=number] {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: filter 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .addInstructionsButton:hover {
@@ -357,7 +439,7 @@ input[type=number] {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: filter 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .add-ingredient-button:hover {
@@ -372,17 +454,19 @@ input[type=number] {
   margin-top: 2rem;
 }
 
-.btn-primary {
+.btn-submit {
   padding: 0.75rem 2.5rem;
   font-size: 1.1rem;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--white-color);
   border: none;
+  font-weight: bold;
   border-radius: 8px;
-  transition: filter 0.2s ease;
+  cursor:pointer;
+  transition: background-color 0.2s ease;
 }
-.btn-primary:hover {
-  filter: brightness(0.9);
+.btn-submit:hover {
+  background-color: var(--green-button-color);
 }
 
 .btn-cancel {
@@ -398,7 +482,7 @@ input[type=number] {
 
 }
 .btn-cancel:hover {
-  background-color: red;
+  background-color: darkred;
   color: white;
 
 }
