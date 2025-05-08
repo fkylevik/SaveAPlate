@@ -52,7 +52,7 @@ function TimerForm({ onTimeChange }) {
     return (
         <div className={timerObject ? "timer-wrapper-open" : "timer-wrapper-closed"}>
             {timerObject ?
-                <div className="timer-container">
+                <div className="timer-form-container">
                     <p> Timer: </p>
 
                     <div className="timerTicker">
