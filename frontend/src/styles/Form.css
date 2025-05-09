@@ -105,3 +105,10 @@
 .login-form a:hover {
   color: var(--white-color);
 }
+
+.errorMess{
+  padding:0;
+  margin:0;
+  color: #D90202;
+  font-weight: bolder;
+}

@@ -5,8 +5,10 @@ import defaultImage                 from '../assets/image.png';
 import TimerObject from "./TimerObject.jsx";
 import '../styles/variables.css';
 import '../styles/RecipeDetail.css';
+import {useAuth} from "../hooks/useAuth.jsx";
 
-export default function RecipeDetail() {
+
+export default function RecipeDetail({isLoggedIn}) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,14 +17,16 @@ export default function RecipeDetail() {
   const [error, setError]             = useState('');
   const [isStarted, setIsStarted]     = useState(false);
   const [servings, setServings]       = useState(4);
-  const [isFav, setIsFav]             = useState(false);
+  const [isFav, setIsFav]             = useState([]);
+  const {isAuthorized}=useAuth();
+
 
   useEffect(() => {
     api.get(`/api/recipes/${id}/`)
       .then(r => {
         setRecipe(r.data);
         setIsStarted(r.data.status === 'started');
-        setIsFav(r.data.is_favorite || false);
+        // setIsFav(r.data.is_favorite || false);
       })
       .catch(e => {
         setError(
@@ -46,30 +50,64 @@ export default function RecipeDetail() {
     })();
   }, [recipe]);
 
+  useEffect(() => {
+    if (isAuthorized){
+      getFavoriteIds();
+    }
+  }, [isAuthorized])
+
+
+  const getFavoriteIds= async()=>{
+    try{
+      const res = await api.get('/api/recipes/favorite/');
+      const ids=res.data.map((fav)=>fav.recipe);
+      setIsFav(ids);
+    }catch (error){
+      console.log("Error fetching Favorite recipes in RecipeDetail", error)
+    }
+
+  };
 
   const handleStart = async () => {
+    if(!isAuthorized){
+      navigate("/login");
+      return;
+    }
     await api.post(`/api/recipes/${id}/start/`).catch(console.error);
     setIsStarted(true);
   };
 
 
-  const toggleFav = async e => {
-    e.stopPropagation();
-    try {
-      if (isFav) {
-        await api.post(`/api/recipes/${id}/unfavorite/`);
-      } else {
-        await api.post(`/api/recipes/${id}/favorite/`);
+  const toggleFav = async () => {
+    if(!isAuthorized){
+      navigate("/login");
+      return;
+    }
+    if (isFav.includes(recipe.id)){
+      try{
+        const res = await api.get('/api/recipes/favorite/');
+        const ids=res.data.find((fav)=>recipe.id === fav.recipe);
+        await api.delete(`/api/recipes/favorite/${ids.id}/`);
+        getFavoriteIds();
+
+      }catch (error){
+        console.error('Error removing the recipe to favourites: ', error);
       }
-      setIsFav(f => !f);
-    } catch (err) {
-      console.error('Fav error', err);
+    }
+    else {
+      try {
+        await api.post('/api/recipes/favorite/', {recipe: recipe.id});
+        getFavoriteIds();
+      } catch (error) {
+        console.error('Error adding the recipe to favourites: ', error);
+      }
     }
   };
 
+
 //jj
-  const increment = () => setServings(s => s + 1);
-  const decrement = () => setServings(s => Math.max(1, s - 1));
+  const increment = () => setServings(s => Math.min(16,s + 2));
+  const decrement = () => setServings(s => Math.max(2, s - 2));
 
   if (error)   return <div className="errorBanner">{error}</div>;
   if (!recipe) return <div className="loading">Loading…</div>;
@@ -92,10 +130,11 @@ export default function RecipeDetail() {
           <button
             className={`favoriteButton ${isFav ? 'fav-on' : ''}`}
             onClick={toggleFav}
-            title={isFav ? 'Unfavorite' : 'Favorite'}
+            title={isFav.includes(recipe.id) ? "Remove from favorites" : "Add to favorites"}
           >
-            ♥
+            {isFav.includes(recipe.id) ? "❤️": "🤍"}
           </button>
+
         </div>
         <div className="detailInfo">
           <div className="detailHeader">
@@ -104,17 +143,18 @@ export default function RecipeDetail() {
               <button
                 className="servingsBtn"
                 onClick={decrement}
-                disabled={servings <= 1}
+                disabled={servings <= 2}
               >–</button>
               <span className="servingsDisplay">{servings}</span>
               <button
                 className="servingsBtn"
                 onClick={increment}
+                disabled={servings >= 16}
               >+</button>
             </div>
           </div>
           <p className="detailMeta">
-            Cooking time: {recipe.cookingTime} min
+            Cooking time: {recipe.cooking_time} min
           </p>
           {recipe.carbonFootprint != null && (
             <p className="detailMeta">
@@ -123,7 +163,7 @@ export default function RecipeDetail() {
           )}
           {recipe.total_co2e != null && (
             <p className="detailMeta">
-              Total CO<sub>2</sub>e: {(recipe.total_co2e * servings).toFixed(2)} kg CO<sub>2</sub>e
+              Total Carbon Footprint: {(recipe.total_co2e * servings).toFixed(2)} kg CO<sub>2</sub>e
             </p>
           )}
         </div>
@@ -167,8 +207,8 @@ export default function RecipeDetail() {
                     className="instructionLabel"
                   >
                     {inst.instruction}
-                    {inst.timer ? <TimerObject instruction={inst} /> : null}
                   </label>
+                  {inst.timer ? <TimerObject instruction={inst} /> : null}
                 </li>
               ))}
           </ul>
@@ -176,15 +216,16 @@ export default function RecipeDetail() {
       </div>
 
       {/* Start Cooking Button */}
-      <div className="startButtonWrapper">
-        <button
-          className="startButton"
-          onClick={handleStart}
-          disabled={isStarted}
-        >
-          {isStarted ? 'In Progress' : 'Start Cooking'}
-        </button>
-      </div>
+        <div className="startButtonWrapper">
+          <button
+            className="startButton"
+            onClick={handleStart}
+            disabled={isStarted}
+          >
+            {isStarted ? 'In Progress' : 'Start Cooking'}
+          </button>
+        </div>
+
     </div>
   );
 }

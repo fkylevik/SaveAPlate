@@ -1,0 +1,121 @@
+
+.timer-wrapper-open{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    border: var(--form-box-stroke-selected) solid 1px;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 0 25px 0 15px;
+}
+
+.timer-form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+    border:none;
+}
+
+.timer-form-container p {
+    font-weight: bolder;
+    font-size: 1rem;
+    margin-top: 2px;
+
+
+}
+
+
+.timerTicker{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.timerTicker p {
+    margin-bottom: 30px;
+}
+.time-unit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+}
+
+.time-button-up,
+.time-button-down{
+    width: 30px;
+    height: auto;
+    line-height: 0;
+    text-align: center;
+    cursor: pointer;
+    border:none;
+    background-color: transparent;
+
+}
+
+.time-button-up:hover,
+.time-button-down:hover {
+    font-size: 1.3rem;
+}
+
+.time-button-up {
+    padding: 10px 0 2px 0;
+}
+
+.time-button-down {
+    padding: 0 0 10px 0;
+}
+
+
+.time-input{
+    width: 30px;
+    line-height: 1.5rem;
+    text-align: center;
+    pointer-events: none;
+    border-radius: 5px;
+    border: 1px solid var(--form-box-stroke);
+    font-size: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--text-dark);
+
+
+}
+.time-input-label{
+
+}
+
+.add-timer-button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-weight: bolder;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.add-timer-button:hover {
+  background-color: var(--green-button-color);
+}
+
+.delete-timer-button {
+  border-radius: 7px;
+  border: none;
+  padding: 5px 10px;
+  background-color: darkred;
+  color: var(--white-color);
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-timer-button:hover {
+  background-color: red;
+}

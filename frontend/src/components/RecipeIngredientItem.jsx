@@ -12,14 +12,16 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
                 endpoint="ingredients"
                 value={ingredient.ingredient} // Pass the full `ingredient` object
                 onSelect={(option) => onChange('ingredient', option)} // Updates the `ingredient` field with the selected object
+                required
             />
 
             <input
-                type="text"
+                type="number"
                 value={ingredient.amount}
                 onChange={(e) => onChange('amount', e.target.value)}
                 placeholder="Amount.."
                 className="recipe-ingredient-item-amount"
+                required
             />
             <input
                 type="text"
@@ -27,6 +29,7 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
                 onChange={(e) => onChange('unit', e.target.value)}
                 placeholder="Unit.."
                 className="recipe-ingredient-item-unit"
+                required
             />
 
             <button

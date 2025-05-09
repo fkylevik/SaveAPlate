@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import RecipeCard from "./RecipeCard.jsx";
 import api from "../api.js";
-
+import "../styles/FavoriteGrid.css"
 
 function FavoriteGrid() {
     const [favorites, setFavorites] = useState([]);
@@ -35,14 +35,17 @@ function FavoriteGrid() {
     }
 
     return (
-        <div className="favorite-grid">
-            {favorites.map((favorite) => (
-                <RecipeCard
-                    key={favorite.id}
-                    recipe={favorite}
-                    refreshRecipes={getFavorites}
-                />
-            ))}
+        <div className="favorite-page">
+            <h2>Your Favorite Recipes!</h2>
+            <div className="favorite-grid">
+                {favorites.map((favorite) => (
+                    <RecipeCard
+                        key={favorite.id}
+                        recipe={favorite}
+                        refreshRecipes={getFavorites}
+                    />
+                ))}
+            </div>
         </div>
     )
 }

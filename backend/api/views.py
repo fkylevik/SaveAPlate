@@ -65,6 +65,7 @@ class RecipeImageUploadView(generics.GenericAPIView,):
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    permission_classes = [AllowAny]
 
 
 class RecipeSearchView(generics.ListAPIView):
@@ -149,7 +150,7 @@ class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return FavoriteRecipesDeleteView.objects.filter(user=self.request.user)
+        return UserFavorites.objects.filter(user=self.request.user)
 
 
 class CompletedRecipesListView(generics.ListCreateAPIView):

@@ -4,6 +4,7 @@ import '../styles/RecipeCard.css';
 import {useNavigate} from "react-router-dom"; // Import CSS file for styling
 import defaultImage from "../assets/image.png";
 import { Link } from 'react-router-dom';
+import {useAuth} from "../hooks/useAuth.jsx";
 
 const defaultServings = 4;
 
@@ -11,10 +12,18 @@ const defaultServings = 4;
 const RecipeCard = ({ recipe, refreshRecipes }) => {
     const [ingredients, setIngredients] = useState({})
     const navigate = useNavigate();
+    const {isAuthorized}=useAuth();
+    const [favoriteIds, setFavoriteIds]  =useState([]);
+
 
     useEffect(() => {
         getIngredients();
     }, [])
+    useEffect(() => {
+        if (isAuthorized){
+            getFavoriteId();
+        }
+    }, [isAuthorized])
 
     const handleDeleteRecipe = async () => {
         try {
@@ -26,12 +35,31 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     }
 
     const handleFavouriteRecipe = async () => {
-        try {
-            await api.post('/api/recipes/favorite/', {recipe: recipe.id});
-        } catch (error) {
-            console.error('Error adding the recipe to favourites: ', error);
+        if(!isAuthorized){
+            navigate("/login");
+            return;
+        }
+        if (favoriteIds.includes(recipe.id)){
+            try{
+                const res = await api.get('/api/recipes/favorite/');
+                const ids=res.data.find((fav)=>recipe.id === fav.recipe);
+                await api.delete(`/api/recipes/favorite/${ids.id}/`);
+                getFavoriteId();
+
+            }catch (error){
+                console.error('Error removing the recipe to favourites: ', error);
+            }
+        }
+        else {
+            try {
+                await api.post('/api/recipes/favorite/', {recipe: recipe.id});
+                    getFavoriteId();
+            } catch (error) {
+                console.error('Error adding the recipe to favourites: ', error);
+            }
         }
     }
+
 
     const getIngredients = async () => {
         try {
@@ -62,6 +90,17 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         return "★".repeat(count)+"☆".repeat(5-count);
     };
 
+    const getFavoriteId = async()=>{
+        try{
+            const res = await api.get('/api/recipes/favorite/');
+            const ids=res.data.map((fav)=>fav.recipe);
+            setFavoriteIds(ids);
+        }catch (error){
+        console.log("Error fetching Favorite recipes in RecipeCard", error)
+        }
+
+    };
+
     return (
 
 
@@ -73,9 +112,9 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                     <button
                         className="favorite-button"
                         onClick={() => handleFavouriteRecipe()}
-                        title="Add to favorite"
+                        title={favoriteIds.includes(recipe.id) ? "Remove from favorites" : "Add to favorites"}
                     >
-                        ❤️
+                        {favoriteIds.includes(recipe.id) ? "❤️": "🤍"}
                     </button>
                  </div>
                     <hr style={{ width: "100%", textAlign: "left", marginLeft: 0,
@@ -113,10 +152,10 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                             <h4>{recipe.instructions}</h4>
                         </div>*/}
                         <div className="total_co2e">
-                            <p>Carbon Footprint: {(recipe.total_co2e * defaultServings).toFixed(3)} co2e</p>
+                            <p>Carbon Footprint: {(recipe.total_co2e).toFixed(3)} CO<sub>2</sub>e (APS)</p>
                         </div>
                         <div className="cookingTime">
-                            <p>⏱️ under 45 minutes</p>
+                            <p>⏱️ Cooking time: {(recipe.cooking_time).toFixed(0)} minutes</p>
                         </div>
 
 
