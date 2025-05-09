@@ -11,6 +11,8 @@ function RegisterForm() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     const handleRegister = async (e) => {
         setLoading(true);
@@ -20,7 +22,16 @@ function RegisterForm() {
             const res = await api.post("/api/user/register/", {username, email, first_name, last_name, password});
             navigate("/login")
         } catch (error) {
-            alert(error);
+            if(error.response && error.response.status===400){
+                const d= error.response.data
+                console.log(d)
+                const fKey=Object.keys(d)[0]
+                setErrorMessage(d[fKey])
+            }
+            else {
+                alert("An unexpected error occurred. Please try again");
+            }
+
         } finally {
             setLoading(false);
         };
@@ -37,6 +48,7 @@ function RegisterForm() {
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder=" "
                     id="username"
+                    required
                 />
                 <label className="form-label" htmlFor="username">Username</label>
             </div>
@@ -48,6 +60,7 @@ function RegisterForm() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder=" "
                     id="email"
+                    required
                 />
                 <label className="form-label" htmlFor="email">Email Address</label>
             </div>
@@ -59,6 +72,7 @@ function RegisterForm() {
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder=" "
                     id="f_name"
+                    required
                 />
                 <label className="form-label" htmlFor="f_name">First Name</label>
             </div>
@@ -70,6 +84,7 @@ function RegisterForm() {
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder=" "
                     id="l_name"
+                    required
                 />
                 <label className="form-label" htmlFor="l_name">Last Name</label>
             </div>
@@ -81,10 +96,11 @@ function RegisterForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder=" "
                     id="password"
+                    required
                 />
                 <label className="form-label" htmlFor="password">Password</label>
             </div>
-
+            <p className="errorMess">{errorMessage}</p>
             <button className="form-button" type="submit">Register</button>
             <Link to="/login" className="alternate-link">Already have an account? Sign in here</Link>
         </form>

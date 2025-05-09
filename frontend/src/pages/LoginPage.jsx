@@ -9,6 +9,8 @@ function LoginPage() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const [errorMessage,setErrorMessage]=useState("");
+
 
     const handleLogin = async (e) => {
         setLoading(true);
@@ -20,7 +22,12 @@ function LoginPage() {
             localStorage.setItem(REFRESH_TOKEN, res.data.REFRESH_TOKEN);
             window.location.href = "/" // navigates to home page if successful login
         } catch (error) {
-            alert(error);
+            if(error.response && error.response.status===401){
+                setErrorMessage("Invalid username or password");
+            }
+            else {
+                alert("An unexpected error occurred. Please try again");
+            }
         } finally {
             setLoading(false);
         };
@@ -34,9 +41,11 @@ function LoginPage() {
                     className="form-input"
                     type="text"
                     value={username}
+                    required
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder=" "
                     id="username"
+
                 />
                 <label className="form-label" htmlFor="username">Username</label>
             </div>
@@ -48,9 +57,13 @@ function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder=" "
                     id="password_l"
+                    required
                 />
                 <label className="form-label" htmlFor="password_l">Password</label>
             </div>
+
+            <p className="errorMess">{errorMessage}</p>
+
             <button className="form-button" type="submit">Login</button>
             <Link to="/register">Don't have an account? Register here</Link>
         </form>

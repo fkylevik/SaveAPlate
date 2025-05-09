@@ -6,7 +6,7 @@ import TimerObject from "./TimerObject.jsx";
 import '../styles/variables.css';
 import '../styles/RecipeDetail.css';
 
-export default function RecipeDetail() {
+export default function RecipeDetail({isLoggedIn}) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -55,6 +55,10 @@ export default function RecipeDetail() {
 
   const toggleFav = async e => {
     e.stopPropagation();
+    if(!isLoggedIn){
+      navigate("/login");
+      return;
+    }
     try {
       if (isFav) {
         await api.post(`/api/recipes/${id}/unfavorite/`);
@@ -92,10 +96,12 @@ export default function RecipeDetail() {
           <button
             className={`favoriteButton ${isFav ? 'fav-on' : ''}`}
             onClick={toggleFav}
+
             title={isFav ? 'Unfavorite' : 'Favorite'}
           >
             ♥
           </button>
+
         </div>
         <div className="detailInfo">
           <div className="detailHeader">
@@ -115,7 +121,7 @@ export default function RecipeDetail() {
             </div>
           </div>
           <p className="detailMeta">
-            Cooking time: {recipe.cookingTime} min
+            Cooking time: {recipe.cooking_time} min
           </p>
           {recipe.carbonFootprint != null && (
             <p className="detailMeta">
@@ -124,7 +130,7 @@ export default function RecipeDetail() {
           )}
           {recipe.total_co2e != null && (
             <p className="detailMeta">
-              Total CO<sub>2</sub>e: {(recipe.total_co2e * servings).toFixed(2)} kg CO<sub>2</sub>e
+              Total Carbon Footprint: {(recipe.total_co2e * servings).toFixed(2)} kg CO<sub>2</sub>e
             </p>
           )}
         </div>
@@ -177,15 +183,17 @@ export default function RecipeDetail() {
       </div>
 
       {/* Start Cooking Button */}
-      <div className="startButtonWrapper">
-        <button
-          className="startButton"
-          onClick={handleStart}
-          disabled={isStarted}
-        >
-          {isStarted ? 'In Progress' : 'Start Cooking'}
-        </button>
-      </div>
+      { isLoggedIn && (
+        <div className="startButtonWrapper">
+          <button
+            className="startButton"
+            onClick={handleStart}
+            disabled={isStarted}
+          >
+            {isStarted ? 'In Progress' : 'Start Cooking'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

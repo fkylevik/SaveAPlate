@@ -18,6 +18,7 @@ function RecipeIngredientItem({ instruction, onChange, onDelete }) {
                     value={instruction.instruction}
                     onChange={(e) => onChange('instruction', e.target.value)}
                     placeholder="Add Instruction Step"
+                    required
                 />
 
                 <button
