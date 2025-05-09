@@ -17,15 +17,16 @@ export default function RecipeDetail({isLoggedIn}) {
   const [error, setError]             = useState('');
   const [isStarted, setIsStarted]     = useState(false);
   const [servings, setServings]       = useState(4);
-  const [isFav, setIsFav]             = useState(false);
+  const [isFav, setIsFav]             = useState([]);
   const {isAuthorized}=useAuth();
+
 
   useEffect(() => {
     api.get(`/api/recipes/${id}/`)
       .then(r => {
         setRecipe(r.data);
         setIsStarted(r.data.status === 'started');
-        setIsFav(r.data.is_favorite || false);
+        // setIsFav(r.data.is_favorite || false);
       })
       .catch(e => {
         setError(
@@ -49,6 +50,23 @@ export default function RecipeDetail({isLoggedIn}) {
     })();
   }, [recipe]);
 
+  useEffect(() => {
+    if (isAuthorized){
+      getFavoriteIds();
+    }
+  }, [isAuthorized])
+
+
+  const getFavoriteIds= async()=>{
+    try{
+      const res = await api.get('/api/recipes/favorite/');
+      const ids=res.data.map((fav)=>fav.recipe);
+      setIsFav(ids);
+    }catch (error){
+      console.log("Error fetching Favorite recipes in RecipeDetail", error)
+    }
+
+  };
 
   const handleStart = async () => {
     if(!isAuthorized){
@@ -60,23 +78,32 @@ export default function RecipeDetail({isLoggedIn}) {
   };
 
 
-  const toggleFav = async e => {
-    e.stopPropagation();
+  const toggleFav = async () => {
     if(!isAuthorized){
       navigate("/login");
       return;
     }
-    try {
-      if (isFav) {
-        await api.post(`/api/recipes/${id}/unfavorite/`);
-      } else {
-        await api.post(`/api/recipes/${id}/favorite/`);
+    if (isFav.includes(recipe.id)){
+      try{
+        const res = await api.get('/api/recipes/favorite/');
+        const ids=res.data.find((fav)=>recipe.id === fav.recipe);
+        await api.delete(`/api/recipes/favorite/${ids.id}/`);
+        getFavoriteIds();
+
+      }catch (error){
+        console.error('Error removing the recipe to favourites: ', error);
       }
-      setIsFav(f => !f);
-    } catch (err) {
-      console.error('Fav error', err);
+    }
+    else {
+      try {
+        await api.post('/api/recipes/favorite/', {recipe: recipe.id});
+        getFavoriteIds();
+      } catch (error) {
+        console.error('Error adding the recipe to favourites: ', error);
+      }
     }
   };
+
 
 //jj
   const increment = () => setServings(s => Math.min(16,s + 2));
@@ -103,10 +130,9 @@ export default function RecipeDetail({isLoggedIn}) {
           <button
             className={`favoriteButton ${isFav ? 'fav-on' : ''}`}
             onClick={toggleFav}
-
-            title={isFav ? 'Unfavorite' : 'Favorite'}
+            title={isFav.includes(recipe.id) ? "Remove from favorites" : "Add to favorites"}
           >
-            ♥
+            {isFav.includes(recipe.id) ? "❤️": "🤍"}
           </button>
 
         </div>

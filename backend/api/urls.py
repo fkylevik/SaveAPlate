@@ -8,6 +8,7 @@ urlpatterns = [
     path("recipes/<int:pk>/image/", views.RecipeImageUploadView.as_view(), name="recipe-image-upload"),
     path("recipes/search/", views.RecipeSearchView.as_view(), name="recipe-search"),
     path("recipes/favorite/", views.FavoriteRecipesListView.as_view(), name="user-favorite-recipe"),
+    path("recipes/favorite/<int:pk>/", views.FavoriteRecipesDeleteView.as_view(), name="user-favorite-recipe-delete"),
 
     # Ingredient URLs
     path("ingredients/", views.IngredientListCreateView.as_view(), name="ingredient-list"),

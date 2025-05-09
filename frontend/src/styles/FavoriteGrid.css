@@ -1,7 +1,26 @@
-.favorite-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+.favorite-page {
+    margin: 20px;
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
+}
+
+.favorite-page h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.favorite-grid {
+    width: 93%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    flex-direction: row;
+    justify-content:flex-start;
 }
 
 @media (max-width: 768px) {
