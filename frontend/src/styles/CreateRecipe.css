@@ -92,8 +92,9 @@ input[type=number] {
 .recipe-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 2rem;
+  align-items: center;
 }
 
 .recipe-name-input {
@@ -487,6 +488,13 @@ input[type=number] {
 
 }
 
+.ingErrorMess{
+  padding:0;
+  color: #D90202;
+  font-weight: bolder;
+  margin: 1rem 0 0 0;
+}
+
 /* responsive */
 @media (max-width: 768px) {
   .recipe-content {
@@ -516,3 +524,4 @@ input[type=number] {
     width: 100%;
   }
 }
+

@@ -8,6 +8,7 @@ import '../styles/CreateRecipe.css';
 
 function CreateRecipePage() {
     const navigate = useNavigate();
+    const [ingredientError, setIngredientError] = useState("");
     const [recipeName, setRecipeName] = useState('');
     const [servings, setServings] = useState(4);
     const [cookingTime, setCookingTime] = useState(10);
@@ -75,6 +76,13 @@ function CreateRecipePage() {
 
     const handleCreateRecipe = async (e) => {
         e.preventDefault();
+        if (recipeIngredients.length===0){
+            setIngredientError("Please select at least one ingredient")
+            return;
+        }
+        else {
+            setIngredientError("");
+        }
         const newRecipe = {
             name: recipeName,
             recipe_instructions: recipeInstructions.map((instruction) => ({
@@ -225,7 +233,7 @@ function CreateRecipePage() {
                         <label className="cookingTime-label">Cooking Time</label>
                         <button
                             className="cookingTime-button"
-                            onClick={()=>setCookingTime((cookingTime)=> Math.max(0,(cookingTime-5)))}
+                            onClick={()=>setCookingTime((cookingTime)=> Math.max(5,(cookingTime-5)))}
                         >
                             -
                         </button>
@@ -263,8 +271,9 @@ function CreateRecipePage() {
             </div>
 
           </div>
-        </div>
 
+        </div>
+        <p className="ingErrorMess">{ingredientError}</p>
         <div className="form-buttons">
           <button
             type="button"

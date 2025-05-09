@@ -11,6 +11,7 @@ const defaultServings = 4;
 const RecipeCard = ({ recipe, refreshRecipes }) => {
     const [ingredients, setIngredients] = useState({})
     const navigate = useNavigate();
+    const isLoggedIn=!!localStorage.getItem("ACCESS_TOKEN");
 
     useEffect(() => {
         getIngredients();
@@ -26,6 +27,10 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     }
 
     const handleFavouriteRecipe = async () => {
+        if(!isLoggedIn){
+            navigate("/login");
+            return;
+        }
         try {
             await api.post('/api/recipes/favorite/', {recipe: recipe.id});
         } catch (error) {
@@ -113,10 +118,10 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                             <h4>{recipe.instructions}</h4>
                         </div>*/}
                         <div className="total_co2e">
-                            <p>Carbon Footprint: {(recipe.total_co2e * defaultServings).toFixed(3)} co2e</p>
+                            <p>Carbon Footprint: {(recipe.total_co2e).toFixed(3)} CO<sub>2</sub>e (APS)</p>
                         </div>
                         <div className="cookingTime">
-                            <p>⏱️ under 45 minutes</p>
+                            <p>⏱️ Cooking time: {(recipe.cooking_time).toFixed(0)} minutes</p>
                         </div>
 
 

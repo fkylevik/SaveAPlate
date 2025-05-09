@@ -65,6 +65,7 @@ class RecipeImageUploadView(generics.GenericAPIView,):
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    permission_classes = [AllowAny]
 
 
 class RecipeSearchView(generics.ListAPIView):
