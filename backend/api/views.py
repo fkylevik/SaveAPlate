@@ -150,7 +150,7 @@ class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return FavoriteRecipesDeleteView.objects.filter(user=self.request.user)
+        return UserFavorites.objects.filter(user=self.request.user)
 
 
 class CompletedRecipesListView(generics.ListCreateAPIView):

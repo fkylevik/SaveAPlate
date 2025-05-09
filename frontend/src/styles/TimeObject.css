@@ -1,11 +1,11 @@
 @import './variables.css';
 
 .timer-wrapper {
-    width: 23%;
+    width: 25%;
 }
 
 .timer-wrapper-running {
-    width: 30%;
+    width: 32%;
 }
 .timer-container {
     display: flex;
@@ -28,10 +28,17 @@
     background-color:var(--form-box-stroke) ;
     color: white;
     border: none;
-    width: 25px;
-    height: 25px;
+    width: 27px;
+    height: 27px;
+    line-height: none;
     text-align: center;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.timer-buttons:hover {
+    filter: brightness(0.9);
 }
 
 .timer-container p {

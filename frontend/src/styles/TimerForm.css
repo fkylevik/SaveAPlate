@@ -59,6 +59,11 @@
 
 }
 
+.time-button-up:hover,
+.time-button-down:hover {
+    font-size: 1.3rem;
+}
+
 .time-button-up {
     padding: 10px 0 2px 0;
 }
