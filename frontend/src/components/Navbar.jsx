@@ -34,9 +34,9 @@ function Navbar({ isLoggedIn, onLogout }) {
                     </>
                 ) : ( // if not logged in, displays these navbar elements
                     <>
-                        <li onClick={() => {toggleMenuOnClick("/login")}}>Dashboard</li>
-                        <li onClick={() => {toggleMenuOnClick("/login")}}>Favorites</li>
-                        <li onClick={() => {toggleMenuOnClick("/login")}}>Create a recipe</li>
+                        <li onClick={() => {toggleMenuOnClick("/dashboard")}}>Dashboard</li>
+                        <li onClick={() => {toggleMenuOnClick("/favorites")}}>Favorites</li>
+                        <li onClick={() => {toggleMenuOnClick("/recipes/create")}}>Create a recipe</li>
                         <li onClick={() => {toggleMenuOnClick("/login")}}>Sign In</li>
                         <li onClick={() => {toggleMenuOnClick("/register")}}>Register</li>
                     </>

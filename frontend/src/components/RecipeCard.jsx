@@ -4,6 +4,7 @@ import '../styles/RecipeCard.css';
 import {useNavigate} from "react-router-dom"; // Import CSS file for styling
 import defaultImage from "../assets/image.png";
 import { Link } from 'react-router-dom';
+import {useAuth} from "../hooks/useAuth.jsx";
 
 const defaultServings = 4;
 
@@ -11,7 +12,8 @@ const defaultServings = 4;
 const RecipeCard = ({ recipe, refreshRecipes }) => {
     const [ingredients, setIngredients] = useState({})
     const navigate = useNavigate();
-    const isLoggedIn=!!localStorage.getItem("ACCESS_TOKEN");
+    const {isAuthorized}=useAuth();
+
 
     useEffect(() => {
         getIngredients();
@@ -27,7 +29,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     }
 
     const handleFavouriteRecipe = async () => {
-        if(!isLoggedIn){
+        if(!isAuthorized){
             navigate("/login");
             return;
         }

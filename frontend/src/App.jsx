@@ -32,14 +32,14 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/recipes" element={<RecipesList />} />
-            <Route path="/recipes/create" element={<CreateRecipePage />} />
+            <Route path="/recipes/create" element={<ProtectedRoute><CreateRecipePage /></ProtectedRoute>} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/ingredients" element={<SelectIngredients />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<LoginPage />}/>
             <Route path="/logout" element={<Logout />}/>
             <Route path="/register" element={<RegisterAndLogout />}/>
-            <Route path="/favorites" element={<FavoriteGrid />} />
+            <Route path="/favorites" element={<ProtectedRoute><FavoriteGrid /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
             <Route path="*" element={<h1>404 Not Found</h1>}></Route>
           </Routes>

@@ -5,6 +5,8 @@ import defaultImage                 from '../assets/image.png';
 import TimerObject from "./TimerObject.jsx";
 import '../styles/variables.css';
 import '../styles/RecipeDetail.css';
+import {useAuth} from "../hooks/useAuth.jsx";
+
 
 export default function RecipeDetail({isLoggedIn}) {
   const { id } = useParams();
@@ -16,6 +18,7 @@ export default function RecipeDetail({isLoggedIn}) {
   const [isStarted, setIsStarted]     = useState(false);
   const [servings, setServings]       = useState(4);
   const [isFav, setIsFav]             = useState(false);
+  const {isAuthorized}=useAuth();
 
   useEffect(() => {
     api.get(`/api/recipes/${id}/`)
@@ -48,6 +51,10 @@ export default function RecipeDetail({isLoggedIn}) {
 
 
   const handleStart = async () => {
+    if(!isAuthorized){
+      navigate("/login");
+      return;
+    }
     await api.post(`/api/recipes/${id}/start/`).catch(console.error);
     setIsStarted(true);
   };
@@ -55,7 +62,7 @@ export default function RecipeDetail({isLoggedIn}) {
 
   const toggleFav = async e => {
     e.stopPropagation();
-    if(!isLoggedIn){
+    if(!isAuthorized){
       navigate("/login");
       return;
     }
@@ -183,7 +190,6 @@ export default function RecipeDetail({isLoggedIn}) {
       </div>
 
       {/* Start Cooking Button */}
-      { isLoggedIn && (
         <div className="startButtonWrapper">
           <button
             className="startButton"
@@ -193,7 +199,7 @@ export default function RecipeDetail({isLoggedIn}) {
             {isStarted ? 'In Progress' : 'Start Cooking'}
           </button>
         </div>
-      )}
+
     </div>
   );
 }
