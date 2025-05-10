@@ -25,15 +25,6 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }, [isAuthorized])
 
-    const handleDeleteRecipe = async () => {
-        try {
-            await api.delete(`/api/recipes/${recipe.id}/`);
-            refreshRecipes();
-        } catch (error) {
-            console.error('Error deleting the recipe:', error);
-        }
-    }
-
     const handleFavouriteRecipe = async () => {
         if(!isAuthorized){
             navigate("/login");
@@ -45,8 +36,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
                 const ids=res.data.find((fav)=>recipe.id === fav.recipe);
                 await api.delete(`/api/recipes/favorite/${ids.id}/`);
                 getFavoriteId();
-
-            }catch (error){
+            } catch (error){
                 console.error('Error removing the recipe to favourites: ', error);
             }
         }
@@ -76,13 +66,11 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
     };
     const getCarbonFootPrintRating = (footprint)=>{
         if(footprint<=0.5) {
-            console.log(footprint);
             return 5;}
         else if (footprint<=1) return 4;
         else if (footprint<=1.5) return 3;
         else if (footprint<=2) return 2;
         else {
-            console.log("returns ", footprint);
             return 1;
         }
     };
@@ -96,7 +84,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
             const ids=res.data.map((fav)=>fav.recipe);
             setFavoriteIds(ids);
         }catch (error){
-        console.log("Error fetching Favorite recipes in RecipeCard", error)
+            console.log("Error fetching Favorite recipes in RecipeCard", error)
         }
 
     };

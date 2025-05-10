@@ -12,6 +12,7 @@ import DashboardPage from "./pages/DashboardPage.jsx";
 import FavoriteGrid from "./components/FavoriteGrid.jsx";
 import About from "./components/About.jsx"
 import RecipeDetail from './components/RecipeDetail';
+import SearchRecipes from "./components/SearchRecipes.jsx";
 
 function Logout() {
   localStorage.clear();
@@ -32,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/recipes" element={<RecipesList />} />
+            <Route path="/recipes/search" element={<SearchRecipes />} />
             <Route path="/recipes/create" element={<ProtectedRoute><CreateRecipePage /></ProtectedRoute>} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/ingredients" element={<SelectIngredients />} />

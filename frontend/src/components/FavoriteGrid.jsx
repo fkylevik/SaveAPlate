@@ -24,7 +24,6 @@ function FavoriteGrid() {
         }
     };
 
-
     const fetchRecipe = async (recipe_id) => {
         try {
             const res = await api.get(`/api/recipes/${recipe_id}/`);

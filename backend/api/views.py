@@ -74,12 +74,10 @@ class RecipeSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Recipe.objects.all()
-        query = self.request.query_params.get('search', None)
-        if query is not '':
-            queryset = queryset.filter(name__icontains=query).order_by('total_co2e')
-        else:
-            if Recipe.objects.count()>20:
-                queryset = queryset.order_by('?')[:20]
+        query = self.request.query_params.get('search', '')
+        order = self.request.query_params.get('ordering', '')
+        queryset = queryset.filter(name__icontains=query)
+        queryset = queryset.order_by(order)[:20]
         return queryset
 
 

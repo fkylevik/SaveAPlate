@@ -16,7 +16,7 @@ function SelectIngredients({ onRecipesUpdate }) {
         setSelectedOption(null);
     };
 
-    const handleDeleteIngredient = (index) => {
+    const handleDeleteIngredient = async (index) => {
         setIngredients(ingredients.filter((_, i) => i !== index));
     };
 
@@ -60,7 +60,6 @@ function SelectIngredients({ onRecipesUpdate }) {
                         endpoint="ingredients"
                         value={selectedOption}
                         onSelect={setSelectedOption}
-
                     />
                     <div className="buttons">
 
