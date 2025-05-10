@@ -90,7 +90,7 @@ function CreateRecipePage() {
                 step: instruction.step,
                 timer: instruction.timer,
             })),
-            total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000/servings), 0),
+            //total_co2e: recipeIngredients.reduce((sum, ing) => sum + ing.ingredient['co2e_kg']*(ing.amount/1000/servings), 0),
             recipe_ingredients: recipeIngredients.map((ingredient) => ({
                 ingredient: ingredient.ingredient.id, // Updated to use `value`
                 amount: ingredient.amount / servings,
