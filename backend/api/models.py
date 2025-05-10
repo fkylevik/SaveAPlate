@@ -10,6 +10,8 @@ class Ingredient(models.Model):
     co2e_kg = models.FloatField() # Greenhouse gas emissions per kg
     land_use_kg = models.FloatField() # Land usage per kg
     water_kg = models.FloatField() # Water usage per kg
+    density_g_ml = models.FloatField(blank=True, null=True)
+    average_weight_g = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -28,7 +30,7 @@ def recipe_image_upload_path(instance, filename):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
-    total_co2e = models.FloatField()
+    total_co2e = models.FloatField(blank=True)
     cooking_time = models.IntegerField()
     image = models.ImageField(upload_to=recipe_image_upload_path, validators=[validate_file_type], blank=True, null=True)
 

@@ -262,7 +262,7 @@ input[type=number] {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:"ing ing ing del"
-                      "am un none none";
+                      "am un un none";
 }
 .searchable-dropdown {
   grid-area: ing;
@@ -271,6 +271,7 @@ input[type=number] {
   grid-area: am;
 }
 .recipe-ingredient-item-unit {
+  padding-top: 7px;
   grid-area: un;
 }
 

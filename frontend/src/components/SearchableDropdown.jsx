@@ -50,6 +50,11 @@ function SearchableDropdown({ endpoint, searchPlaceholder, onSelect, value }) {
             borderWidth:"1px",
 
         }),
+        menuList: (provided) => ({
+            ...provided,
+            maxHeight: "140px",
+            overflowY: "auto",
+        }),
         option: (provided, state) => ({
             ...provided,
             border: "none",

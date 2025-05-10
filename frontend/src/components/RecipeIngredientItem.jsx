@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchableDropdown from "./SearchableDropdown.jsx";
 import '../styles/CreateRecipe.css';
+import UnitSelector from "./UnitSelector.jsx";
 
 
 
@@ -21,14 +22,12 @@ function RecipeIngredientItem({ ingredient, onChange, onDelete }) {
                 placeholder="Amount.."
                 className="recipe-ingredient-item-amount"
             />
-            <input
-                type="text"
+            <UnitSelector
+                ingredient={ingredient.ingredient}
                 value={ingredient.unit}
-                onChange={(e) => onChange('unit', e.target.value)}
-                placeholder="Unit.."
-                className="recipe-ingredient-item-unit"
+                onSelect={(unit) => onChange('unit', unit)}
+                className="unit-selector"
             />
-
             <button
                 className="recipe-ingredient-item-button"
                 type="button"

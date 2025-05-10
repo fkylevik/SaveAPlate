@@ -114,7 +114,7 @@ export default function RecipeDetail() {
             </div>
           </div>
           <p className="detailMeta">
-            Cooking time: {recipe.cookingTime} min
+            Cooking time: {recipe.cooking_time} min
           </p>
           {recipe.carbonFootprint != null && (
             <p className="detailMeta">
