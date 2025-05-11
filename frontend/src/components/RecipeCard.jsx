@@ -6,19 +6,12 @@ import defaultImage from "../assets/image.png";
 import { Link } from 'react-router-dom';
 import {useAuth} from "../hooks/useAuth.jsx";
 
-const defaultServings = 4;
 
-
-const RecipeCard = ({ recipe, refreshRecipes }) => {
-    const [ingredients, setIngredients] = useState({})
+const RecipeCard = ({ recipe }) => {
     const navigate = useNavigate();
     const {isAuthorized}=useAuth();
     const [favoriteIds, setFavoriteIds]  =useState([]);
 
-
-    useEffect(() => {
-        getIngredients();
-    }, [])
     useEffect(() => {
         if (isAuthorized){
             getFavoriteId();
@@ -50,20 +43,6 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
         }
     }
 
-
-    const getIngredients = async () => {
-        try {
-            const ingredientsData = {};
-            for (let i = 0; i < recipe.recipe_ingredients.length; i++) {
-                const ingredient_id = recipe.recipe_ingredients[i]['ingredient'];
-                const res = await api.get(`/api/ingredients/${ingredient_id}/`);
-                ingredientsData[ingredient_id] = res.data;
-            }
-            setIngredients(ingredientsData);
-        } catch (err) {
-            console.error(err);
-        }
-    };
     const getCarbonFootPrintRating = (footprint)=>{
         if(footprint<=0.5) {
             return 5;}
@@ -74,6 +53,7 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
             return 1;
         }
     };
+
     const CarbonScale = (count) => {
         return "★".repeat(count)+"☆".repeat(5-count);
     };
@@ -123,36 +103,12 @@ const RecipeCard = ({ recipe, refreshRecipes }) => {
 
                         <h1 className="recipe-card-title">{recipe.name}</h1>
 
-                        {/*<div className="recipe-meta">
-                            {recipe.cookingTime && (
-                             <div className="cooking-time" >
-                                Cooking Time: {recipe.cookingTime} minutes
-                            </div>
-                            )}
-                            {recipe.carbonFootprint && (
-                            <div className="carbon-footprint" >
-                                Carbon Footprint: {recipe.carbonFootprint * defaultServings} kgCO<sub>2</sub>
-                            </div>
-                            )}
-                        </div>*/}
-
-                        {/*<div className="instructions">
-                            <h4>{recipe.instructions}</h4>
-                        </div>*/}
                         <div className="total_co2e">
                             <p>Carbon Footprint: {(recipe.total_co2e).toFixed(3)} CO<sub>2</sub>e (APS)</p>
                         </div>
                         <div className="cookingTime">
                             <p>⏱️ Cooking time: {(recipe.cooking_time).toFixed(0)} minutes</p>
                         </div>
-
-
-                        {/* <button
-                            className="delete-button"
-                            onClick={() => handleDeleteRecipe()}
-                        >
-                            &times;
-                        </button>*/}
 
                     </div>
                 </Link>

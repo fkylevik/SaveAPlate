@@ -1,11 +1,10 @@
-import random
-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Recipe, Ingredient, UserFavorites
 from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer, UserCompletedSerializer, \
@@ -149,6 +148,15 @@ class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return UserFavorites.objects.filter(user=self.request.user)
+
+
+
+class FavoriteRecipeStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        exists = UserFavorites.objects.filter(user=self.request.user, recipe=pk).exists()
+        return Response({'isFavorited': exists}, status=status.HTTP_200_OK)
 
 
 class CompletedRecipesListView(generics.ListCreateAPIView):

@@ -1,5 +1,4 @@
 import RecipeCard from "./RecipeCard.jsx";
-import SelectIngredients from "./SelectIngredients.jsx";
 import "../styles/RecipeList.css";
 
 function RecipesList({ recipes }) {
@@ -19,8 +18,8 @@ function RecipesList({ recipes }) {
                         ))
                     ) : (
                         <div className="no-results-container">
-                        <h2 className="no-results-h2">Could Not Find Recipes</h2>
-                            <p className="no-result-p">Try searching for another recipe or delete your search</p>
+                        <h2 className="no-results-h2">Could not find any matching recipes</h2>
+                            <p className="no-result-p">Please try removing some filters or making a new search</p>
                         </div>
 
                     )}
