@@ -71,6 +71,9 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
