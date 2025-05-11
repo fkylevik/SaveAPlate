@@ -24,7 +24,7 @@ ChartJS.register(
     TimeScale
 );
 
-// x_unit "Day", "Week", "Month"
+
 const LineChart = ({ params }) => {
 
     const data = {

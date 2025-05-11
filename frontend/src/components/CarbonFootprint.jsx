@@ -48,7 +48,7 @@ export default function CarbonFootprintChart() {
                     y: recipe.co2e
                 })
             }
-            setDataPoints(tempDatapoints);
+            setData(tempDatapoints);
         };
         formatDataPoints();
     }, [completedRecipes])
