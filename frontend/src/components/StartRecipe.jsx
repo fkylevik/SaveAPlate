@@ -39,6 +39,7 @@ function StartRecipe() {
                 setIsFav(res.data.isFavorited);
             } else {
                 isFav ? api.delete(`/api/recipes/favorite/${id}/`) : api.post(`/api/recipes/favorite/`, {recipe: id});
+                setIsFav(!isFav);
             }
         }catch (error) {
             console.error('Error fetching favorite recipe status: ', error);

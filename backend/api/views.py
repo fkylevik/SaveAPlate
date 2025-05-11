@@ -149,7 +149,9 @@ class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return UserFavorites.objects.filter(user=self.request.user)
 
-
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(UserFavorites, recipe=pk, user=self.request.user)
 
 class FavoriteRecipeStatusView(APIView):
     permission_classes = [IsAuthenticated]
