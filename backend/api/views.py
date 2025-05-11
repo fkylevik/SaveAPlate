@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Recipe, Ingredient, UserFavorites
+from .models import Recipe, Ingredient, UserFavorites, CompletedRecipes
 from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer, UserCompletedSerializer, \
     UserFavoriteSerializer
 
@@ -170,7 +170,7 @@ class CompletedRecipesListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return CompletedRecipesListView.objects.filter(user=self.request.user)
+        return CompletedRecipes.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

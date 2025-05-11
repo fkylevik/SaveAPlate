@@ -11,7 +11,7 @@ urlpatterns = [
     path("recipes/favorite/<int:pk>/", views.FavoriteRecipesDeleteView.as_view(), name="user-favorite-delete"),
     path("recipes/favorites/<int:pk>/", views.FavoriteRecipeStatusView.as_view(), name="user-favorite-status"),
 
-    path("recipes/complete/", views.CompletedRecipesListView.as_view(), name="user-completed-recipe"),
+    path("recipes/completed/", views.CompletedRecipesListView.as_view(), name="user-completed-recipe"),
 
     # Ingredient URLs
     path("ingredients/", views.IngredientListCreateView.as_view(), name="ingredient-list"),

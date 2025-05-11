@@ -16,6 +16,12 @@ function RecipeDetail() {
     const [isStarted, setIsStarted] = useState(false);
     const [servings, setServings] = useState(4);
 
+    const imageUrl = recipe.image
+    ? recipe.image.startsWith('http')
+        ? recipe.image
+        : `${api.defaults.baseURL}/media/recipes/${recipe.image.replace(/^recipes\//, '')}`
+    : defaultImage;
+
     const fetchRecipeDetails = async () => {
         try {
             const res1 = await api.get(`/api/recipes/${id}/`);
@@ -58,7 +64,7 @@ function RecipeDetail() {
             <div className="detailHero">
                 <div className="heroImageWrapper">
                     <img
-                        src={recipe.imageUrl || defaultImage}
+                        src={imageUrl || defaultImage}
                         className="detailImage"
                     />
                     <input

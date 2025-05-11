@@ -3,16 +3,17 @@ import '../styles/RecipeCard.css';
 import defaultImage from "../assets/image.png";
 import { Link } from 'react-router-dom';
 import useFavoriteStatus from "../hooks/useFavoriteStatus.jsx";
+import api from "../api.js";
 
-        // Correct image URL handling
-    const imageUrl = recipe.image
-        ? recipe.image.startsWith('http')
-            ? recipe.image
-            : `${api.defaults.baseURL}/media/recipes/${recipe.image.replace(/^recipes\//, '')}`
-        : defaultImage;
 
 const RecipeCard = ({ recipe }) => {
     const { isFav, toggleFavoriteStatus } = useFavoriteStatus(recipe.id)
+
+    const imageUrl = recipe.image
+    ? recipe.image.startsWith('http')
+        ? recipe.image
+        : `${api.defaults.baseURL}/media/recipes/${recipe.image.replace(/^recipes\//, '')}`
+    : defaultImage;
 
     const getCarbonFootPrintRating = (footprint)=>{
         if(footprint<=0.5) {
