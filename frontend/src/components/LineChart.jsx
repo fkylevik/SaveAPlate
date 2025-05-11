@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -24,7 +24,7 @@ ChartJS.register(
     TimeScale
 );
 
-// x_unit "Day", "Week", "Month"
+
 const LineChart = ({ params }) => {
 
     const data = {
@@ -45,8 +45,6 @@ const LineChart = ({ params }) => {
                 type: "time",
                 time: {
                     unit: params.timespan,
-                    min: params.starttime,
-                    max: params.endtime,
                 },
                 title: {
                     display: true,
@@ -63,7 +61,6 @@ const LineChart = ({ params }) => {
         }
     }
 
-    useEffect(() => {}, [params]);
 
     return (
         <div

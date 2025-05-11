@@ -1,0 +1,16 @@
+.favorite-page {
+    margin: 20px;
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.favorite-page h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
