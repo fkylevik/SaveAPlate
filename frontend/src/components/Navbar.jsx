@@ -25,18 +25,15 @@ function Navbar({ isLoggedIn, onLogout }) {
             <ul className={`navbar-links ${isMenuOpen ? 'show' : ''}`}>
                 <li onClick={() => {toggleMenuOnClick("/")}}>Home</li>
 
-                {isLoggedIn ? ( // if logged in, displays these navbar elements
+                {isLoggedIn ? ( // if logged in, also display these navbar elements
                     <>
                         <li onClick={() => {toggleMenuOnClick("/dashboard")}}>Dashboard</li>
                         <li onClick={() => {toggleMenuOnClick("/favorites")}}>Favorites</li>
                         <li onClick={() => {toggleMenuOnClick("/recipes/create")}}>Create a recipe</li>
                         <li onClick={onLogout}>Logout</li>
                     </>
-                ) : ( // if not logged in, displays these navbar elements
+                ) : ( // if not logged in, display these navbar elements
                     <>
-                        <li onClick={() => {toggleMenuOnClick("/dashboard")}}>Dashboard</li>
-                        <li onClick={() => {toggleMenuOnClick("/favorites")}}>Favorites</li>
-                        <li onClick={() => {toggleMenuOnClick("/recipes/create")}}>Create a recipe</li>
                         <li onClick={() => {toggleMenuOnClick("/login")}}>Sign In</li>
                         <li onClick={() => {toggleMenuOnClick("/register")}}>Register</li>
                     </>

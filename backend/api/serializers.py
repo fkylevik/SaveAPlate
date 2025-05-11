@@ -20,7 +20,11 @@ class UserSerializer(serializers.ModelSerializer):
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'co2e_kg', 'land_use_kg', 'water_kg']
+        fields = ['id', 'name', 'co2e_kg', 'land_use_kg', 'water_kg', 'density_g_ml', 'average_weight_g']
+        extra_kwargs = {
+            'density_g_ml': {'required': False},
+            'average_weight_g': {'required': False},
+        }
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
@@ -46,11 +50,26 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'total_co2e', 'recipe_instructions', 'recipe_ingredients', 'cooking_time', 'image']
         extra_kwargs = {
             'image': {'required': False},
+            'total_co2e': {'read_only': True},
         }
 
     def create(self, validated_data):
         recipe_ingredients_data = validated_data.pop('recipe_ingredients')
         recipe_instructions_data = validated_data.pop('recipe_instructions')
+
+        sum_co2e = 0
+        for ingredient_data in recipe_ingredients_data:
+            if ingredient_data['unit'] == "pieces":
+                sum_co2e += ingredient_data['ingredient'].co2e_kg * ingredient_data['amount'] * ingredient_data['ingredient'].average_weight_g / 1000
+            else:
+                sum_co2e += convert_to_kg(
+                    ingredient_data['amount'],
+                    ingredient_data['unit'],
+                    ingredient_data['ingredient'].density_g_ml
+                ) * ingredient_data['ingredient'].co2e_kg
+
+        validated_data['total_co2e'] = sum_co2e
+
         recipe = Recipe.objects.create(**validated_data)
 
         for ingredient_data in recipe_ingredients_data:
@@ -80,6 +99,22 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         return instance
 
+def convert_to_kg(amount, unit, density=None):
+    if unit == "g":
+        return amount / 1000
+    if unit == "kg":
+        return amount
+    if unit == "ml" and density is not None:
+        return (amount * density) / 1000
+    if unit == "l" and density is not None:
+        return amount * density
+    if unit == "cup" and density is not None:
+        return (amount * 250 * density) / 1000
+    if unit == "tbsp" and density is not None:
+        return (amount * 15 * density) / 1000
+    if unit == "tsp" and density is not None:
+        return (amount * 5 * density) / 1000
+    return amount
 
 class UserFavoriteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -92,3 +127,4 @@ class UserCompletedSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompletedRecipes
         fields = ['id', 'user', 'recipe', 'time_completed', 'co2e']
+        extra_kwargs = {'user': {'read_only': True}, 'time_completed': {'read_only': True}}

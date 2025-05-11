@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faRotateRight} from '@fortawesome/free-solid-svg-icons';
 import '../styles/TimeObject.css';
 
-function TimerObject({ instruction }) {
+function TimerObject({ timer_duration }) {
     const [duration, setDuration] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -15,7 +15,7 @@ function TimerObject({ instruction }) {
 
     const getDuration = async () => {
         try {
-            const timerData = instruction.timer;
+            const timerData = timer_duration;
             setDuration(timerData);
             setTimeLeft(timerData);
         }
@@ -63,19 +63,6 @@ function TimerObject({ instruction }) {
         endTimeRef.current = null;
         setIsRunning(false);
     }
-    const increaseTimer = () => {
-        setTimeLeft(prev => prev + 30);
-        endTimeRef.current = Date.now() + timeLeft * 1000;
-    }
-
-    const decreaseTimer = () => {
-            if (timeLeft - 30 >= 0) {
-                setTimeLeft(prev => prev - 30);
-                endTimeRef.current = Date.now() + timeLeft * 1000;
-            } else if (timeLeft - 30 < 0) {
-                setTimeLeft(0);
-            }
-    }
 
     const formatTime = (seconds) => {
         const hours = Math.floor(seconds / 3600);
@@ -87,9 +74,7 @@ function TimerObject({ instruction }) {
     return (
         <div className={!isRunning && duration === timeLeft ? "timer-wrapper" : "timer-wrapper-running" }>
             <div className="timer-container">
-                    {/*!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null*/}
                     <p>{formatTime(timeLeft)}</p>
-                    {/*!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null*/}
                     <button onClick={toggleTimer} className="timer-buttons">{!isRunning ? <FontAwesomeIcon icon={faPlay} /> :  <FontAwesomeIcon icon={faPause} />}</button>
                     {duration !== timeLeft ? <button className="timer-buttons" onClick={resetTimer} disabled={duration === timeLeft}><FontAwesomeIcon icon={faRotateRight} /> </button> : null}
             </div>
