@@ -6,8 +6,8 @@ import LineChart from "./LineChart.jsx";
 
 export default function CarbonFootprintChart() {
     const [completedRecipes, setCompletedRecipes] = useState([]);
-    const [starttime, setStartTime] = useState(new Date());
-    const [endtime, setEndTime] = useState(new Date());
+    const [starttime, setStartTime] = useState("2025-05-11");
+    const [endtime, setEndTime] = useState("2025-05-18");
     const [datapoints, setDataPoints] = useState([{}])
 
     const fetchCompletedRecipes = async () => {
@@ -39,13 +39,12 @@ export default function CarbonFootprintChart() {
     }, [completedRecipes])
 
     const customSettings = {
-        timespan: "week",
+        timespan: "year",
         datapoints: datapoints,
         y_label: "co2e",
         starttime: starttime,
         endtime: endtime,
     };
-
 
     return (
         <div>
