@@ -7,10 +7,9 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
 import CreateRecipePage from "./pages/CreateRecipePage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
-import FavoriteGrid from "./components/FavoriteGrid.jsx";
 import About from "./components/About.jsx"
-import RecipeDetail from './components/RecipeDetail';
-import StartRecipe from "./components/StartRecipe.jsx";
+import RecipeDetail from './pages/RecipeDetail.jsx';
+import FavoritesPage from "./pages/FavoritesPage.jsx";
 
 function Logout() {
     localStorage.clear();
@@ -36,10 +35,10 @@ function App() {
                         <Route path="/login" element={<LoginPage />}/>
                         <Route path="/logout" element={<Logout />}/>
                         <Route path="/register" element={<RegisterAndLogout />}/>
-                        <Route path="/favorites" element={<ProtectedRoute><FavoriteGrid /></ProtectedRoute>} />
+                        <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
                         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                         <Route path="*" element={<h1>404 Not Found</h1>}></Route>
-                        <Route path="/recipestest/:id" element={ <StartRecipe />}/>
+                        <Route path="/recipes/:id" element={ <RecipeDetail />}/>
                     </Routes>
                 </Layout>
             </BrowserRouter>

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api';
+import api from '../api.js';
 import '../styles/RecipeDetail.css';
 import defaultImage from '../assets/image.png';
-import TimerObject from "./TimerObject.jsx";
+import TimerObject from "../components/TimerObject.jsx";
+import useFavoriteStatus from "../hooks/useFavoriteStatus.jsx";
 
-function StartRecipe() {
+function RecipeDetail() {
     const { id } = useParams();
+    const { isFav, toggleFavoriteStatus } = useFavoriteStatus(id);
     const navigate = useNavigate();
 
     const [recipe, setRecipe] = useState({});
     const [ingredients, setIngredients] = useState({});
     const [isStarted, setIsStarted] = useState(false);
     const [servings, setServings] = useState(4);
-    const [isFav, setIsFav] = useState(false);
 
     const fetchRecipeDetails = async () => {
         try {
@@ -26,23 +27,8 @@ function StartRecipe() {
                     [ing.ingredient]: res2.data
                 }));
             }
-            await favoriteStatus(id);
         } catch (error) {
             console.error('Error fetching recipe: ', error);
-        }
-    };
-
-    const favoriteStatus = async (recipe_id, toggle=false) => {
-        try {
-            if (!toggle) {
-                const res = await api.get(`/api/recipes/favorites/${recipe_id}/`);
-                setIsFav(res.data.isFavorited);
-            } else {
-                isFav ? api.delete(`/api/recipes/favorite/${id}/`) : api.post(`/api/recipes/favorite/`, {recipe: id});
-                setIsFav(!isFav);
-            }
-        }catch (error) {
-            console.error('Error fetching favorite recipe status: ', error);
         }
     };
 
@@ -78,7 +64,7 @@ function StartRecipe() {
                     <input
                         className={`favoriteButton ${isFav ? 'fav-on' : ''}`}
                         type="button"
-                        onClick={() => favoriteStatus(id, true)}
+                        onClick={toggleFavoriteStatus}
                         title={isFav ? "Remove from favorites" : "Add to favorites"}
                         value={isFav ? "❤️": "🤍"}
                     />
@@ -117,7 +103,7 @@ function StartRecipe() {
                     <ul className="ingredientsList">
                         {recipe.recipe_ingredients?.map((recipeIngredient, idx) => {
                             const ingredient = ingredients[recipeIngredient.ingredient];
-                            const amt = (recipeIngredient.amount * servings).toFixed(2);
+                            const amt = (recipeIngredient.amount * servings).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2, style: 'decimal'});
                             return(
                                 <li key={idx} className="ingredientItem">
                                     { isStarted ?
@@ -148,7 +134,7 @@ function StartRecipe() {
                                         /> : null
                                     }
                                     <span>{recipeInstruction.step}. {recipeInstruction.instruction}</span>
-                                    {recipeInstruction.timer ? <TimerObject instruction={recipeInstruction} /> : null}
+                                    {recipeInstruction.timer ? <TimerObject timer_duration={recipeInstruction.timer} /> : null}
                                 </li>
                             );
                         })}
@@ -169,4 +155,4 @@ function StartRecipe() {
     )
 }
 
-export default StartRecipe;
+export default RecipeDetail;

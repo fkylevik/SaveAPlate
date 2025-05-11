@@ -141,6 +141,10 @@ class FavoriteRecipesListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(UserFavorites, recipe=pk, user=self.request.user)
+
 
 class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserFavoriteSerializer

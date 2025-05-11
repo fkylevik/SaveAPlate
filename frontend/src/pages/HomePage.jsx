@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 import api from "../api.js";
 import "../styles/HomePage.css";
 import SearchableDropdown from "../components/SearchableDropdown.jsx";
-import RecipesList from "../components/RecipesList.jsx";
+import RecipesGrid from "../components/RecipesGrid.jsx";
 
 function HomePage() {
     const [recipes, setRecipes] = useState([]);
@@ -116,7 +116,7 @@ function HomePage() {
                 </select>
             </div>
 
-            <RecipesList recipes={recipes}/>
+            <RecipesGrid recipes={recipes}/>
         </div>
     )
 }

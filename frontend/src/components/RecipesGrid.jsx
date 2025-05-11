@@ -1,7 +1,7 @@
 import RecipeCard from "./RecipeCard.jsx";
 import "../styles/RecipeList.css";
 
-function RecipesList({ recipes }) {
+function RecipesGrid({ recipes }) {
 
     const recipeArray = Array.isArray(recipes) ? recipes : [];
 
@@ -29,4 +29,4 @@ function RecipesList({ recipes }) {
     );
 }
 
-export default RecipesList;
+export default RecipesGrid;
