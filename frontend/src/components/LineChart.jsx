@@ -45,8 +45,6 @@ const LineChart = ({ params }) => {
                 type: "time",
                 time: {
                     unit: params.timespan,
-                    min: params.starttime,
-                    max: params.endtime,
                 },
                 title: {
                     display: true,
