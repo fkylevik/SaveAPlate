@@ -51,8 +51,6 @@
   max-width:80px;
 }
 
-@import './variables.css';
-
 
 /* Container styles */
 /*.SelectIngredients-container {
@@ -114,7 +112,6 @@
 
 .ingredients-input label {
     font-size: 1.5rem;
-    font-weight: none;
 }
 
 .ingredients-input input {

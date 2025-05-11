@@ -10,41 +10,41 @@ export default function CarbonFootprintChart() {
     const [endtime, setEndTime] = useState("2025-05-18");
     const [datapoints, setDataPoints] = useState([{}])
 
-    const fetchCompletedRecipes = async () => {
-        try {
-            const res = await api.get(`/api/recipes/completed/?ordering=-time_completed`);
-            setCompletedRecipes(res.data);
-        } catch (error) {
-            console.error("Error fetching completed recipes:", error);
-        }
-    }
-
-    useEffect(() => {
-        fetchCompletedRecipes();
-    }, [starttime, endtime])
-
-    const formatDataPoints = () => {
-        const tempDatapoints = [];
-        for ( const recipe of completedRecipes ) {
-            tempDatapoints.push({
-                x: recipe.time_completed,
-                y: recipe.co2e
-            })
-        }
-        setDataPoints(tempDatapoints);
-    }
-
-    useEffect(() => {
-        formatDataPoints();
-    }, [completedRecipes])
-
     const customSettings = {
         timespan: "year",
-        datapoints: datapoints,
         y_label: "co2e",
-        starttime: starttime,
-        endtime: endtime,
+        datapoints,
+        starttime,
+        endtime,
     };
+
+    useEffect(() => {
+        const fetchCompletedRecipes = async () => {
+            try {
+                const res = await api.get(`/api/recipes/completed/?ordering=-time_completed`);
+                setCompletedRecipes(res.data);
+            } catch (error) {
+                console.error("Error fetching completed recipes:", error);
+            }
+        };
+        fetchCompletedRecipes();
+    }, [customSettings])
+
+
+
+    useEffect(() => {
+        const formatDataPoints = () => {
+            const tempDatapoints = [];
+            for ( const recipe of completedRecipes ) {
+                tempDatapoints.push({
+                    x: recipe.time_completed,
+                    y: recipe.co2e
+                })
+            }
+            setDataPoints(tempDatapoints);
+        };
+        formatDataPoints();
+    }, [completedRecipes])
 
     return (
         <div>
@@ -52,7 +52,7 @@ export default function CarbonFootprintChart() {
             <input
                 type="date"
                 value={starttime}
-                onChange={(e) => {setStartTime(e.target.value); console.log(starttime)}}
+                onChange={(e) => setStartTime(e.target.value)}
             />
             <input
                 type="date"
