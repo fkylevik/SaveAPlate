@@ -57,8 +57,8 @@ cd SaveAPlate
 
 
 
-
-
+The dataset with ingredients and their environmental impact is collected from:
+Michael Clark et al (2022). Estimating the environmental impacts of 57,000 food products. PNAS. – processed by Our World in Data. “Emissions per kilogram” [dataset]. Michael Clark et al (2022). Estimating the environmental impacts of 57,000 food products. PNAS. [original data].
 
 
 
