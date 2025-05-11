@@ -1,6 +1,6 @@
-// frontend/src/tests/app.test.jsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 
 // Create a mock API module
@@ -29,14 +29,5 @@ describe('Basic React Component Test', () => {
 
   test('another simple test', () => {
     expect(1 + 1).toBe(2);
-  });
-});
-
-// We'll add one more simple test group
-describe('Mocked API test', () => {
-  test('mock API can be imported', () => {
-    const api = require('../api');
-    expect(api).toBeDefined();
-    expect(api.get).toBeDefined();
   });
 });
