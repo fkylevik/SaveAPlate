@@ -1,11 +1,10 @@
-import random
-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Recipe, Ingredient, UserFavorites
 from .serializers import UserSerializer, RecipeSerializer, IngredientSerializer, UserCompletedSerializer, \
@@ -74,12 +73,10 @@ class RecipeSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Recipe.objects.all()
-        query = self.request.query_params.get('search', None)
-        if query is not '':
-            queryset = queryset.filter(name__icontains=query).order_by('total_co2e')
-        else:
-            if Recipe.objects.count()>20:
-                queryset = queryset.order_by('?')[:20]
+        query = self.request.query_params.get('search', '')
+        order = self.request.query_params.get('ordering', '')
+        queryset = queryset.filter(name__icontains=query)
+        queryset = queryset.order_by(order)[:20]
         return queryset
 
 
@@ -144,6 +141,10 @@ class FavoriteRecipesListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(UserFavorites, recipe=pk, user=self.request.user)
+
 
 class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserFavoriteSerializer
@@ -151,6 +152,17 @@ class FavoriteRecipesDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return UserFavorites.objects.filter(user=self.request.user)
+
+    def get_object(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(UserFavorites, recipe=pk, user=self.request.user)
+
+class FavoriteRecipeStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        exists = UserFavorites.objects.filter(user=self.request.user, recipe=pk).exists()
+        return Response({'isFavorited': exists}, status=status.HTTP_200_OK)
 
 
 class CompletedRecipesListView(generics.ListCreateAPIView):

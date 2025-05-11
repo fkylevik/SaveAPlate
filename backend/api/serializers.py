@@ -127,3 +127,4 @@ class UserCompletedSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompletedRecipes
         fields = ['id', 'user', 'recipe', 'time_completed', 'co2e']
+        extra_kwargs = {'user': {'read_only': True}, 'time_completed': {'read_only': True}}
