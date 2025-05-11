@@ -74,9 +74,7 @@ function TimerObject({ timer_duration }) {
     return (
         <div className={!isRunning && duration === timeLeft ? "timer-wrapper" : "timer-wrapper-running" }>
             <div className="timer-container">
-                    {/*!isRunning ? <button onClick={decreaseTimer} disabled={isRunning}>-</button> : null*/}
                     <p>{formatTime(timeLeft)}</p>
-                    {/*!isRunning ? <button onClick={increaseTimer} disabled={isRunning}>+</button> : null*/}
                     <button onClick={toggleTimer} className="timer-buttons">{!isRunning ? <FontAwesomeIcon icon={faPlay} /> :  <FontAwesomeIcon icon={faPause} />}</button>
                     {duration !== timeLeft ? <button className="timer-buttons" onClick={resetTimer} disabled={duration === timeLeft}><FontAwesomeIcon icon={faRotateRight} /> </button> : null}
             </div>

@@ -23,17 +23,6 @@ const RecipeCard = ({ recipe }) => {
         return "★".repeat(count)+"☆".repeat(5-count);
     };
 
-    const getFavoriteId = async()=>{
-        try{
-            const res = await api.get('/api/recipes/favorite/');
-            const ids=res.data.map((fav)=>fav.recipe);
-            setFavoriteIds(ids);
-        }catch (error){
-            console.log("Error fetching Favorite recipes in RecipeCard", error)
-        }
-
-    };
-
     return (
         <div className="card_content">
             <div className="card-header">
