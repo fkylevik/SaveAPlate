@@ -8,11 +8,12 @@ function HomePage() {
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([])
     const [query, setQuery] = useState("");
-    const [sortBy, setSortBy] = useState('name')
+    const [sortBy, setSortBy] = useState("")
 
     const buildUrl = (method, queryParams) => {
         const params = new URLSearchParams(queryParams);
-        params.append('ordering', sortBy);
+        const sort=sortBy||"name";
+        params.append('ordering', sort);
         return `/api/recipes/${method}/?${params.toString()}`;
     }
 
@@ -107,6 +108,7 @@ function HomePage() {
 
             <div className="search-results-header">
                 <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-by-select">
+                    <option value="" disabled hidden> Sort by...</option>
                     <option value="name">Name Ascending</option>
                     <option value="-name">Name Descending</option>
                     <option value="cooking_time">Cooking Time Ascending</option>
