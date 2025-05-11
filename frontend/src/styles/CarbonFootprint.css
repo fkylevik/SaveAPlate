@@ -1,0 +1,26 @@
+@import 'variables.css';
+
+.date-input-container {
+    display: flex;
+    margin: 10px 0;
+}
+
+.date-input-container h2 {
+    display: inline-block;
+    width: 100px;
+}
+
+.date-input {
+    border-color: var(--primary-color);
+    width: 200px;
+    background-color: white;
+    color: black;
+}
+
+
+@media (max-width: 768px) {
+    .carbon-chart {
+        height: 150px;
+        width: 100vw;
+    }
+}

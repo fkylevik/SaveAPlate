@@ -110,6 +110,7 @@ body {
     border: none;
     color: var(--text-color);
     cursor: pointer;
+    color: white;
 }
 
 @media (max-width: 768px) {
@@ -122,6 +123,8 @@ body {
         right: 0;
         left: 0;
         padding: 20px;
+        z-index: 1;
+        color: white;
     }
 
     .navbar-links.show {
