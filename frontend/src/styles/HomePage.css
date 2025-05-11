@@ -123,6 +123,7 @@
     border-radius: 4px;
     border: 1px solid #ccc;
 
+
 }
 
 .buttons {
@@ -187,5 +188,33 @@
 .delete-button:hover {
     background-color: #ff4444;
 }
+/*search by select */
+.search-results-header {
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  margin-left:55px;
+  gap: 10px;
+  margin-top: 10px;
 
+}
+
+.sort-by-select {
+  padding: 8px 12px;
+  background-color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.sort-by-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+
+}
+.sort-by-select:hover{
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 
