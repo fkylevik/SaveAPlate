@@ -64,7 +64,7 @@ const RecipeCard = ({ recipe }) => {
                     <h1 className="recipe-card-title">{recipe.name}</h1>
 
                     <div className="total_co2e">
-                        <p>Carbon Footprint: {(recipe.total_co2e).toFixed(3)} CO<sub>2</sub>e (APS)</p>
+                        <p>Carbon Footprint: {(recipe.total_co2e).toFixed(3)} CO<sub>2</sub>e </p>
                     </div>
                     <div className="cookingTime">
                         <p>⏱️ Cooking time: {(recipe.cooking_time).toFixed(0)} minutes</p>
