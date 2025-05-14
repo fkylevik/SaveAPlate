@@ -222,7 +222,7 @@
     width: 100vw;
     height: 100vh;
     background: #FEFDF2;
-    /* animation: rollUp 1.7s ease-in-out forwards; */
+    animation: rollUp 2s ease-in-out forwards;
     z-index: 100;
     display: flex;
     align-items: center;
