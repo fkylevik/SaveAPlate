@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react"
 import '../styles/Layout.css';
 import {useNavigate} from "react-router-dom";
+import logo_nobg from "../assets/logo_nobg.png";
 
 function Navbar({ isLoggedIn, onLogout }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,6 +17,8 @@ function Navbar({ isLoggedIn, onLogout }) {
         toggleMenu();
         navigate(url);
     };
+
+    useEffect(() => {}, [logo_nobg])
 
     return (
         <nav className="navbar">

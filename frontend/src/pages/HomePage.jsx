@@ -3,6 +3,7 @@ import api from "../api.js";
 import "../styles/HomePage.css";
 import SearchableDropdown from "../components/SearchableDropdown.jsx";
 import RecipesGrid from "../components/RecipesGrid.jsx";
+import logo from "../assets/SaveAPlate.png";
 
 function HomePage() {
     const [recipes, setRecipes] = useState([]);
@@ -53,9 +54,13 @@ function HomePage() {
         }
     }, [ingredients, sortBy]);
 
+    useEffect(() => {}, [logo])
 
     return (
         <div>
+            <div className="overlay">
+                <img src={logo} className="logo"/>
+            </div>
 
             <div className="hero">
                 <h1 className="heroTitle">Welcome to SaveAPlate</h1>
