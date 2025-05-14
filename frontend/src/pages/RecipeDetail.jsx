@@ -55,6 +55,11 @@ function RecipeDetail() {
         setIsStarted(!isStarted);
     };
 
+    const formatUnit = (unit) => {
+        if (unit === 'pieces') return '';
+        return unit;
+    }
+
     return (
         <div className="detailPage">
             <button className="backButton" onClick={() => navigate(-1)}>
@@ -110,6 +115,7 @@ function RecipeDetail() {
                         {recipe.recipe_ingredients?.map((recipeIngredient, idx) => {
                             const ingredient = ingredients[recipeIngredient.ingredient];
                             const amt = (recipeIngredient.amount * servings).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2, style: 'decimal'});
+                            const unit = formatUnit(recipeIngredient.unit);
                             return(
                                 <li key={idx} className="ingredientItem">
                                     { isStarted ?
@@ -119,7 +125,7 @@ function RecipeDetail() {
                                             className="instructionCheckbox"
                                         /> : null
                                     }
-                                    {amt} {recipeIngredient.unit} {ingredient?.name}
+                                    {amt} {unit} {ingredient?.name}
                                 </li>
                             );
                         })}
