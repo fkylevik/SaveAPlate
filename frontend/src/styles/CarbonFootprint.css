@@ -1,26 +1,79 @@
 @import 'variables.css';
 
+
+.CarbonFootprintChart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--main-background-color);
+  margin: 2rem auto;
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 1rem;
+}
+
+/* Big container for the chart, almost full viewport */
+.carbon-chart {
+  width: 90vw;
+  max-width: none;
+  height: 75vh;
+  background-color: var(--white-color);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Force the <canvas> element to fill its parent container */
+.carbon-chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border-radius: 1rem;
+}
+
+/* Date inputs sit below, centered */
 .date-input-container {
-    display: flex;
-    margin: 10px 0;
+  display: flex;
+  gap: var(--gap-base);
+  margin-top: 1rem;
+  justify-content: center;
 }
-
+.date-input-container > div {
+  display: flex;
+  flex-direction: column;
+}
 .date-input-container h2 {
-    display: inline-block;
-    width: 100px;
+  font-family: var(--font-family);
+  color: var(--green-color);
+  margin-bottom: 0.25rem;
 }
-
 .date-input {
-    border-color: var(--primary-color);
-    width: 200px;
-    background-color: white;
-    color: black;
+  padding: var(--padding-base);
+  border: 1px solid var(--form-box-stroke);
+  border-radius: var(--border-radius);
+  background: var(--white-color);
+  color: var(--text-dark);
+}
+.date-input:focus {
+  outline: none;
+  border-color: var(--form-box-stroke-selected);
 }
 
+/* Title styling */
+.CarbonFootprintChart h1 {
+  font-family: var(--font-family);
+  color: var(--dark-green-color);
+  font-size: var(--font-size-large);
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-@media (max-width: 768px) {
-    .carbon-chart {
-        height: 150px;
-        width: 100vw;
-    }
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .carbon-chart {
+    width: 95vw;
+    height: 60vh;
+  }
 }
